@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding ="utf-8" standalone="yes"?>
+<!-- eternity persistence framework   -->
+<!-- Nicola Santi - www.winghands.it  -->
+<archive version="4.0" sub="beta1">
+<!-- ST Plotter R5 archive file-->
+<version>1.0.2</version>
+<model>
+	<groups count="1">
+		<group count="12" name="Signals">
+			<node count="16">
+				<content name="pr::TIM2_CNTR" type="var">
+					<definition id="1" size="16" type="1" var="pr::TIM2_CNTR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[0]" type="varBit">
+						<definition bit_index="0" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[1]" type="varBit">
+						<definition bit_index="1" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[2]" type="varBit">
+						<definition bit_index="2" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[3]" type="varBit">
+						<definition bit_index="3" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[4]" type="varBit">
+						<definition bit_index="4" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[5]" type="varBit">
+						<definition bit_index="5" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[6]" type="varBit">
+						<definition bit_index="6" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[7]" type="varBit">
+						<definition bit_index="7" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[8]" type="varBit">
+						<definition bit_index="8" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[9]" type="varBit">
+						<definition bit_index="9" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[10]" type="varBit">
+						<definition bit_index="10" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[11]" type="varBit">
+						<definition bit_index="11" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[12]" type="varBit">
+						<definition bit_index="12" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[13]" type="varBit">
+						<definition bit_index="13" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[14]" type="varBit">
+						<definition bit_index="14" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CNTR[15]" type="varBit">
+						<definition bit_index="15" id="1" size="16" var="pr::TIM2_CNTR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::PD_ODR" type="var">
+					<definition id="4" size="8" type="1" var="pr::PD_ODR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::PD_ODR[0]" type="varBit">
+						<definition bit_index="0" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[1]" type="varBit">
+						<definition bit_index="1" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[2]" type="varBit">
+						<definition bit_index="2" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[3]" type="varBit">
+						<definition bit_index="3" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[4]" type="varBit">
+						<definition bit_index="4" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[5]" type="varBit">
+						<definition bit_index="5" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[6]" type="varBit">
+						<definition bit_index="6" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PD_ODR[7]" type="varBit">
+						<definition bit_index="7" id="4" size="8" var="pr::PD_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="16">
+				<content name="pr::ADC_DR" type="var">
+					<definition id="20" size="16" type="1" var="pr::ADC_DR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::ADC_DR[0]" type="varBit">
+						<definition bit_index="0" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[1]" type="varBit">
+						<definition bit_index="1" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[2]" type="varBit">
+						<definition bit_index="2" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[3]" type="varBit">
+						<definition bit_index="3" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[4]" type="varBit">
+						<definition bit_index="4" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[5]" type="varBit">
+						<definition bit_index="5" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[6]" type="varBit">
+						<definition bit_index="6" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[7]" type="varBit">
+						<definition bit_index="7" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[8]" type="varBit">
+						<definition bit_index="8" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[9]" type="varBit">
+						<definition bit_index="9" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[10]" type="varBit">
+						<definition bit_index="10" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[11]" type="varBit">
+						<definition bit_index="11" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[12]" type="varBit">
+						<definition bit_index="12" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[13]" type="varBit">
+						<definition bit_index="13" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[14]" type="varBit">
+						<definition bit_index="14" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DR[15]" type="varBit">
+						<definition bit_index="15" id="20" size="16" var="pr::ADC_DR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="16">
+				<content name="pr::ADC_DB1R" type="var">
+					<definition id="21" size="16" type="1" var="pr::ADC_DB1R"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::ADC_DB1R[0]" type="varBit">
+						<definition bit_index="0" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[1]" type="varBit">
+						<definition bit_index="1" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[2]" type="varBit">
+						<definition bit_index="2" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[3]" type="varBit">
+						<definition bit_index="3" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[4]" type="varBit">
+						<definition bit_index="4" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[5]" type="varBit">
+						<definition bit_index="5" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[6]" type="varBit">
+						<definition bit_index="6" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[7]" type="varBit">
+						<definition bit_index="7" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[8]" type="varBit">
+						<definition bit_index="8" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[9]" type="varBit">
+						<definition bit_index="9" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[10]" type="varBit">
+						<definition bit_index="10" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[11]" type="varBit">
+						<definition bit_index="11" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[12]" type="varBit">
+						<definition bit_index="12" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[13]" type="varBit">
+						<definition bit_index="13" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[14]" type="varBit">
+						<definition bit_index="14" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB1R[15]" type="varBit">
+						<definition bit_index="15" id="21" size="16" var="pr::ADC_DB1R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="16">
+				<content name="pr::ADC_DB0R" type="var">
+					<definition id="22" size="16" type="1" var="pr::ADC_DB0R"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::ADC_DB0R[0]" type="varBit">
+						<definition bit_index="0" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[1]" type="varBit">
+						<definition bit_index="1" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[2]" type="varBit">
+						<definition bit_index="2" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[3]" type="varBit">
+						<definition bit_index="3" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[4]" type="varBit">
+						<definition bit_index="4" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[5]" type="varBit">
+						<definition bit_index="5" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[6]" type="varBit">
+						<definition bit_index="6" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[7]" type="varBit">
+						<definition bit_index="7" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[8]" type="varBit">
+						<definition bit_index="8" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[9]" type="varBit">
+						<definition bit_index="9" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[10]" type="varBit">
+						<definition bit_index="10" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[11]" type="varBit">
+						<definition bit_index="11" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[12]" type="varBit">
+						<definition bit_index="12" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[13]" type="varBit">
+						<definition bit_index="13" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[14]" type="varBit">
+						<definition bit_index="14" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::ADC_DB0R[15]" type="varBit">
+						<definition bit_index="15" id="22" size="16" var="pr::ADC_DB0R"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::PC_ODR" type="var">
+					<definition id="23" size="8" type="1" var="pr::PC_ODR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::PC_ODR[0]" type="varBit">
+						<definition bit_index="0" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[1]" type="varBit">
+						<definition bit_index="1" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[2]" type="varBit">
+						<definition bit_index="2" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[3]" type="varBit">
+						<definition bit_index="3" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[4]" type="varBit">
+						<definition bit_index="4" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[5]" type="varBit">
+						<definition bit_index="5" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[6]" type="varBit">
+						<definition bit_index="6" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::PC_ODR[7]" type="varBit">
+						<definition bit_index="7" id="23" size="8" var="pr::PC_ODR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::TIM2_SR1" type="var">
+					<definition id="24" size="8" type="1" var="pr::TIM2_SR1"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_SR1[0]" type="varBit">
+						<definition bit_index="0" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[1]" type="varBit">
+						<definition bit_index="1" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[2]" type="varBit">
+						<definition bit_index="2" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[3]" type="varBit">
+						<definition bit_index="3" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[4]" type="varBit">
+						<definition bit_index="4" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[5]" type="varBit">
+						<definition bit_index="5" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[6]" type="varBit">
+						<definition bit_index="6" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_SR1[7]" type="varBit">
+						<definition bit_index="7" id="24" size="8" var="pr::TIM2_SR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::TIM2_PSCR" type="var">
+					<definition id="25" size="8" type="1" var="pr::TIM2_PSCR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[0]" type="varBit">
+						<definition bit_index="0" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[1]" type="varBit">
+						<definition bit_index="1" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[2]" type="varBit">
+						<definition bit_index="2" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[3]" type="varBit">
+						<definition bit_index="3" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[4]" type="varBit">
+						<definition bit_index="4" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[5]" type="varBit">
+						<definition bit_index="5" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[6]" type="varBit">
+						<definition bit_index="6" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_PSCR[7]" type="varBit">
+						<definition bit_index="7" id="25" size="8" var="pr::TIM2_PSCR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::TIM2_IER" type="var">
+					<definition id="26" size="8" type="1" var="pr::TIM2_IER"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_IER[0]" type="varBit">
+						<definition bit_index="0" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[1]" type="varBit">
+						<definition bit_index="1" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[2]" type="varBit">
+						<definition bit_index="2" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[3]" type="varBit">
+						<definition bit_index="3" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[4]" type="varBit">
+						<definition bit_index="4" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[5]" type="varBit">
+						<definition bit_index="5" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[6]" type="varBit">
+						<definition bit_index="6" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_IER[7]" type="varBit">
+						<definition bit_index="7" id="26" size="8" var="pr::TIM2_IER"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::TIM2_EGR" type="var">
+					<definition id="27" size="8" type="1" var="pr::TIM2_EGR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_EGR[0]" type="varBit">
+						<definition bit_index="0" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[1]" type="varBit">
+						<definition bit_index="1" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[2]" type="varBit">
+						<definition bit_index="2" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[3]" type="varBit">
+						<definition bit_index="3" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[4]" type="varBit">
+						<definition bit_index="4" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[5]" type="varBit">
+						<definition bit_index="5" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[6]" type="varBit">
+						<definition bit_index="6" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_EGR[7]" type="varBit">
+						<definition bit_index="7" id="27" size="8" var="pr::TIM2_EGR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="8">
+				<content name="pr::TIM2_CR1" type="var">
+					<definition id="28" size="8" type="1" var="pr::TIM2_CR1"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_CR1[0]" type="varBit">
+						<definition bit_index="0" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[1]" type="varBit">
+						<definition bit_index="1" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[2]" type="varBit">
+						<definition bit_index="2" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[3]" type="varBit">
+						<definition bit_index="3" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[4]" type="varBit">
+						<definition bit_index="4" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[5]" type="varBit">
+						<definition bit_index="5" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[6]" type="varBit">
+						<definition bit_index="6" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_CR1[7]" type="varBit">
+						<definition bit_index="7" id="28" size="8" var="pr::TIM2_CR1"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+			<node count="16">
+				<content name="pr::TIM2_ARR" type="var">
+					<definition id="29" size="16" type="1" var="pr::TIM2_ARR"></definition>
+					<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="1"></properties>
+				</content>
+				<node count="0">
+					<content name="pr::TIM2_ARR[0]" type="varBit">
+						<definition bit_index="0" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[1]" type="varBit">
+						<definition bit_index="1" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[2]" type="varBit">
+						<definition bit_index="2" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[3]" type="varBit">
+						<definition bit_index="3" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[4]" type="varBit">
+						<definition bit_index="4" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[5]" type="varBit">
+						<definition bit_index="5" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[6]" type="varBit">
+						<definition bit_index="6" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[7]" type="varBit">
+						<definition bit_index="7" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[8]" type="varBit">
+						<definition bit_index="8" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[9]" type="varBit">
+						<definition bit_index="9" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[10]" type="varBit">
+						<definition bit_index="10" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[11]" type="varBit">
+						<definition bit_index="11" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[12]" type="varBit">
+						<definition bit_index="12" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[13]" type="varBit">
+						<definition bit_index="13" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[14]" type="varBit">
+						<definition bit_index="14" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+				<node count="0">
+					<content name="pr::TIM2_ARR[15]" type="varBit">
+						<definition bit_index="15" id="29" size="16" var="pr::TIM2_ARR"></definition>
+						<properties alpha="255" b="0" formatType="10" g="255" height="25" r="0" showMode="0"></properties>
+					</content>
+				</node>
+			</node>
+		</group>
+	</groups>
+	<markers count="1">
+		<marker alpha="255" b="255" g="0" name="MainMarker" r="0" time="400664750"></marker>
+	</markers>
+</model>
+<workspace>
+	<active_group>Signals</active_group>
+	<time>
+		<time_min>0</time_min>
+		<time_max>400664750</time_max>
+		<time_pos>0</time_pos>
+		<time_range>400664750</time_range>
+	</time>
+	<window bottom="608" left="-8" right="1032" top="-8">
+		<header_width>250</header_width>
+	</window>
+</workspace>
+</archive>
