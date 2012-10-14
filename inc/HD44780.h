@@ -45,7 +45,7 @@
 /* Define port where LCD Power is connected */
 #define LCDPwrPort GPIOC
 /* LCD Power Supply pin is assigned to Px5 */
-#define LCDPwrPin GPIO_PIN_1
+//#define LCDPwrPin GPIO_PIN_1
 /* LCD Enable pin is assigned to Px1 */
 #define LCD_Enable GPIO_PIN_3
 /* LCD RS pin is assigned to Px2 */

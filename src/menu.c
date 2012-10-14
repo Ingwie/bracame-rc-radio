@@ -13,7 +13,7 @@ extern _Bool gauche;
 extern _Bool droite;
 extern _Bool flashencour;
 extern u8 ratiobat;
-
+extern u8 ratiotrimdyn;
 
 /* modele */
 void m10(void)
@@ -277,22 +277,33 @@ void m33(void)
 		else 
 		{ 		
 			j = 0;
-			if (i != (NUM_MIXER -1)) i++;
+			if (i != (NUM_MIXER -1))
+			{
+				i++;
+recherche:
+				if ((mixer[i].in == 255) || (mixer[i].out == 255) || (i > (NUM_MIXER - 1)))
+				{
+					i++;
+					goto recherche;
+				}
+			}
 			else i = 0;
 		}
 	}
 	if (j != 0) LCD_printtruc(1,6,"+\n",0); else LCD_printtruc(1,6,"-\n",0);
 	
-	if ((mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH)) && (mixer[i].out < NUM_OUTPUT))
+	if ((mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH + 1)) && (mixer[i].out < NUM_OUTPUT))
 	{
 		mixin = mixer[i].in + 1;
 		mixout = mixer[i].out + 1;
-		LCD_printtruc(2,6,"(%u\n",mixin);
+		if (mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH)) LCD_printtruc(2,6,"(%u\n",mixin);
+		else LCD_printtruc(2,6,"(t",0);
 		LCD_printtruc(2,8,"~%u)\n",mixout);
+		
+		
+		val = reglage_variable(i,mixer[i].pente[j],-120,120,5);
+		mixer[i].pente[j] = val;
 	}
-	val = reglage_variable(i,mixer[i].pente[j],-120,120,5);
-	mixer[i].pente[j] = val;
-	
 	navigue(33,31,33,33,33);
 
 }
@@ -481,7 +492,91 @@ void m72(void)
 	
 	LCD_printtruc(2,4,"%u Heure-1\n",ratiobat);
 	
-	navigue(72,71,70,72,72);
+	navigue(72,71,73,72,72);
+	
+}
+
+/* ratio du trim dynamique */
+void m73(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,1,"Ratio du trimdyn\n",0);
+	LCD_DISP_ON();
+	
+	if ((droite) && (ratiotrimdyn < 4)) ratiotrimdyn++;
+	if ((gauche) && (ratiotrimdyn > 1)) ratiotrimdyn--;
+	
+	LCD_printtruc(2,6," ~ %u\n",ratiotrimdyn);
+	
+	navigue(73,72,74,73,73);
+	
+}
+
+/* Données brutes */
+void m74(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,3,"Données brutes\n",0);
+	LCD_printtruc(2,7,"~\n",0);
+	LCD_DISP_ON();
+
+	navigue(74,73,70,74,75);
+	
+}
+
+/* Données Entrees */
+void m75(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,2,"Données Entrees\n",0);
+	LCD_DISP_ON();
+
+	navigue(75,74,175,74,76);
+	
+}
+
+/* Données Entrees */
+void m175(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_LOCATE(1,1);
+	LCD_printf("%4u%4u%4u%4u\n",input.channel[0].usValue,input.channel[1].usValue,input.channel[2].usValue,input.channel[3].usValue);
+	LCD_LOCATE(2,1);
+	LCD_printf("%4u        %4u\n",input.channel[4].usValue,input.channel[5].usValue);
+	LCD_DISP_ON();
+
+	navigue(175,74,175,175,175);
+	
+}
+
+/* Données Sorties */
+void m76(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,2,"Données Sorties\n",0);
+	LCD_DISP_ON();
+
+	navigue(76,74,176,75,75);
+	
+}
+
+/* Données Sorties */
+void m176(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_LOCATE(1,1);
+	LCD_printf("%4u%4u%4u%4u\n",output.usValueOut[0],output.usValueOut[1],output.usValueOut[2],output.usValueOut[3]);
+	LCD_LOCATE(2,1);
+	LCD_printf("%4u%4u%4u%4u\n",output.usValueOut[4],output.usValueOut[5],output.usValueOut[6],output.usValueOut[7]);
+	LCD_DISP_ON();
+
+	navigue(176,74,176,176,176);
 	
 }
 
@@ -571,6 +666,30 @@ void Menu(void)
 
 	case 72:
 		m72();
+		break;
+
+	case 73:
+		m73();
+		break;
+		
+	case 74:
+		m74();
+		break;
+		
+	case 75:
+		m75();
+		break;
+		
+	case 175:
+		m175();
+		break;
+
+	case 76:
+		m76();
+		break;
+
+	case 176:
+		m176();
 		break;
 		
 	default:

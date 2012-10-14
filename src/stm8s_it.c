@@ -467,7 +467,11 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 	if (tempotrimdyn != 0)
 	{
 		tempotrimdyn--;
-		if (tempotrimdyn == 1) trimdyn = 1;
+		if (tempotrimdyn == 1)
+		{
+			settrimdyn();
+			trimdyn = 0;
+		}
 	}
 	
 	if (tempsbip5 != 0)

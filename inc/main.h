@@ -8,6 +8,7 @@ void reset_model(void);
 void load_phase(u8 phase);
 void load_input(u8 model);
 void calcultrame(void);
+void settrimdyn(void);
 
 s8 sortiepourcent(u16 sortie);
 u16 pourcentsortie(s8 pourcent);
