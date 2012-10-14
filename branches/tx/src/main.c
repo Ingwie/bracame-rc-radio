@@ -49,6 +49,7 @@ char lbas[NUM_OUTPUT + 1];
 u8 ratiobat = 1;
 u16 chargeeaccus = 9999;
 
+u8 ratiotrimdyn = 1;
 u8 tempotrimdyn = 0;
 u8 tempsbip1 = 0;
 u8 tempsbip2 = 0;
@@ -277,7 +278,7 @@ u8 nivbar(u16 sortie) // Pour baragraphe info
 {	
 	u16 a ;
 	a= (sortie - MIN_COURSE);
-	a = (a / 133);
+	a = (a >> 7);
 	return (u8)a;
 }
 
@@ -573,10 +574,9 @@ void settrimdyn(void)
 		
 		if ((out < NUM_OUTPUT) && (in < 4)) // trim dynamique que sur les sorties pilotées par les manches
 		{
-			if (out != output.secumoteur) output.usNeutralValue[out] = trimmem[out];
+			if (out != output.secumoteur) output.usNeutralValue[out] = trimmem[out]; // et pas la voie moteur
 		}
 		bip(1,0,0,0,0);
-		trimdyn = 0;
 	}
 }
 
@@ -588,7 +588,8 @@ void memtrimdyn(void)
 	{
 		trimmem[i] = output.usValueOut[i];
 	}
-	tempotrimdyn = 9; // lance le decompte
+	trimdyn = 1;
+	tempotrimdyn = 12; // lance le decompte
 	bip(2,0,0,0,0);
 }
 
@@ -835,7 +836,7 @@ void lectureswitch(void)
 {
 	
 	// TRIM DYNAMIQUE
-	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();
+	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();;
 
 	// SECUMOTEUR
 	secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
@@ -951,6 +952,7 @@ void compute_mixer(void)
 					delta32 = 1000 - input.channel[in].usValue;
 					delta32 *= mixer[i].pente[0];
 					delta32 /= 100;
+					if ((trimdyn) && (out != output.secumoteur) && (in < 4)) delta32 /= ratiotrimdyn;
 					output.sValue[out] -= delta32; 
 				}
 				else
@@ -958,6 +960,7 @@ void compute_mixer(void)
 					delta32 = input.channel[in].usValue - 1000;
 					delta32 *= mixer[i].pente[1];
 					delta32 /= 100;
+					if ((trimdyn) && (out != output.secumoteur) && (in < 4)) delta32 /= ratiotrimdyn;
 					output.sValue[out] += delta32;
 				}
 			}
@@ -971,7 +974,7 @@ void compute_mixer(void)
 			{
 				delta32 = wave;
 
-				if (sens)
+				if (wave > 0)
 				{
 					delta32 *= mixer[i].pente[0];
 					delta32 /= 100;
@@ -1037,7 +1040,7 @@ void initialise(void)
 	CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, ENABLE);
 	CLK_ClockSecuritySystemEnable();
 
-	// gpio  PD3 sortie tim2 + PD0 led run
+	// init gpio  PD3 sortie tim2 + PD0 led run
 	GPIO_DeInit(GPIOD);
 	GPIO_Init(GPIOD, (GPIO_PIN_3 ), GPIO_MODE_OUT_PP_LOW_SLOW); // tim2 ppm
 	GPIO_Init(GPIOD, (GPIO_PIN_4 ), GPIO_MODE_OUT_PP_LOW_SLOW); // bip
@@ -1072,7 +1075,7 @@ void initialise(void)
 	GPIO_WriteHigh(GPIOD,GPIO_PIN_4);
 
 	
-	/* LCD */
+	/* LCD chargement table de caracteres*/
 	LCD_INIT();
 	LCD_CMD(CGRAM_address_start);
 	LCD_LOAD_CGRAM(cur,8);
@@ -1116,8 +1119,11 @@ void calcultrame(void) // Boucle principale irq14
 	if (expon) compute_expo();
 	compute_mixer();
 	if (!flashencour) scale_output();
-	if (phase_change) load_phase(phase_actuelle);
-	if (trimdyn) settrimdyn();
+	if (phase_change)
+	{
+	load_phase(phase_actuelle);
+	if (Menu_actif == 1) Menu();
+	}
 	GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led off
 	channel = 0;
 }
@@ -1135,9 +1141,8 @@ void main(void)
 	lectureswitch();
 	load_phase(phase_actuelle);
 	
-	LCD_printtruc(1,1,"Entr.: %d",NUM_INPUT);
-	LCD_printtruc(1,10,"Mix : %d",NUM_MIXER);
-	LCD_printtruc(2,1,"Voies:%d,2 phases",NUM_OUTPUT);
+	LCD_printtruc(1,3,"Modele : %d",modele_actuel);
+	LCD_printtruc(2,4,"Phase : %d",phase_actuelle);
 
 	Delayms(1000);
 	LCD_CLEAR_DISPLAY();

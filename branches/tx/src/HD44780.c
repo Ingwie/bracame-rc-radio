@@ -80,7 +80,7 @@ void LCD_LOAD_CGRAM(char tab[], u8 charnum)
 */
 void LCD_PWRON (void)
 {
-	GPIO_WriteHigh(LCDPwrPort, LCDPwrPin);
+//	GPIO_WriteHigh(LCDPwrPort, LCDPwrPin);
 }
 
 /**
@@ -91,7 +91,7 @@ void LCD_PWRON (void)
 */
 void LCD_PWROFF (void)
 {
-	GPIO_WriteLow(LCDPwrPort, LCDPwrPin);
+//	GPIO_WriteLow(LCDPwrPort, LCDPwrPin);
 }
 
 /**
