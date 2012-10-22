@@ -12,6 +12,7 @@ extern _Bool bas;
 extern _Bool gauche;
 extern _Bool droite;
 extern _Bool flashencour;
+extern _Bool menudyn;
 extern u8 ratiobat;
 extern u8 ratiotrimdyn;
 
@@ -533,7 +534,7 @@ void m75(void)
 	LCD_CLEAR_DISPLAY();
 	LCD_printtruc(1,2,"Données Entrees\n",0);
 	LCD_DISP_ON();
-
+	
 	navigue(75,74,175,74,76);
 	
 }
@@ -548,6 +549,7 @@ void m175(void)
 	LCD_LOCATE(2,1);
 	LCD_printf("%4u        %4u\n",input.channel[4].usValue,input.channel[5].usValue);
 	LCD_DISP_ON();
+	menudyn = 1;
 
 	navigue(175,74,175,175,175);
 	
@@ -561,7 +563,7 @@ void m76(void)
 	LCD_printtruc(1,2,"Données Sorties\n",0);
 	LCD_DISP_ON();
 
-	navigue(76,74,176,75,75);
+	navigue(76,74,176,75,77);
 	
 }
 
@@ -575,8 +577,37 @@ void m176(void)
 	LCD_LOCATE(2,1);
 	LCD_printf("%4u%4u%4u%4u\n",output.usValueOut[4],output.usValueOut[5],output.usValueOut[6],output.usValueOut[7]);
 	LCD_DISP_ON();
+	menudyn = 1;
 
 	navigue(176,74,176,176,176);
+	
+}
+
+/* Données Potars */
+void m77(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,2,"Données Potars\n",0);
+	LCD_DISP_ON();
+
+	navigue(77,74,177,76,74);
+	
+}
+
+/* Données Entrees */
+void m177(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_LOCATE(1,1);
+	LCD_printf("%4u%4u%4u%4u\n",ADC1_GetBufferValue(0),ADC1_GetBufferValue(1),ADC1_GetBufferValue(2),ADC1_GetBufferValue(3));
+	LCD_LOCATE(2,1);
+	LCD_printf("%4u        %4u\n",ADC1_GetBufferValue(4),ADC1_GetBufferValue(5));
+	LCD_DISP_ON();
+	menudyn = 1;
+
+	navigue(177,74,177,177,177);
 	
 }
 
@@ -688,8 +719,16 @@ void Menu(void)
 		m76();
 		break;
 
+	case 77:
+		m77();
+		break;
+
 	case 176:
 		m176();
+		break;
+
+	case 177:
+		m177();
 		break;
 		
 	default:
