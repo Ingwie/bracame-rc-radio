@@ -1,4 +1,9 @@
 /* Includes ------------------------------------------------------------------*/
+
+/* Ajout de trims electroniques pour fonctionnement avec nouveaux manches (aurora 9)*/
+/* */
+/* Ajout dans utilitaire : visualisation des entrées sorties et potars */
+
 #include "stm8s.h"
 #include "tx.h"
 #include "Delay.h"
@@ -33,11 +38,22 @@ struct_mixer_settings NEAR mixer[NUM_MIXER];
 struct_output NEAR output;
 u16 trimmem[NUM_OUTPUT];
 _Bool flashencour = 0;
-
+_Bool menudyn = 0;
 _Bool haut = 0; // PG1
 _Bool bas = 0; // PC1
 _Bool gauche = 0; // PG0
 _Bool droite = 0; // PE5
+
+_Bool trim1plus = 0;
+_Bool trim1moins = 0;
+_Bool trim2plus = 0;
+_Bool trim2moins = 0;
+_Bool trim3plus = 0;
+_Bool trim3moins = 0;
+_Bool trim4plus = 0;
+_Bool trim4moins = 0;
+_Bool trimflag;
+u8 trimstep = 10;
 
 u8 barout[NUM_OUTPUT];
 
@@ -192,7 +208,7 @@ void info(void) // Affichage pendant le vol ...
 		
 	}
 	
-	lhaut[NUM_OUTPUT] = 10;
+	lhaut[NUM_OUTPUT] = 10; // Caractere "/n"
 	lbas[NUM_OUTPUT] = 10;
 	LCD_LOCATE(1,1);
 	LCD_printstring(lhaut);
@@ -785,12 +801,12 @@ void captureADC(void)
 		if(value  < input.channel[i].usNeutralValue)
 		{
 			delta = value - input.channel[i].usMinValue;
-			value = delta * input.channel[i].pente[0] / 256;
+			value = (delta * input.channel[i].pente[0]) / 256;
 		}
 		else
 		{
 			delta = value - input.channel[i].usNeutralValue;
-			value = 1000 + (delta * input.channel[i].pente[1] / 256);
+			value = 1000 + ((delta * input.channel[i].pente[1]) / 256);
 		}
 		
 		input.channel[i].usValue = value;
@@ -866,6 +882,31 @@ void lectureswitch(void)
 	tor2plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_5);
 	tor2moins = GPIO_ReadInputPin(GPIOA,GPIO_PIN_6);
 
+}
+
+void lecturetrim(void)
+{
+	if (trimflag)
+	{
+		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim2plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		trim4plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
+		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
+	}
+	else
+	{
+		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim2moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		trim4moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
+		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
+	}
+	trimflag = !trimflag;
+	
+	if (trim1plus || trim2plus || trim3plus || trim4plus || trim1moins || trim2moins || trim3moins || trim4moins) bip(0,0,0,0,1);
 }
 
 void duree(void)
@@ -991,6 +1032,45 @@ void compute_mixer(void)
 	}
 }
 
+void compute_trim(void)
+{
+	u8 i = 0;
+
+	for(i = 0; i < NUM_MIXER ; i++)
+	{
+		u8 in = mixer[i].in;
+		u8 out = mixer[i].out;
+		
+		if (out < NUM_OUTPUT)
+		{
+			if(in == 0)
+			{
+				if (trim1plus) output.usNeutralValue[out] += trimstep;
+				if (trim1moins) output.usNeutralValue[out] -= trimstep;
+				trim1plus = trim1moins = 0;
+			}
+			if(in == 1)
+			{
+				if (trim2plus) output.usNeutralValue[out] += trimstep;
+				if (trim2moins) output.usNeutralValue[out] -= trimstep;
+				trim2plus = trim2moins = 0;
+			}
+			if(in == 2)
+			{
+				if (trim3plus) output.usNeutralValue[out] += trimstep;
+				if (trim3moins) output.usNeutralValue[out] -= trimstep;
+				trim3plus = trim3moins = 0;
+			}
+			if(in == 3)
+			{
+				if (trim4plus) output.usNeutralValue[out] += trimstep;
+				if (trim4moins) output.usNeutralValue[out] -= trimstep;
+				trim4plus = trim4moins = 0;
+			}
+		}
+	}
+}
+
 void scale_output(void)
 { 
 	s16 val;
@@ -1026,7 +1106,7 @@ void scale_output(void)
 		
 		output.usValueOut[NUM_OUTPUT] = output.usValueOut[NUM_OUTPUT] - output.usValueOut[i];
 		
-		barout[i] = nivbar(output.usValueOut[i]); //calcul pour affichage
+		barout[i] = nivbar(output.usValueOut[i]); //calcul pour affichage pendant le vol
 		
 	}
 }
@@ -1040,11 +1120,14 @@ void initialise(void)
 	CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, ENABLE);
 	CLK_ClockSecuritySystemEnable();
 
-	// init gpio  PD3 sortie tim2 + PD0 led run
+	// init gpio  PD3 sortie tim2 + PD0 led run + trim electroniques
 	GPIO_DeInit(GPIOD);
 	GPIO_Init(GPIOD, (GPIO_PIN_3 ), GPIO_MODE_OUT_PP_LOW_SLOW); // tim2 ppm
 	GPIO_Init(GPIOD, (GPIO_PIN_4 ), GPIO_MODE_OUT_PP_LOW_SLOW); // bip
-	GPIO_Init(GPIOD, (GPIO_PIN_0 ), GPIO_MODE_OUT_PP_LOW_SLOW); // led run
+	GPIO_Init(GPIOD, (GPIO_PIN_0 ), GPIO_MODE_OUT_PP_LOW_SLOW); // led run - trim +
+	GPIO_Init(GPIOD, (GPIO_PIN_2 ), GPIO_MODE_OUT_PP_LOW_SLOW); // trim -
+	GPIO_Init(GPIOD, (GPIO_PIN_5 ), GPIO_MODE_IN_FL_NO_IT); // Trim manche 1
+	GPIO_Init(GPIOD, (GPIO_PIN_6 ), GPIO_MODE_IN_FL_NO_IT); // Trim manche 2
 
 	//init lcd gpio
 	GPIO_DeInit(LCDPort);
@@ -1059,8 +1142,8 @@ void initialise(void)
 	GPIO_DeInit(GPIOA);
 	//BAS
 	GPIO_Init(GPIOC,GPIO_PIN_1,GPIO_MODE_IN_FL_NO_IT);
-	// SECUMOTEUR PHASE DUALRATE EXPO DROITE 
-	GPIO_Init(GPIOE,GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_5,GPIO_MODE_IN_FL_NO_IT);
+	// SECUMOTEUR PHASE DUALRATE EXPO DROITE  et trim manches 3 et 4
+	GPIO_Init(GPIOE,GPIO_PIN_ALL,GPIO_MODE_IN_FL_NO_IT);
 	//GAUCHE (0) ET HAUT (1)
 	GPIO_Init(GPIOG,(GPIO_PIN_0 |GPIO_PIN_1),GPIO_MODE_IN_FL_NO_IT);
 	// TOR1 ET TOR2 (PLUS ET MOINS)
@@ -1069,7 +1152,7 @@ void initialise(void)
 	
 	/*  Init GPIO pour ADC1 */
 	GPIO_DeInit(GPIOB);
-	GPIO_Init(GPIOB, (GPIO_PIN_0 |GPIO_PIN_1|GPIO_PIN_2| GPIO_PIN_3| GPIO_PIN_4| GPIO_PIN_5| GPIO_PIN_6), GPIO_MODE_IN_FL_NO_IT);
+	GPIO_Init(GPIOB,GPIO_PIN_ALL,GPIO_MODE_IN_FL_NO_IT);
 	
 	//Bip off
 	GPIO_WriteHigh(GPIOD,GPIO_PIN_4);
@@ -1088,7 +1171,8 @@ void initialise(void)
 	ADC1_EXTTRIG_TIM,
 	DISABLE,
 	ADC1_ALIGN_RIGHT,
-	ADC1_SCHMITTTRIG_ALL ,
+	ADC1_SCHMITTTRIG_CHANNEL0|ADC1_SCHMITTTRIG_CHANNEL1|ADC1_SCHMITTTRIG_CHANNEL2|ADC1_SCHMITTTRIG_CHANNEL3|
+ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,
 	DISABLE);
 	ADC1_ScanModeCmd(ENABLE);
 	ADC1_DataBufferCmd(ENABLE);
@@ -1113,18 +1197,17 @@ void initialise(void)
 void calcultrame(void) // Boucle principale irq14
 {
 	channel = 0xff;
-	GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on
 	captureADC();
 	lectureswitch();
 	if (expon) compute_expo();
 	compute_mixer();
+	compute_trim();
 	if (!flashencour) scale_output();
 	if (phase_change)
 	{
-	load_phase(phase_actuelle);
-	if (Menu_actif == 1) Menu();
+		load_phase(phase_actuelle);
+		if (Menu_actif == 1) Menu();
 	}
-	GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led off
 	channel = 0;
 }
 
@@ -1133,7 +1216,6 @@ void main(void)
 	initialise();
 	
 	TIM3_Cmd(ENABLE);
-	
 	
 	modele_actuel = FLASH_ReadByte(BASE_EEPROM);
 	
@@ -1155,7 +1237,9 @@ void main(void)
 	
 	enableInterrupts();
 	
-	
+	GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
+	GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
+	trimflag = 0;
 
 	while (1)
 	{
@@ -1175,10 +1259,13 @@ void main(void)
 				//HAUT
 				haut = GPIO_ReadInputPin(GPIOG,GPIO_PIN_1);
 				
+				lecturetrim();
+				
 				Menu_on = 0;
 				
-				if (((bas || gauche || droite) && Menu_actif) || haut)
+				if (((bas || gauche || droite || menudyn) && Menu_actif) || haut)
 				{				
+					if (menudyn) menudyn = 0;
 					Menu_actif = Menu_raz = 1;
 					Menu();
 				}	
