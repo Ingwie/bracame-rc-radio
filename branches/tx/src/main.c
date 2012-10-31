@@ -3,6 +3,8 @@
 /* Ajout de trims electroniques pour fonctionnement avec nouveaux manches (aurora 9)*/
 /* */
 /* Ajout dans utilitaire : visualisation des entrées sorties et potars */
+/* */
+/* Ajout de la gestion du retour au neutre pour trimdyn */
 
 #include "stm8s.h"
 #include "tx.h"
@@ -44,14 +46,14 @@ _Bool bas = 0; // PC1
 _Bool gauche = 0; // PG0
 _Bool droite = 0; // PE5
 
+_Bool trim0plus = 0;
+_Bool trim0moins = 0;
 _Bool trim1plus = 0;
 _Bool trim1moins = 0;
 _Bool trim2plus = 0;
 _Bool trim2moins = 0;
 _Bool trim3plus = 0;
 _Bool trim3moins = 0;
-_Bool trim4plus = 0;
-_Bool trim4moins = 0;
 _Bool trimflag;
 u8 trimstep = 10;
 
@@ -67,6 +69,17 @@ u16 chargeeaccus = 9999;
 
 u8 ratiotrimdyn = 1;
 u8 tempotrimdyn = 0;
+u8 temptrimdyn = 20;
+_Bool trimdynencour = 0;
+_Bool manche0neutre = 0;
+_Bool manche1neutre = 0;
+_Bool manche2neutre = 0;
+_Bool manche3neutre = 0;
+_Bool trimdynmanche0 = 0;
+_Bool trimdynmanche1 = 0;
+_Bool trimdynmanche2 = 0;
+_Bool trimdynmanche3 = 0;
+
 u8 tempsbip1 = 0;
 u8 tempsbip2 = 0;
 u8 tempsbip3 = 0;
@@ -370,7 +383,7 @@ void reset_model(void)
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
-		output.dr[i] = 100;
+		output.dr[i] = 50;
 		output.sValue[i] = 0;
 		output.usValueOut[i] = NEUTRE_COURSE;
 		output.usMinValue[i] = MIN_COURSE;
@@ -479,7 +492,7 @@ void load_phase(u8 phase)
 
 }
 
-void save_input(u8 model) // taille : (6 x NUM_INPUT) (36)
+void save_input(u8 model) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 {
 	u8 i = 0;
 	
@@ -507,7 +520,7 @@ void save_input(u8 model) // taille : (6 x NUM_INPUT) (36)
 
 }
 
-void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (96)
+void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (96) PHASE_LENGTH
 {
 	u8 i = 0;
 	u8 j = 0;
@@ -579,7 +592,7 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 	flashencour = 0;
 }
 
-void settrimdyn(void)
+void settrimdyn(void) // Applique les trims dynamiques
 {
 	u8 i;
 
@@ -592,11 +605,13 @@ void settrimdyn(void)
 		{
 			if (out != output.secumoteur) output.usNeutralValue[out] = trimmem[out]; // et pas la voie moteur
 		}
-		bip(1,0,0,0,0);
+		trimdynencour = trimdynmanche0 = trimdynmanche1 = trimdynmanche2 = trimdynmanche3 = 1; // recherches des neutres
+		trimdyn = 0;
+		
 	}
 }
 
-void memtrimdyn(void)
+void memtrimdyn(void) // Memorise les valeurs des sorties si appuis sur bouton trimdyn
 {
 	u8 i;
 
@@ -605,7 +620,8 @@ void memtrimdyn(void)
 		trimmem[i] = output.usValueOut[i];
 	}
 	trimdyn = 1;
-	tempotrimdyn = 12; // lance le decompte
+	tempotrimdyn = temptrimdyn; // Charge la tempo
+
 	bip(2,0,0,0,0);
 }
 
@@ -773,48 +789,6 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 
 }
 
-void captureADC(void)
-{
-	u8 i;
-	u16 value;
-	u16 delta;
-	
-	ADC1_StartConversion();
-	
-	while(ADC1_GetFlagStatus(ADC1_FLAG_EOC) == 0)
-	{
-	}
-
-	for(i = 0; i < NUM_INPUT; i++)
-	{
-		value = ADC1_GetBufferValue(i);
-		
-		if(value  < input.channel[i].usMinValue)
-		{
-			value = input.channel[i].usMinValue;
-		}
-		if(value  > input.channel[i].usMaxValue)
-		{
-			value = input.channel[i].usMaxValue;
-		}
-		
-		if(value  < input.channel[i].usNeutralValue)
-		{
-			delta = value - input.channel[i].usMinValue;
-			value = (delta * input.channel[i].pente[0]) / 256;
-		}
-		else
-		{
-			delta = value - input.channel[i].usNeutralValue;
-			value = 1000 + ((delta * input.channel[i].pente[1]) / 256);
-		}
-		
-		input.channel[i].usValue = value;
-	}
-
-	ADC1_ClearFlag(ADC1_FLAG_EOC);
-}
-
 // expo only for plus values: x: 0..1000, exp: 1..99
 static s16 expou(u16 x, u8 exp)
 {
@@ -848,68 +822,7 @@ static s16 expo(s16 inval, u8 i)
 	return  neg ? -val : val;
 }
 
-void lectureswitch(void)
-{
-	
-	// TRIM DYNAMIQUE
-	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();;
-
-	// SECUMOTEUR
-	secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
-	
-	// PHASE
-	if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_1))
-	{
-		if (phase_actuelle == 0) phase_change = 1;
-		phase_actuelle = 1;
-	}
-	else 
-	{
-		if (phase_actuelle == 1) phase_change = 1;
-		phase_actuelle = 0;
-	}	
-	// DUALRATE
-	outputdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_2);
-	
-	// EXPO
-	expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
-	
-	// TOR1
-	tor1plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_3);
-	tor1moins = GPIO_ReadInputPin(GPIOA,GPIO_PIN_4);
-	
-	// TOR2
-	tor2plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_5);
-	tor2moins = GPIO_ReadInputPin(GPIOA,GPIO_PIN_6);
-
-}
-
-void lecturetrim(void)
-{
-	if (trimflag)
-	{
-		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
-		trim2plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
-		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		trim4plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
-		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
-		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
-	}
-	else
-	{
-		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
-		trim2moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
-		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		trim4moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
-		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
-		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
-	}
-	trimflag = !trimflag;
-	
-	if (trim1plus || trim2plus || trim3plus || trim4plus || trim1moins || trim2moins || trim3moins || trim4moins) bip(0,0,0,0,1);
-}
-
-void duree(void)
+void duree(void) // pour debugger optimiser
 {
 	static u16 debut;
 	static u16 fin;
@@ -948,6 +861,127 @@ s16 entreswitch(u8 i,u8 in)
 	return val;
 }
 
+void lecturetrim(void)
+{
+	if (trimflag)
+	{
+		trim0plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim2plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
+		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
+	}
+	else
+	{
+		trim0moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
+		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
+	}
+	trimflag = !trimflag;
+	
+	if (trim0plus || trim1plus || trim2plus || trim3plus || trim0moins || trim1moins || trim2moins || trim3moins) bip(1,0,0,0,0);
+}
+
+void captureADC(void)
+{
+	u8 i;
+	u16 value;
+	u16 delta;
+	u16 ecartneutre;
+	
+	ADC1_StartConversion();
+	
+	while(ADC1_GetFlagStatus(ADC1_FLAG_EOC) == 0)
+	{
+	}
+
+	manche0neutre = manche1neutre = manche2neutre = manche3neutre = 0;
+
+		for(i = 0; i < NUM_INPUT; i++)
+	{
+		value = ADC1_GetBufferValue(i);
+		
+		if(value  < input.channel[i].usMinValue)
+		{
+			value = input.channel[i].usMinValue;
+		}
+		if(value  > input.channel[i].usMaxValue)
+		{
+			value = input.channel[i].usMaxValue;
+		}
+		
+		if(value  < input.channel[i].usNeutralValue)
+		{
+			ecartneutre = input.channel[i].usNeutralValue - value;
+			delta = value - input.channel[i].usMinValue;
+			value = (delta * input.channel[i].pente[0]) / 256;
+		}
+		else
+		{
+			delta = value - input.channel[i].usNeutralValue;
+			ecartneutre = delta;
+			value = 1000 + ((delta * input.channel[i].pente[1]) / 256);
+		}
+		
+		input.channel[i].usValue = value;
+		
+		// Detection de manche au neutre
+		
+		if (ecartneutre < 5)
+		{
+		if (i == 0) manche0neutre = 1;
+		if (i == 1) manche1neutre = 1;
+		if (i == 2) manche2neutre = 1;
+		if (i == 3) manche3neutre = 1;
+		}
+		
+	}
+
+	ADC1_ClearFlag(ADC1_FLAG_EOC);
+}
+
+void lectureswitch(void)
+{
+	
+	// TRIM DYNAMIQUE
+	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();
+	else
+	if (trimdyn) settrimdyn(); // Applique les nouveaux des neutres des sorties
+	
+	// SECUMOTEUR
+	secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
+	
+	// PHASE
+	if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_1))
+	{
+		if (phase_actuelle == 0) phase_change = 1;
+		phase_actuelle = 1;
+	}
+	else 
+	{
+		if (phase_actuelle == 1) phase_change = 1;
+		phase_actuelle = 0;
+	}	
+	// DUALRATE
+	outputdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_2);
+	
+	// EXPO
+	expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
+	
+	// TOR1
+	tor1plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_3);
+	tor1moins = GPIO_ReadInputPin(GPIOA,GPIO_PIN_4);
+	
+	// TOR2
+	tor2plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_5);
+	tor2moins = GPIO_ReadInputPin(GPIOA,GPIO_PIN_6);
+
+}
+
 void compute_expo(void)
 {	
 	u8 i;
@@ -959,6 +993,56 @@ void compute_expo(void)
 		val16 = input.channel[i].usValue - 1000;
 		
 		input.channel[i].usValue = expo(val16,i) + 1000; 
+	}
+}
+
+void compute_trim(void) // Applique les trims electronique et dynamiques
+{
+	u8 i = 0;
+
+	for(i = 0; i < NUM_MIXER ; i++)
+	{
+		u8 in = mixer[i].in;
+		u8 out = mixer[i].out;
+		
+		if (out < NUM_OUTPUT)
+		{
+			if(in == 0)
+			{
+				if (trim0plus) { output.usNeutralValue[out] += trimstep; trim0plus = 0; }
+				if (trim0moins) { output.usNeutralValue[out] -= trimstep; trim0moins = 0; }
+				if (out == output.secumoteur) trimdynmanche0 = 0;
+			}
+
+			if(in == 1)
+			{
+				if (trim1plus) { output.usNeutralValue[out] += trimstep; trim1plus = 0; }
+				if (trim1moins) { output.usNeutralValue[out] -= trimstep; trim1moins = 0; }
+				if (out == output.secumoteur) trimdynmanche1 = 0;
+			}
+
+			if(in == 2)
+			{
+				if (trim2plus) { output.usNeutralValue[out] += trimstep; trim2plus = 0; }
+				if (trim2moins) { output.usNeutralValue[out] -= trimstep; trim2moins = 0; }
+				if (out == output.secumoteur) trimdynmanche2 = 0;
+			}
+
+				if(in == 3)
+			{
+				if (trim3plus) { output.usNeutralValue[out] += trimstep; trim3plus = 0; }
+				if (trim3moins) { output.usNeutralValue[out] -= trimstep; trim3moins = 0; }
+				if (out == output.secumoteur) trimdynmanche3 = 0;
+			}
+		}
+	}
+	
+	if (trimdynencour)
+	{
+	if (manche0neutre) trimdynmanche0 = 0;
+	if (manche1neutre) trimdynmanche1 = 0;
+	if (manche2neutre) trimdynmanche2 = 0;
+	if (manche3neutre) trimdynmanche3 = 0;	
 	}
 }
 
@@ -1004,6 +1088,16 @@ void compute_mixer(void)
 					if ((trimdyn) && (out != output.secumoteur) && (in < 4)) delta32 /= ratiotrimdyn;
 					output.sValue[out] += delta32;
 				}
+				
+				if (trimdynencour)
+				{
+				if ((in == 0) && (trimdynmanche0)) output.sValue[out] = 0;
+				if ((in == 1) && (trimdynmanche1)) output.sValue[out] = 0;
+				if ((in == 2) && (trimdynmanche2)) output.sValue[out] = 0;
+				if ((in == 3) && (trimdynmanche3)) output.sValue[out] = 0;
+				}
+				
+				
 			}
 			
 			if((in > (NUM_INPUT - 1)) && (in < (NUM_INPUT + NUM_INPUT_SWITCH))) // Switchs
@@ -1029,45 +1123,6 @@ void compute_mixer(void)
 				output.sValue[out] += delta32;
 			}
 		}			
-	}
-}
-
-void compute_trim(void)
-{
-	u8 i = 0;
-
-	for(i = 0; i < NUM_MIXER ; i++)
-	{
-		u8 in = mixer[i].in;
-		u8 out = mixer[i].out;
-		
-		if (out < NUM_OUTPUT)
-		{
-			if(in == 0)
-			{
-				if (trim1plus) output.usNeutralValue[out] += trimstep;
-				if (trim1moins) output.usNeutralValue[out] -= trimstep;
-				trim1plus = trim1moins = 0;
-			}
-			if(in == 1)
-			{
-				if (trim2plus) output.usNeutralValue[out] += trimstep;
-				if (trim2moins) output.usNeutralValue[out] -= trimstep;
-				trim2plus = trim2moins = 0;
-			}
-			if(in == 2)
-			{
-				if (trim3plus) output.usNeutralValue[out] += trimstep;
-				if (trim3moins) output.usNeutralValue[out] -= trimstep;
-				trim3plus = trim3moins = 0;
-			}
-			if(in == 3)
-			{
-				if (trim4plus) output.usNeutralValue[out] += trimstep;
-				if (trim4moins) output.usNeutralValue[out] -= trimstep;
-				trim4plus = trim4moins = 0;
-			}
-		}
 	}
 }
 
@@ -1172,7 +1227,7 @@ void initialise(void)
 	DISABLE,
 	ADC1_ALIGN_RIGHT,
 	ADC1_SCHMITTTRIG_CHANNEL0|ADC1_SCHMITTTRIG_CHANNEL1|ADC1_SCHMITTTRIG_CHANNEL2|ADC1_SCHMITTTRIG_CHANNEL3|
-ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,
+	ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,
 	DISABLE);
 	ADC1_ScanModeCmd(ENABLE);
 	ADC1_DataBufferCmd(ENABLE);
@@ -1200,8 +1255,8 @@ void calcultrame(void) // Boucle principale irq14
 	captureADC();
 	lectureswitch();
 	if (expon) compute_expo();
-	compute_mixer();
 	compute_trim();
+	compute_mixer();
 	if (!flashencour) scale_output();
 	if (phase_change)
 	{

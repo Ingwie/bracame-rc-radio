@@ -37,6 +37,8 @@ _Bool synchro = 0;
 u8 channel = 0;
 u8 Tempo_menu;
 extern _Bool trimdyn;
+extern _Bool trimdynencour;
+extern u8 temptrimdyn;
 extern u8 secondesurcinq;
 extern u8 secondes;
 extern u8 minutes;
@@ -464,13 +466,17 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 	secondesurcinq++;
 	sec = 1;
 
-	if (tempotrimdyn != 0)
+	if (tempotrimdyn != 0) 
 	{
+	
 		tempotrimdyn--;
+		
 		if (tempotrimdyn == 1)
 		{
-			settrimdyn();
-			trimdyn = 0;
+			trimdynencour = 0;
+			bip(1,0,0,0,0);
+
+			
 		}
 	}
 	
