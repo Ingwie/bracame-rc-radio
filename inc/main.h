@@ -9,6 +9,8 @@ void load_phase(u8 phase);
 void load_input(u8 model);
 void calcultrame(void);
 void settrimdyn(void);
+void bip(u8 temps1,u8 temps2,u8 temps3,u8 temps4,u8 temps5); // temps x 0.2 sec
+
 
 s8 sortiepourcent(u16 sortie);
 u16 pourcentsortie(s8 pourcent);

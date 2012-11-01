@@ -14,7 +14,7 @@ extern _Bool droite;
 extern _Bool flashencour;
 extern _Bool menudyn;
 extern u8 ratiobat;
-extern u8 ratiotrimdyn;
+extern u8 trimstep;
 
 /* modele */
 void m10(void)
@@ -366,7 +366,7 @@ void m41(void)
 		LCD_printtruc(1,12,"Maxi\n",0);
 
 		toto = sortiepourcent(output.usMaxValue[i]);
-		toto = reglage_variable(i,toto,-120,120,5);	
+		toto = reglage_variable(i,toto,120,120,5);	
 		output.usMaxValue[i] = pourcentsortie(toto);
 
 	}
@@ -497,18 +497,18 @@ void m72(void)
 	
 }
 
-/* ratio du trim dynamique */
+/* Pas du trim electronique */
 void m73(void)
 {
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
-	LCD_printtruc(1,1,"Ratio du trimdyn\n",0);
+	LCD_printtruc(1,1,"Pas du trim elec\n",0);
 	LCD_DISP_ON();
 	
-	if ((droite) && (ratiotrimdyn < 4)) ratiotrimdyn++;
-	if ((gauche) && (ratiotrimdyn > 1)) ratiotrimdyn--;
+	if ((droite) && (trimstep < 50)) trimstep += 10;
+	if ((gauche) && (trimstep > 10)) trimstep -= 10;
 	
-	LCD_printtruc(2,6," ~ %u\n",ratiotrimdyn);
+	LCD_printtruc(2,5," ~ %u\n",trimstep);
 	
 	navigue(73,72,74,73,73);
 	
@@ -760,12 +760,12 @@ s8 reglage_variable(s8 nom,s8 actuel,s8 mini,s8 maxi,s8 pas)
 	LCD_printtruc(2,3,"%u\n",(nom  + 1));
 	if (gauche)
 	{	
-		actuel = actuel - pas;
+		actuel -= pas;
 		if (actuel < mini) actuel = mini;
 	}
 	if (droite)
 	{
-		actuel = actuel + pas;
+		actuel += pas;
 		if (actuel > maxi) actuel = maxi;
 	}
 	LCD_printtruc(2,12,"%i%%\n",actuel);
