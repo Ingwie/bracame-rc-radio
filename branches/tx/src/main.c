@@ -15,6 +15,7 @@
 extern _Bool Menu_on;
 extern _Bool sec;
 extern _Bool Menu_actif;
+extern _Bool popup;
 extern _Bool Menu_raz;
 extern _Bool synchro;
 extern u8 Tempo_menu;
@@ -117,7 +118,8 @@ void biponoff(void)
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	Menu_actif = 1;
-	Tempo_menu = 13;
+	popup = 1;
+	Tempo_menu = 8;
 
 	bipon = !bipon;
 
@@ -136,14 +138,9 @@ void biponoff(void)
 void razchrono(void)
 {
 	minutes = secondes = 0;
-	bip(2,1,2,0,0);
-
-}
-
-void razchronobat(void)
-{
 	chargeeaccus = 9999;
-	bip(1,2,1,1,3);
+
+	bip(2,1,2,0,0);
 }
 
 void info(void) // Affichage pendant le vol ...
@@ -592,6 +589,25 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 	flashencour = 0;
 }
 
+void changeratiotrimdyn(void)
+{
+ if (ratiotrimdyn < 4) ratiotrimdyn++;
+ else ratiotrimdyn = 1;
+ 
+ 	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	Menu_actif = 1;
+	popup = 1;
+	Tempo_menu = 8;
+
+	LCD_printtruc(1,2,"Ratio trimdyn",0);
+	LCD_printtruc(2,6," ~ %u\n",ratiotrimdyn);
+	LCD_DISP_ON();
+	
+	bip(1,1,0,1,0);
+ 
+}
+
 void settrimdyn(void) // Applique les trims dynamiques
 {
 	u8 i;
@@ -865,19 +881,19 @@ void lecturetrim(void)
 {
 	if (trimflag)
 	{
-		trim0plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
-		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
-		trim2plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		trim0plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim2plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
 		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
 	}
 	else
 	{
-		trim0moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
-		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
-		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		trim0moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
+		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
+		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
+		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
 		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
 	}
@@ -1182,7 +1198,7 @@ void initialise(void)
 	GPIO_Init(GPIOD, (GPIO_PIN_0 ), GPIO_MODE_OUT_PP_LOW_SLOW); // led run - trim +
 	GPIO_Init(GPIOD, (GPIO_PIN_2 ), GPIO_MODE_OUT_PP_LOW_SLOW); // trim -
 	GPIO_Init(GPIOD, (GPIO_PIN_5 ), GPIO_MODE_IN_FL_NO_IT); // Trim manche 1
-	GPIO_Init(GPIOD, (GPIO_PIN_6 ), GPIO_MODE_IN_FL_NO_IT); // Trim manche 2
+	GPIO_Init(GPIOD, (GPIO_PIN_6 ), GPIO_MODE_IN_FL_NO_IT); // Trim manche 0
 
 	//init lcd gpio
 	GPIO_DeInit(LCDPort);
@@ -1197,7 +1213,7 @@ void initialise(void)
 	GPIO_DeInit(GPIOA);
 	//BAS
 	GPIO_Init(GPIOC,GPIO_PIN_1,GPIO_MODE_IN_FL_NO_IT);
-	// SECUMOTEUR PHASE DUALRATE EXPO DROITE  et trim manches 3 et 4
+	// SECUMOTEUR PHASE DUALRATE EXPO DROITE  et trim manches 3 et 2
 	GPIO_Init(GPIOE,GPIO_PIN_ALL,GPIO_MODE_IN_FL_NO_IT);
 	//GAUCHE (0) ET HAUT (1)
 	GPIO_Init(GPIOG,(GPIO_PIN_0 |GPIO_PIN_1),GPIO_MODE_IN_FL_NO_IT);
@@ -1318,7 +1334,7 @@ void main(void)
 				
 				Menu_on = 0;
 				
-				if (((bas || gauche || droite || menudyn) && Menu_actif) || haut)
+				if (((bas || gauche || droite || menudyn) && Menu_actif && !popup) || haut)
 				{				
 					if (menudyn) menudyn = 0;
 					Menu_actif = Menu_raz = 1;
@@ -1332,8 +1348,8 @@ void main(void)
 				chronobat();
 				info();
 				sec = 0;
-				if (bas) razchrono();
-				if (gauche) razchronobat();
+				if (bas) changeratiotrimdyn();
+				if (gauche) razchrono();
 				if (droite) biponoff();
 			}
 			

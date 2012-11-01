@@ -31,6 +31,7 @@
 _Bool sec = 0;
 _Bool Menu_on = 0;
 _Bool Menu_actif = 0;
+_Bool popup = 0;
 _Bool Menu_raz = 0;
 _Bool synchro = 0;
 
@@ -509,10 +510,11 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 			Menu_raz = 0;
 		}
 		
-		if (Tempo_menu == 15)
+		if (Tempo_menu == 10)
 		{
 			LCD_CLEAR_DISPLAY();
 			Menu_actif = 0;
+			popup = 0;
 			Tempo_menu = 0;
 		}
 	}
