@@ -41,14 +41,9 @@ void m11(void)
 		load_input(modele_actuel);
 		load_phase(phase_actuelle);
 		flashencour = 1;
-		//write data to eeprom
-		FLASH_DeInit();
-		/*Define FLASH programming time*/
-		FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
-		/* Unlock Data memory */
-		FLASH_Unlock(FLASH_MEMTYPE_DATA);
-
+		prepareflash();	
 		FLASH_ProgramByte(BASE_EEPROM, modele_actuel);
+		FLASH_Lock(FLASH_MEMTYPE_DATA);			
 		flashencour = 0;
 		Delayms(200);
 
@@ -113,7 +108,7 @@ void m121(void)
 
 }
 
-/* Raz */
+/* Raz modele */
 void m13(void)
 { 
 	LCD_DISP_OFF();
@@ -138,7 +133,34 @@ void m13(void)
 		haut = 1;
 	}
 
-	navigue(13,11,13,10,13);
+	navigue(13,11,131,10,13);
+
+}
+
+/* Raz neutres*/
+void m131(void)
+{ 
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,2,"RAZ des neutres ?\n",0);
+	LCD_printtruc(2,1,"Appuyer gauche\n",0);
+	LCD_DISP_ON();
+	
+	if (gauche)
+	{
+		reset_neutre();
+		LCD_DISP_OFF();
+		LCD_CLEAR_DISPLAY();
+		LCD_printtruc(1,4,"reset ok\n",0);
+		LCD_DISP_ON();
+
+		save_neutre(phase_actuelle);
+		LCD_printtruc(2,1,"   sauvegarde   \n",0);
+		Delayms(500);
+		haut = 1;
+	}
+
+	navigue(131,11,131,10,131);
 
 }
 
@@ -505,8 +527,8 @@ void m73(void)
 	LCD_printtruc(1,1,"Pas du trim elec\n",0);
 	LCD_DISP_ON();
 	
-	if ((droite) && (trimstep < 50)) trimstep += 10;
-	if ((gauche) && (trimstep > 10)) trimstep -= 10;
+	if ((droite) && (trimstep < 5)) trimstep += 1;
+	if ((gauche) && (trimstep > 1)) trimstep -= 1;
 	
 	LCD_printtruc(2,5," ~ %u\n",trimstep);
 	
@@ -637,6 +659,10 @@ void Menu(void)
 		
 	case 13:
 		m13();
+		break;
+
+	case 131:
+		m131();
 		break;
 		
 	case 20:
