@@ -56,7 +56,8 @@ _Bool trim2moins = 0;
 _Bool trim3plus = 0;
 _Bool trim3moins = 0;
 _Bool trimflag;
-u8 trimstep = 10;
+_Bool trimchange = 0;
+u8 trimstep = 1;
 
 u8 barout[NUM_OUTPUT];
 
@@ -308,6 +309,16 @@ u8 nivbar(u16 sortie) // Pour baragraphe info
 	return (u8)a;
 }
 
+void prepareflash(void)
+{
+	//write data to eeprom
+	FLASH_DeInit();
+	/*Define FLASH programming time*/
+	FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
+	/* Unlock Data memory */
+	FLASH_Unlock(FLASH_MEMTYPE_DATA);	
+}
+
 u32 FLASH_ProgramdoubleByte(u32 add,u16 val)
 {
 	u8 tval;
@@ -391,6 +402,19 @@ void reset_model(void)
 	
 	output.secumoteur = 255;
 	ratiobat = 0;
+}
+
+void reset_neutre(void)
+{
+	u8 i;
+	
+	//output
+	
+	for(i = 0; i < NUM_OUTPUT ; i++)
+	{
+		output.usNeutralValue[i] = NEUTRE_COURSE;
+	}
+	
 }
 
 void load_input(u8 model)
@@ -498,13 +522,8 @@ void save_input(u8 model) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 	addr = addr + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * model);
 	
 	flashencour = 1;
-	//write data to eeprom
-	FLASH_DeInit();
-	/*Define FLASH programming time*/
-	FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
-	/* Unlock Data memory */
-	FLASH_Unlock(FLASH_MEMTYPE_DATA);
-	
+
+	prepareflash();
 	
 	//input
 	for(i = 0; i < NUM_INPUT; i++)
@@ -513,6 +532,7 @@ void save_input(u8 model) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 		addr = FLASH_ProgramdoubleByte(addr,input.channel[i].usNeutralValue);
 		addr = FLASH_ProgramdoubleByte(addr,input.channel[i].usMaxValue);
 	}
+	FLASH_Lock(FLASH_MEMTYPE_DATA);	
 	flashencour = 0;
 
 }
@@ -530,13 +550,8 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 	addr = addr + ( PHASE_LENGTH * phase );
 	
 	flashencour = 1;
-	//write data to eeprom
-	FLASH_DeInit();
-	/*Define FLASH programming time*/
-	FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
-	/* Unlock Data memory */
-	FLASH_Unlock(FLASH_MEMTYPE_DATA);
-	
+
+	prepareflash();
 	
 	//input
 	for(i = 0; i < NUM_INPUT; i++)
@@ -586,15 +601,52 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 	addr ++;
 	FLASH_ProgramByte(addr,ratiobat);
 	
+	FLASH_Lock(FLASH_MEMTYPE_DATA);	
+	flashencour = 0;
+}
+
+void save_neutre(u8 phase) // Sauve les neutre si modifiés (trimchange)
+{
+	u8 i = 0;
+	u8 j = 0;
+	s8 temp;
+	
+	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
+	
+	addr = addr + INPUT_LENGTH  + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * modele_actuel);
+	
+	addr = addr + ( PHASE_LENGTH * phase );
+	
+	addr = addr + (2 * NUM_INPUT) + (4 * NUM_MIXER);
+	
+	flashencour = 1;
+
+	prepareflash();
+
+	//mixer
+	
+	for(i = 0; i < NUM_OUTPUT; i++)
+	{
+		
+		addr++;
+		addr ++;
+		temp = sortiepourcent(output.usNeutralValue[i]);
+		FLASH_ProgramByte(addr,temp);
+		addr ++;
+		addr ++;
+
+	}
+	FLASH_Lock(FLASH_MEMTYPE_DATA);	
+	
 	flashencour = 0;
 }
 
 void changeratiotrimdyn(void)
 {
- if (ratiotrimdyn < 4) ratiotrimdyn++;
- else ratiotrimdyn = 1;
- 
- 	LCD_DISP_OFF();
+	if (ratiotrimdyn < 4) ratiotrimdyn++;
+	else ratiotrimdyn = 1;
+
+	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	Menu_actif = 1;
 	popup = 1;
@@ -605,7 +657,7 @@ void changeratiotrimdyn(void)
 	LCD_DISP_ON();
 	
 	bip(1,1,0,1,0);
- 
+
 }
 
 void settrimdyn(void) // Applique les trims dynamiques
@@ -623,7 +675,7 @@ void settrimdyn(void) // Applique les trims dynamiques
 		}
 		trimdynencour = trimdynmanche0 = trimdynmanche1 = trimdynmanche2 = trimdynmanche3 = 1; // recherches des neutres
 		trimdyn = 0;
-		
+		trimchange = 1;
 	}
 }
 
@@ -770,13 +822,7 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	bip(1,2,1,0,0);
 	Delayms(500);
 	
-	//write data to eeprom
-	FLASH_DeInit();
-	/*Define FLASH programming time*/
-	FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
-	/* Unlock Data memory */
-	FLASH_Unlock(FLASH_MEMTYPE_DATA);
-	
+	prepareflash();	
 	{
 		u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 		
@@ -789,6 +835,8 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 			addr = FLASH_ProgramdoubleByte(addr,max[i]);
 		}
 	}
+	FLASH_Lock(FLASH_MEMTYPE_DATA);	
+
 
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
@@ -899,7 +947,11 @@ void lecturetrim(void)
 	}
 	trimflag = !trimflag;
 	
-	if (trim0plus || trim1plus || trim2plus || trim3plus || trim0moins || trim1moins || trim2moins || trim3moins) bip(1,0,0,0,0);
+	if (trim0plus || trim1plus || trim2plus || trim3plus || trim0moins || trim1moins || trim2moins || trim3moins)
+	{
+		bip(1,0,0,0,0);
+		trimchange = 1;
+	}
 }
 
 void captureADC(void)
@@ -917,7 +969,7 @@ void captureADC(void)
 
 	manche0neutre = manche1neutre = manche2neutre = manche3neutre = 0;
 
-		for(i = 0; i < NUM_INPUT; i++)
+	for(i = 0; i < NUM_INPUT; i++)
 	{
 		value = ADC1_GetBufferValue(i);
 		
@@ -949,10 +1001,10 @@ void captureADC(void)
 		
 		if (ecartneutre < 5)
 		{
-		if (i == 0) manche0neutre = 1;
-		if (i == 1) manche1neutre = 1;
-		if (i == 2) manche2neutre = 1;
-		if (i == 3) manche3neutre = 1;
+			if (i == 0) manche0neutre = 1;
+			if (i == 1) manche1neutre = 1;
+			if (i == 2) manche2neutre = 1;
+			if (i == 3) manche3neutre = 1;
 		}
 		
 	}
@@ -966,7 +1018,7 @@ void lectureswitch(void)
 	// TRIM DYNAMIQUE
 	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();
 	else
-	if (trimdyn) settrimdyn(); // Applique les nouveaux des neutres des sorties
+	if (trimdyn) settrimdyn(); // Applique les nouveaux neutres des sorties
 	
 	// SECUMOTEUR
 	secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
@@ -1025,40 +1077,42 @@ void compute_trim(void) // Applique les trims electronique et dynamiques
 		{
 			if(in == 0)
 			{
-				if (trim0plus) { output.usNeutralValue[out] += trimstep; trim0plus = 0; }
-				if (trim0moins) { output.usNeutralValue[out] -= trimstep; trim0moins = 0; }
+				if (trim0plus) { output.usNeutralValue[out] += (trimstep * mixer[i].pente[1])/10; }
+				if (trim0moins) { output.usNeutralValue[out] -= (trimstep * mixer[i].pente[0])/10; }
 				if (out == output.secumoteur) trimdynmanche0 = 0;
 			}
 
 			if(in == 1)
 			{
-				if (trim1plus) { output.usNeutralValue[out] += trimstep; trim1plus = 0; }
-				if (trim1moins) { output.usNeutralValue[out] -= trimstep; trim1moins = 0; }
+				if (trim1plus) { output.usNeutralValue[out] += (trimstep * mixer[i].pente[1])/10; }
+				if (trim1moins) { output.usNeutralValue[out] -= (trimstep * mixer[i].pente[0])/10; }
 				if (out == output.secumoteur) trimdynmanche1 = 0;
 			}
 
 			if(in == 2)
 			{
-				if (trim2plus) { output.usNeutralValue[out] += trimstep; trim2plus = 0; }
-				if (trim2moins) { output.usNeutralValue[out] -= trimstep; trim2moins = 0; }
+				if (trim2plus) { output.usNeutralValue[out] += (trimstep * mixer[i].pente[1])/10; }
+				if (trim2moins) { output.usNeutralValue[out] -= (trimstep * mixer[i].pente[0])/10; }
 				if (out == output.secumoteur) trimdynmanche2 = 0;
 			}
 
-				if(in == 3)
+			if(in == 3)
 			{
-				if (trim3plus) { output.usNeutralValue[out] += trimstep; trim3plus = 0; }
-				if (trim3moins) { output.usNeutralValue[out] -= trimstep; trim3moins = 0; }
+				if (trim3plus) { output.usNeutralValue[out] += (trimstep * mixer[i].pente[1])/10; }
+				if (trim3moins) { output.usNeutralValue[out] -= (trimstep * mixer[i].pente[0])/10; }
 				if (out == output.secumoteur) trimdynmanche3 = 0;
 			}
 		}
 	}
 	
+	trim0plus = trim1plus = trim2plus = trim3plus = trim0moins = trim1moins = trim2moins = trim3moins = 0;
+	
 	if (trimdynencour)
 	{
-	if (manche0neutre) trimdynmanche0 = 0;
-	if (manche1neutre) trimdynmanche1 = 0;
-	if (manche2neutre) trimdynmanche2 = 0;
-	if (manche3neutre) trimdynmanche3 = 0;	
+		if (manche0neutre) trimdynmanche0 = 0;
+		if (manche1neutre) trimdynmanche1 = 0;
+		if (manche2neutre) trimdynmanche2 = 0;
+		if (manche3neutre) trimdynmanche3 = 0;
 	}
 }
 
@@ -1107,10 +1161,10 @@ void compute_mixer(void)
 				
 				if (trimdynencour)
 				{
-				if ((in == 0) && (trimdynmanche0)) output.sValue[out] = 0;
-				if ((in == 1) && (trimdynmanche1)) output.sValue[out] = 0;
-				if ((in == 2) && (trimdynmanche2)) output.sValue[out] = 0;
-				if ((in == 3) && (trimdynmanche3)) output.sValue[out] = 0;
+					if ((in == 0) && (trimdynmanche0)) output.sValue[out] = 0;
+					if ((in == 1) && (trimdynmanche1)) output.sValue[out] = 0;
+					if ((in == 2) && (trimdynmanche2)) output.sValue[out] = 0;
+					if ((in == 3) && (trimdynmanche3)) output.sValue[out] = 0;
 				}
 				
 				
@@ -1274,6 +1328,11 @@ void calcultrame(void) // Boucle principale irq14
 	compute_trim();
 	compute_mixer();
 	if (!flashencour) scale_output();
+	if (trimchange)
+	{
+		save_neutre(phase_actuelle);
+		trimchange = 0;
+	}
 	if (phase_change)
 	{
 		load_phase(phase_actuelle);
