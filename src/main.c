@@ -608,7 +608,6 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 void save_neutre(u8 phase) // Sauve les neutre si modifiés (trimchange)
 {
 	u8 i = 0;
-	u8 j = 0;
 	s8 temp;
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
@@ -675,18 +674,13 @@ void settrimdyn(void) // Applique les trims dynamiques
 		}
 		trimdynencour = trimdynmanche0 = trimdynmanche1 = trimdynmanche2 = trimdynmanche3 = 1; // recherches des neutres
 		trimdyn = 0;
-		trimchange = 1;
+		trimchange = 1; // Sauvegarde des nouveaux neutres
 	}
 }
 
-void memtrimdyn(void) // Memorise les valeurs des sorties si appuis sur bouton trimdyn
+void memtrimdyn(void) // Active la memorisation des valeurs des sorties si appuis sur bouton trimdyn (dans compute_mixer)
 {
-	u8 i;
 
-	for(i = 0; i < NUM_OUTPUT; i++)
-	{
-		trimmem[i] = output.usValueOut[i];
-	}
 	trimdyn = 1;
 	tempotrimdyn = temptrimdyn; // Charge la tempo
 
@@ -1119,6 +1113,8 @@ void compute_trim(void) // Applique les trims electronique et dynamiques
 void compute_mixer(void)
 {
 	u8 i = 0;
+	u8 in;
+	u8 out;
 	static _Bool sens = 1;
 	static s16 wave = 0;
 	s32 delta32;
@@ -1135,19 +1131,19 @@ void compute_mixer(void)
 	
 	for(i = 0; i < NUM_MIXER ; i++)
 	{
-		u8 in = mixer[i].in;
-		u8 out = mixer[i].out;
+		in = mixer[i].in;
+		out = mixer[i].out;
 		
 		if (out < NUM_OUTPUT)
 		{
-			if(in < NUM_INPUT)
+			if(in < 4) // que les manches ...
 			{
 				if(input.channel[in].usValue < 1000)
 				{
 					delta32 = 1000 - input.channel[in].usValue;
 					delta32 *= mixer[i].pente[0];
 					delta32 /= 100;
-					if ((trimdyn) && (out != output.secumoteur) && (in < 4)) delta32 /= ratiotrimdyn;
+					if ((trimdyn) && (out != output.secumoteur)) delta32 /= ratiotrimdyn;
 					output.sValue[out] -= delta32; 
 				}
 				else
@@ -1155,7 +1151,7 @@ void compute_mixer(void)
 					delta32 = input.channel[in].usValue - 1000;
 					delta32 *= mixer[i].pente[1];
 					delta32 /= 100;
-					if ((trimdyn) && (out != output.secumoteur) && (in < 4)) delta32 /= ratiotrimdyn;
+					if ((trimdyn) && (out != output.secumoteur)) delta32 /= ratiotrimdyn;
 					output.sValue[out] += delta32;
 				}
 				
@@ -1166,10 +1162,53 @@ void compute_mixer(void)
 					if ((in == 2) && (trimdynmanche2)) output.sValue[out] = 0;
 					if ((in == 3) && (trimdynmanche3)) output.sValue[out] = 0;
 				}
-				
+			}
+		}
+	}
+	
+	if (trimdyn)
+	{
+		for(i = 0; i < NUM_OUTPUT; i++)
+		{
+			trimmem[i] = output.sValue[i] + output.usNeutralValue[i];;
+		}
+	}
+	
+	for(i = 0; i < NUM_MIXER ; i++)
+	{
+		in = mixer[i].in;
+		out = mixer[i].out;
+		
+		if (out < NUM_OUTPUT)
+		{
+			if((in > 3) && (in < NUM_INPUT)) // Les autres voies proportionnelles
+					{
+						if(input.channel[in].usValue < 1000)
+				{
+					delta32 = 1000 - input.channel[in].usValue;
+					delta32 *= mixer[i].pente[0];
+					delta32 /= 100;
+					output.sValue[out] -= delta32; 
+				}
+				else
+				{
+					delta32 = input.channel[in].usValue - 1000;
+					delta32 *= mixer[i].pente[1];
+					delta32 /= 100;
+					output.sValue[out] += delta32;
+				}
 				
 			}
-			
+		}
+	}
+	
+	for(i = 0; i < NUM_MIXER ; i++)
+	{
+		in = mixer[i].in;
+		out = mixer[i].out;
+		
+		if (out < NUM_OUTPUT)
+		{						
 			if((in > (NUM_INPUT - 1)) && (in < (NUM_INPUT + NUM_INPUT_SWITCH))) // Switchs
 			{
 				output.sValue[out] += entreswitch(i,in);
@@ -1433,7 +1472,7 @@ void assert_failed(u8* file, u32 line)
 	/* User can add his own implementation to report the file name and line number,
 	ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 	LCD_printtruc(1,1,"file %s \n",file);
-	LCD_printtruc(1,1,"line %d\r\n",line));
+	LCD_printtruc(1,1,"line %d\r\n",line);
 
 	/* Infinite loop */
 	while (1)
