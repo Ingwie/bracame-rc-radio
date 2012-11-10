@@ -324,7 +324,7 @@ recherche:
 		LCD_printtruc(2,8,"~%u)\n",mixout);
 		
 		
-		val = reglage_variable(i,mixer[i].pente[j],-120,120,5);
+		val = reglage_variable(i,mixer[i].pente[j],-125,125,5);
 		mixer[i].pente[j] = val;
 	}
 	navigue(33,31,33,33,33);
@@ -370,7 +370,7 @@ void m41(void)
 		LCD_printtruc(1,12,"Mini\n",0);
 		
 		toto = sortiepourcent(output.usMinValue[i]);
-		toto = reglage_variable(i,toto,-120,120,5);	
+		toto = reglage_variable(i,toto,-125,125,5);	
 		output.usMinValue[i] = pourcentsortie(toto);
 
 	}
@@ -388,7 +388,7 @@ void m41(void)
 		LCD_printtruc(1,12,"Maxi\n",0);
 
 		toto = sortiepourcent(output.usMaxValue[i]);
-		toto = reglage_variable(i,toto,120,120,5);	
+		toto = reglage_variable(i,toto,-125,125,5);	
 		output.usMaxValue[i] = pourcentsortie(toto);
 
 	}
@@ -561,7 +561,7 @@ void m75(void)
 	
 }
 
-/* Données Entrees */
+/* Affiche Données Entrees */
 void m175(void)
 {
 	LCD_DISP_OFF();
@@ -589,7 +589,7 @@ void m76(void)
 	
 }
 
-/* Données Sorties */
+/* Affiche Données Sorties */
 void m176(void)
 {
 	LCD_DISP_OFF();
@@ -617,7 +617,7 @@ void m77(void)
 	
 }
 
-/* Données Entrees */
+/* Affiche Données Potars */
 void m177(void)
 {
 	LCD_DISP_OFF();
@@ -786,12 +786,12 @@ s8 reglage_variable(s8 nom,s8 actuel,s8 mini,s8 maxi,s8 pas)
 	LCD_printtruc(2,3,"%u\n",(nom  + 1));
 	if (gauche)
 	{	
-		actuel -= pas;
+		if (actuel >= (mini + pas)) actuel -= pas;
 		if (actuel < mini) actuel = mini;
 	}
 	if (droite)
 	{
-		actuel += pas;
+		if (actuel <= (maxi - pas)) actuel += pas;
 		if (actuel > maxi) actuel = maxi;
 	}
 	LCD_printtruc(2,12,"%i%%\n",actuel);

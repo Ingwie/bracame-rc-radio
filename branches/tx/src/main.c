@@ -1,10 +1,18 @@
-/* Includes ------------------------------------------------------------------*/
-
-/* Ajout de trims electroniques pour fonctionnement avec nouveaux manches (aurora 9)*/
+/* Bracame RC TX */
+/* */
+/* Ajout de trims electroniques pour fonctionnement avec nouveaux manches (hitec aurora 9)*/
 /* */
 /* Ajout dans utilitaire : visualisation des entrées sorties et potars */
 /* */
 /* Ajout de la gestion du retour au neutre pour trimdyn */
+/* */
+/* */
+/* */
+/* */
+/* */
+/* */
+/* */
+
 
 #include "stm8s.h"
 #include "tx.h"
@@ -57,7 +65,7 @@ _Bool trim3plus = 0;
 _Bool trim3moins = 0;
 _Bool trimflag;
 _Bool trimchange = 0;
-u8 trimstep = 1;
+u8 trimstep = 2;
 
 u8 barout[NUM_OUTPUT];
 
@@ -227,11 +235,6 @@ void info(void) // Affichage pendant le vol ...
 	LCD_printstring(lbas);
 
 
-
-	//LCD_printtruc(1,1,"%u\n",ADC1_GetBufferValue(0));
-	//LCD_printtruc(1,6,"%u\n",input.channel[0].usValue);
-	//LCD_printtruc(2,1,"%u\n",output.usValueOut[0]);
-	
 	// Horloge
 	LCD_printtruc(1,12,"%2.2u\n",minutes);
 	LCD_printtruc(1,14,":%2.2u\n",secondes);
@@ -1121,8 +1124,8 @@ void compute_mixer(void)
 	
 	// voie test
 	if (sens) wave+=10; else wave-=10;
-	if (wave < (-999)) sens = !sens;
-	if (wave > 999) sens = !sens;
+	if (wave < (-999)) sens = 1;
+	if (wave > 999) sens = 0;
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
@@ -1170,7 +1173,7 @@ void compute_mixer(void)
 	{
 		for(i = 0; i < NUM_OUTPUT; i++)
 		{
-			trimmem[i] = output.sValue[i] + output.usNeutralValue[i];;
+			trimmem[i] = output.sValue[i] + output.usNeutralValue[i]; // Memorise les actions des manches uniquement
 		}
 	}
 	
