@@ -3,7 +3,7 @@
 
 
 //modele
-#define NUM_MODEL 4
+#define NUM_MODEL 5
 #define NUM_PHASE 2
 
 #define NUM_INPUT 6
@@ -16,11 +16,11 @@
 #define MIN_COURSE 2000 // Servo min course
 #define NEUTRE_COURSE 3000 // Servo neutre course
 #define MAX_COURSE 4000 // Servo max course
-#define BASE_EEPROM 0x4000
-#define SECUMOTEUR_LENGTH 2 //Canal + ratiobat
+#define BASE_EEPROM 0x4000 // Plage EEprom 0X4000 à 0X43FF : 1024 Bytes
+#define SECUMOTEUR_LENGTH 2 //Canal moteur + ratiobat
 #define MODEL_ACTUEL_LENGTH 1
-#define PHASE_LENGTH ((2 * NUM_INPUT) + (4 * NUM_MIXER) + (4 * NUM_OUTPUT) + SECUMOTEUR_LENGTH)
-#define INPUT_LENGTH (6 * NUM_INPUT)
+#define PHASE_LENGTH ((2 * NUM_INPUT) + (3 * NUM_MIXER) + (4 * NUM_OUTPUT) + SECUMOTEUR_LENGTH) // 94
+#define INPUT_LENGTH (6 * NUM_INPUT) // 36
 
 
 typedef struct

@@ -6,7 +6,7 @@
 /* */
 /* Ajout de la gestion du retour au neutre pour trimdyn */
 /* */
-/* */
+/* Un seul etalonnage des manches pour tous les modeles : 5 possibles maintenant (petite modif), ajout réglage tempo du menu*/
 /* */
 /* */
 /* */
@@ -80,6 +80,7 @@ u16 chargeeaccus = 9999;
 u8 ratiotrimdyn = 1;
 u8 tempotrimdyn = 0;
 u8 temptrimdyn = 20;
+u8 tempsmenu = 10;
 _Bool trimdynencour = 0;
 _Bool manche0neutre = 0;
 _Bool manche1neutre = 0;
@@ -326,7 +327,7 @@ u32 FLASH_ProgramdoubleByte(u32 add,u16 val)
 {
 	u8 tval;
 	
-	tval = val  & 0xff;
+	tval = val & 0xff;
 	FLASH_ProgramByte(add, val);
 	add ++;
 	
@@ -358,9 +359,9 @@ void reset_model(void)
 	//input
 	for(i = 0; i < NUM_INPUT; i++)
 	{
-		input.channel[i].usMinValue = 0;
-		input.channel[i].usNeutralValue = 511;
-		input.channel[i].usMaxValue = 1023;
+		//input.channel[i].usMinValue = 0;
+		//input.channel[i].usNeutralValue = 511;
+		//input.channel[i].usMaxValue = 1023;
 		input.channel[i].expo[0] = 0;
 		input.channel[i].expo[1] = 0;
 		
@@ -420,16 +421,15 @@ void reset_neutre(void)
 	
 }
 
-void load_input(u8 model)
+void load_input(void) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 {
 	u8 i = 0;
 	u16 delta2;
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 	
-	addr = addr + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * model);
-
 	flashencour = 1;
+	
 	//input
 	for(i = 0; i < NUM_INPUT; i++)
 	{	
@@ -458,10 +458,11 @@ void load_phase(u8 phase)
 	u8 i = 0;
 	u8 j = 0;
 	s8 temp;
+	u8 mix;
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 	
-	addr = addr + INPUT_LENGTH  + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * modele_actuel);
+	addr = addr + INPUT_LENGTH  + ((NUM_PHASE * PHASE_LENGTH) * modele_actuel);
 	
 	addr = addr + ( PHASE_LENGTH * phase );
 
@@ -479,9 +480,17 @@ void load_phase(u8 phase)
 	//mixer
 	for(i = 0; i < NUM_MIXER; i++)
 	{
-		mixer[i].in = FLASH_ReadByte(addr);
-		addr++;
-		mixer[i].out = FLASH_ReadByte(addr);
+		mix = FLASH_ReadByte(addr);
+		mix = (mix >> 4);
+		mix = mix & 0xF;
+		if (mix == 0xF) mixer[i].in = 255; else mixer[i].in = mix;
+		mix = FLASH_ReadByte(addr);
+		mix = mix & 0xF;
+		if (mix == 0xF) mixer[i].out = 255; else mixer[i].out = mix;
+
+		//mixer[i].in = FLASH_ReadByte(addr);
+		//addr++;
+		//mixer[i].out = FLASH_ReadByte(addr);
 		addr++;
 		mixer[i].pente[0] = FLASH_ReadByte(addr);
 		addr++;
@@ -516,39 +525,16 @@ void load_phase(u8 phase)
 
 }
 
-void save_input(u8 model) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
-{
-	u8 i = 0;
-	
-	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
-	
-	addr = addr + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * model);
-	
-	flashencour = 1;
-
-	prepareflash();
-	
-	//input
-	for(i = 0; i < NUM_INPUT; i++)
-	{
-		addr = FLASH_ProgramdoubleByte(addr,input.channel[i].usMinValue);
-		addr = FLASH_ProgramdoubleByte(addr,input.channel[i].usNeutralValue);
-		addr = FLASH_ProgramdoubleByte(addr,input.channel[i].usMaxValue);
-	}
-	FLASH_Lock(FLASH_MEMTYPE_DATA);	
-	flashencour = 0;
-
-}
-
-void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (96) PHASE_LENGTH
+void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (94) PHASE_LENGTH
 {
 	u8 i = 0;
 	u8 j = 0;
 	s8 temp;
+	u8 mix;
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 	
-	addr = addr + INPUT_LENGTH  + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * modele_actuel);
+	addr = addr + INPUT_LENGTH  + ((NUM_PHASE * PHASE_LENGTH) * modele_actuel);
 	
 	addr = addr + ( PHASE_LENGTH * phase );
 	
@@ -570,9 +556,15 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (4 x NUM_MIXER) + (3 x N
 	//mixer
 	for(i = 0; i < NUM_MIXER; i++)
 	{
-		FLASH_ProgramByte(addr,mixer[i].in);
-		addr ++;
-		FLASH_ProgramByte(addr,mixer[i].out);
+		if (mixer[i].in == 255) mix = 0xF; else mix = mixer[i].in;
+		mix = (mix << 4);
+		if (mixer[i].out == 255) mix+= 0xF; else mix+= mixer[i].out;
+		FLASH_ProgramByte(addr,mix);
+
+		
+		//FLASH_ProgramByte(addr,mixer[i].in);
+		//addr ++;
+		//FLASH_ProgramByte(addr,mixer[i].out);
 		addr ++;
 		FLASH_ProgramByte(addr,mixer[i].pente[0]);
 		addr ++;
@@ -615,27 +607,26 @@ void save_neutre(u8 phase) // Sauve les neutre si modifiés (trimchange)
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 	
-	addr = addr + INPUT_LENGTH  + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * modele_actuel);
+	addr = addr + INPUT_LENGTH  + ((NUM_PHASE * PHASE_LENGTH) * modele_actuel);
 	
 	addr = addr + ( PHASE_LENGTH * phase );
 	
-	addr = addr + (2 * NUM_INPUT) + (4 * NUM_MIXER);
+	addr = addr + (2 * NUM_INPUT) + (3 * NUM_MIXER);
 	
 	flashencour = 1;
 
 	prepareflash();
 
-	//mixer
 	
 	for(i = 0; i < NUM_OUTPUT; i++)
 	{
 		
 		addr++;
-		addr ++;
+		addr++;
 		temp = sortiepourcent(output.usNeutralValue[i]);
 		FLASH_ProgramByte(addr,temp);
-		addr ++;
-		addr ++;
+		addr++;
+		addr++;
 
 	}
 	FLASH_Lock(FLASH_MEMTYPE_DATA);	
@@ -823,7 +814,7 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	{
 		u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 		
-		addr = addr + (((NUM_PHASE * PHASE_LENGTH) + INPUT_LENGTH ) * modele_actuel);
+		addr = addr + ((NUM_PHASE * PHASE_LENGTH) * modele_actuel);
 
 		for(i = 0; i < NUM_INPUT; i++)
 		{
@@ -846,7 +837,7 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	while(!haut) 	haut = GPIO_ReadInputPin(GPIOG,GPIO_PIN_1);
 	Tempo_menu = 14;
 	Delayms(500);
-	load_input(phase_actuelle);
+	load_input();
 
 }
 
@@ -1391,7 +1382,7 @@ void main(void)
 	
 	modele_actuel = FLASH_ReadByte(BASE_EEPROM);
 	
-	load_input(modele_actuel);
+	load_input();
 	lectureswitch();
 	load_phase(phase_actuelle);
 	

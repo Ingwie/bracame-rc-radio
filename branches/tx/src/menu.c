@@ -15,6 +15,7 @@ extern _Bool flashencour;
 extern _Bool menudyn;
 extern u8 ratiobat;
 extern u8 trimstep;
+extern u8 tempsmenu;
 
 /* modele */
 void m10(void)
@@ -38,7 +39,6 @@ void m11(void)
 		if (modele_actuel != (NUM_MODEL - 1)) modele_actuel++;
 		else modele_actuel = 0;
 		
-		load_input(modele_actuel);
 		load_phase(phase_actuelle);
 		flashencour = 1;
 		prepareflash();	
@@ -120,7 +120,6 @@ void m13(void)
 	if (gauche)
 	{
 		reset_model();
-		save_input(modele_actuel);
 		LCD_DISP_OFF();
 		LCD_CLEAR_DISPLAY();
 		LCD_printtruc(1,4,"reset ok\n",0);
@@ -128,7 +127,7 @@ void m13(void)
 
 		save_phase(phase_actuelle);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
-		load_input(modele_actuel);
+		//load_input(modele_actuel);
 		Delayms(500);
 		haut = 1;
 	}
@@ -494,7 +493,6 @@ void m71(void)
 	if (droite) {
 		jeton = 10;
 		etalonnage();
-		load_input(modele_actuel);
 	}
 	else
 	{
@@ -545,7 +543,7 @@ void m74(void)
 	LCD_printtruc(2,7,"~\n",0);
 	LCD_DISP_ON();
 
-	navigue(74,73,70,74,75);
+	navigue(74,73,78,74,75);
 	
 }
 
@@ -630,6 +628,23 @@ void m177(void)
 	menudyn = 1;
 
 	navigue(177,74,177,177,177);
+	
+}
+
+/* Temps affichage menu */
+void m78(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,1,"Temps aff. menu\n",0);
+	LCD_DISP_ON();
+	
+	if ((droite) && (tempsmenu < 30)) tempsmenu += 2;
+	if ((gauche) && (tempsmenu > 2)) tempsmenu -= 2;
+	
+	LCD_printtruc(2,3," ~ %u Sec.\n",tempsmenu);
+	
+	navigue(78,74,70,78,78);
 	
 }
 
@@ -755,6 +770,10 @@ void Menu(void)
 
 	case 177:
 		m177();
+		break;
+		
+	case 78:
+		m78();
 		break;
 		
 	default:
