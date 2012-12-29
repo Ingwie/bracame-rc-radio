@@ -37,6 +37,7 @@ _Bool synchro = 0;
 
 u8 channel = 0;
 u8 Tempo_menu;
+extern u8 tempsmenu;
 extern _Bool trimdyn;
 extern _Bool trimdynencour;
 extern u8 temptrimdyn;
@@ -472,12 +473,10 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 	
 		tempotrimdyn--;
 		
-		if (tempotrimdyn == 1)
+		if (tempotrimdyn <= 1)
 		{
 			trimdynencour = 0;
 			bip(1,0,0,0,0);
-
-			
 		}
 	}
 	
@@ -510,7 +509,7 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 			Menu_raz = 0;
 		}
 		
-		if (Tempo_menu == 10)
+		if (Tempo_menu >= tempsmenu)
 		{
 			LCD_CLEAR_DISPLAY();
 			Menu_actif = 0;

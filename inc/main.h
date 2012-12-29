@@ -2,11 +2,11 @@
 #define MAIN_H
 
 void etalonnage(void);
-void save_input(u8 model); 
+void save_input(); 
 void save_phase(u8 phase); 
 void reset_model(void);
 void load_phase(u8 phase);
-void load_input(u8 model);
+void load_input();
 void calcultrame(void);
 void settrimdyn(void);
 void bip(u8 temps1,u8 temps2,u8 temps3,u8 temps4,u8 temps5); // temps x 0.2 sec
