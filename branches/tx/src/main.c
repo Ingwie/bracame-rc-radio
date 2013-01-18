@@ -359,34 +359,17 @@ void reset_model(void)
 	//input
 	for(i = 0; i < NUM_INPUT; i++)
 	{
-		//input.channel[i].usMinValue = 0;
-		//input.channel[i].usNeutralValue = 511;
-		//input.channel[i].usMaxValue = 1023;
 		input.channel[i].expo[0] = 0;
 		input.channel[i].expo[1] = 0;
-		
 	}
 	
 	//mixer 
 	for(i = 0; i < NUM_MIXER; i++)
 	{
-		if(i < NUM_INPUT + NUM_INPUT_SWITCH)
-		{
-			mixer[i].in = i;
-			mixer[i].out = i;
-			mixer[i].pente[0] = 100;
-			mixer[i].pente[1] = 100;
-			
-		}
-		else
-		{
-			mixer[i].in = 255;
-			mixer[i].out = 255;
-			mixer[i].pente[0] = 0;
-			mixer[i].pente[1] = 0;
-			
-		}
-		
+		mixer[i].in = 0xFF;
+		mixer[i].out = 0xFF;
+		mixer[i].pente[0] = 0;
+		mixer[i].pente[1] = 0;
 	}
 
 	//output
@@ -488,9 +471,6 @@ void load_phase(u8 phase)
 		mix = mix & 0xF;
 		if (mix == 0xF) mixer[i].out = 255; else mixer[i].out = mix;
 
-		//mixer[i].in = FLASH_ReadByte(addr);
-		//addr++;
-		//mixer[i].out = FLASH_ReadByte(addr);
 		addr++;
 		mixer[i].pente[0] = FLASH_ReadByte(addr);
 		addr++;
@@ -525,7 +505,7 @@ void load_phase(u8 phase)
 
 }
 
-void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (94) PHASE_LENGTH
+void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (94) PHASE_LENGTH
 {
 	u8 i = 0;
 	u8 j = 0;
@@ -534,7 +514,7 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x N
 	
 	u32 addr = BASE_EEPROM + MODEL_ACTUEL_LENGTH + 1;
 	
-	addr = addr + INPUT_LENGTH  + ((NUM_PHASE * PHASE_LENGTH) * modele_actuel);
+	addr = addr + INPUT_LENGTH  + ((NUM_PHASE * PHASE_LENGTH) * modele);
 	
 	addr = addr + ( PHASE_LENGTH * phase );
 	
@@ -562,10 +542,7 @@ void save_phase(u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x N
 		FLASH_ProgramByte(addr,mix);
 
 		
-		//FLASH_ProgramByte(addr,mixer[i].in);
-		//addr ++;
-		//FLASH_ProgramByte(addr,mixer[i].out);
-		addr ++;
+	addr ++;
 		FLASH_ProgramByte(addr,mixer[i].pente[0]);
 		addr ++;
 		FLASH_ProgramByte(addr,mixer[i].pente[1]);
@@ -1176,8 +1153,8 @@ void compute_mixer(void)
 		if (out < NUM_OUTPUT)
 		{
 			if((in > 3) && (in < NUM_INPUT)) // Les autres voies proportionnelles
-					{
-						if(input.channel[in].usValue < 1000)
+			{
+				if(input.channel[in].usValue < 1000)
 				{
 					delta32 = 1000 - input.channel[in].usValue;
 					delta32 *= mixer[i].pente[0];

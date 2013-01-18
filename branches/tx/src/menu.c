@@ -73,7 +73,7 @@ void m12(void)
 	
 	if (gauche)
 	{
-		save_phase(phase_actuelle);
+		save_phase(modele_actuel,phase_actuelle);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 	}
@@ -99,12 +99,47 @@ void m121(void)
 	
 	if (gauche)
 	{
-		save_phase(i);
+		save_phase(modele_actuel,i);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 	}
 
-	navigue(121,11,12,10,121);
+	navigue(121,11,122,10,121);
+
+}
+
+/* Sauve autre modele */
+void m122(void)
+{ 
+	static u8 i = 0;
+	static u8 j = 0;
+	
+	if (droite)
+	{
+	i++;
+	if (i >= NUM_PHASE)
+	{
+	i = 0;
+	j++;
+	}
+	if (j >= NUM_MODEL) j = 0;
+	}
+	
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_LOCATE(1,1);
+	LCD_printf("Sauve en %u - %u\n",(u16)j,(u16)i);
+	LCD_printtruc(2,1,"Appuyer gauche\n",0);
+	LCD_DISP_ON();
+	
+	if (gauche)
+	{
+		save_phase(j,i);
+		LCD_printtruc(2,1,"   sauvegarde   \n",0);
+		Delayms(500);
+	}
+
+	navigue(122,11,12,10,122);
 
 }
 
@@ -125,7 +160,7 @@ void m13(void)
 		LCD_printtruc(1,4,"reset ok\n",0);
 		LCD_DISP_ON();
 
-		save_phase(phase_actuelle);
+		save_phase(modele_actuel,phase_actuelle);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		//load_input(modele_actuel);
 		Delayms(500);
@@ -670,6 +705,10 @@ void Menu(void)
 		
 	case 121:
 		m121();
+		break;
+		
+	case 122:
+		m122();
 		break;
 		
 	case 13:

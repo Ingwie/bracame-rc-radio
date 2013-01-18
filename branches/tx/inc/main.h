@@ -3,7 +3,7 @@
 
 void etalonnage(void);
 void save_input(); 
-void save_phase(u8 phase); 
+void save_phase(u8 modele,u8 phase); 
 void reset_model(void);
 void load_phase(u8 phase);
 void load_input();
