@@ -295,9 +295,9 @@ void LCD_LOCATE(u8 row, u8 column)
 */
 void LCD_printf(const char *fmt, ...)
 {
-	s32 i;
-	u32 text_size, letter;
-	static char text_buffer[32];
+	u8 i;
+	u8 text_size, letter;
+	static char text_buffer[16];
 	va_list args;
 
 	va_start(args, fmt);
