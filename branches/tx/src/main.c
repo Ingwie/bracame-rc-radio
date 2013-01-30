@@ -34,9 +34,11 @@ extern u8 channel;
 u8 modele_actuel;
 u8 phase_actuelle = 0;
 _Bool phase_change = 0;
+_Bool phase_changemenu = 0;
+
 
 _Bool trimdyn = 0; // PD7
-_Bool outputdr = 0; // PE2
+_Bool switchdr = 0; // PE2
 _Bool expon = 0; // PE3
 _Bool secumot = 0; // PE0
 _Bool tor1plus = 0; // PA3
@@ -50,6 +52,7 @@ struct_output NEAR output;
 u16 trimmem[NUM_OUTPUT];
 _Bool flashencour = 0;
 _Bool menudyn = 0;
+_Bool switchinfo = 0;
 _Bool haut = 0; // PG1
 _Bool bas = 0; // PC1
 _Bool gauche = 0; // PG0
@@ -132,7 +135,7 @@ void biponoff(void)
 	Tempo_menu = 8;
 
 	bipon = !bipon;
-
+switchinfo = 1;
 	if (bipon)
 	{
 		LCD_printtruc(1,6,"Bip On",0);
@@ -158,6 +161,7 @@ void info(void) // Affichage pendant le vol ...
 	u8 i;
 	u16 volt;
 	char esp = 32;
+	
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{	
@@ -493,8 +497,7 @@ void load_phase(u8 phase)
 		output.usNeutralValue[i] = pourcentsortie(temp);
 		temp = FLASH_ReadByte(addr);
 		addr++;		
-		output.usMaxValue[i] = pourcentsortie(temp);
-		
+		output.usMaxValue[i] = pourcentsortie(temp);	
 	}
 	
 	output.secumoteur = FLASH_ReadByte(addr);
@@ -542,7 +545,7 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 		FLASH_ProgramByte(addr,mix);
 
 		
-	addr ++;
+		addr ++;
 		FLASH_ProgramByte(addr,mixer[i].pente[0]);
 		addr ++;
 		FLASH_ProgramByte(addr,mixer[i].pente[1]);
@@ -621,6 +624,8 @@ void changeratiotrimdyn(void)
 	Menu_actif = 1;
 	popup = 1;
 	Tempo_menu = 8;
+	switchinfo = 1;
+
 
 	LCD_printtruc(1,2,"Ratio trimdyn",0);
 	LCD_printtruc(2,6," ~ %u\n",ratiotrimdyn);
@@ -922,6 +927,7 @@ void lecturetrim(void)
 void captureADC(void)
 {
 	u8 i;
+	s32 drtemp;
 	u16 value;
 	u16 delta;
 	u16 ecartneutre;
@@ -999,8 +1005,11 @@ void lectureswitch(void)
 		if (phase_actuelle == 1) phase_change = 1;
 		phase_actuelle = 0;
 	}	
+	
+	if (phase_change) phase_changemenu = 1;
+	
 	// DUALRATE
-	outputdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_2);
+	switchdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_2);
 	
 	// EXPO
 	expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
@@ -1217,7 +1226,7 @@ void scale_output(void)
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
 		
-		if (outputdr) //outputdr
+		if (switchdr) //switchdr
 		{
 			drtemp = output.dr[i];
 			drtemp *= output.sValue[i];
@@ -1292,11 +1301,6 @@ void initialise(void)
 	//Bip off
 	GPIO_WriteHigh(GPIOD,GPIO_PIN_4);
 
-	
-	/* LCD chargement table de caracteres*/
-	LCD_INIT();
-	LCD_CMD(CGRAM_address_start);
-	LCD_LOAD_CGRAM(cur,8);
 
 	/* adc 6 voies + batterie */
 	ADC1_DeInit();
@@ -1316,6 +1320,12 @@ void initialise(void)
 	TIM3_DeInit();
 	TIM3_TimeBaseInit(TIM3_PRESCALER_512,6249); // 0.2 Seconde
 	TIM3_ITConfig(TIM3_IT_UPDATE, ENABLE);
+
+	//Compteur fonction delay
+	TIM4_DeInit();
+	TIM4_TimeBaseInit(TIM4_PRESCALER_128,124); // 0.001 Seconde
+	TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+
 
 	//Generateur ppm
 	TIM2_DeInit();
@@ -1346,7 +1356,6 @@ void calcultrame(void) // Boucle principale irq14
 	if (phase_change)
 	{
 		load_phase(phase_actuelle);
-		if (Menu_actif == 1) Menu();
 	}
 	channel = 0;
 }
@@ -1354,14 +1363,21 @@ void calcultrame(void) // Boucle principale irq14
 void main(void)
 {
 	initialise();
-	
-	TIM3_Cmd(ENABLE);
+	enableInterrupts();
+	TIM3_Cmd(ENABLE); // 0.2 seconde
+	TIM4_Cmd(ENABLE); // 0.001 seconde
 	
 	modele_actuel = FLASH_ReadByte(BASE_EEPROM);
 	
 	load_input();
 	lectureswitch();
 	load_phase(phase_actuelle);
+	
+	/* LCD chargement table de caracteres*/
+	LCD_INIT();
+	LCD_CMD(CGRAM_address_start);
+	LCD_LOAD_CGRAM(cur,8);
+
 	
 	LCD_printtruc(1,3,"Modele : %d",modele_actuel);
 	LCD_printtruc(2,4,"Phase : %d",phase_actuelle);
@@ -1374,8 +1390,6 @@ void main(void)
 	calcultrame();
 	TIM2_SetAutoreload(output.usValueOut[0]);
 	TIM2_Cmd(ENABLE);	
-	
-	enableInterrupts();
 	
 	GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
 	GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
@@ -1403,11 +1417,13 @@ void main(void)
 				
 				Menu_on = 0;
 				
-				if (((bas || gauche || droite || menudyn) && Menu_actif && !popup) || haut)
+				if ((((bas || gauche || droite || menudyn) || phase_changemenu) && Menu_actif && !popup) || haut)
 				{				
 					if (menudyn) menudyn = 0;
 					Menu_actif = Menu_raz = 1;
 					Menu();
+					switchinfo = 1;
+					phase_changemenu = 0;
 				}	
 			}
 
@@ -1415,22 +1431,27 @@ void main(void)
 			if ((sec) && (Menu_actif == 0) && (channel == 0))	
 			{
 				chronobat();
-				info();
-				sec = 0;
-				if (bas) changeratiotrimdyn();
-				if (gauche) razchrono();
-				if (droite) biponoff();
+				if (switchinfo)
+				{
+					switchinfo = 0;
+					LCD_CLEAR_DISPLAY();
+				}
+					info();
+					sec = 0;
+					if (bas) changeratiotrimdyn();
+					if (gauche) razchrono();
+					if (droite) biponoff();
+				}
+				
+				
 			}
-			
-			
 		}
+		
 	}
-	
-}
 
 #ifdef USE_FULL_ASSERT
 
-/**
+	/**
 * @brief  Reports the name of the source file and the source line number
 * where the assert_param error has occurred.
 * @param file: pointer to the source file name
@@ -1438,21 +1459,21 @@ void main(void)
 * @retval 
 * None
 */
-void assert_failed(u8* file, u32 line)
-{ 
-	/* User can add his own implementation to report the file name and line number,
+	void assert_failed(u8* file, u32 line)
+	{ 
+		/* User can add his own implementation to report the file name and line number,
 	ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-	LCD_printtruc(1,1,"file %s \n",file);
-	LCD_printtruc(1,1,"line %d\r\n",line);
+		LCD_printtruc(1,1,"file %s \n",file);
+		LCD_printtruc(1,1,"line %d\r\n",line);
 
-	/* Infinite loop */
-	while (1)
-	{
+		/* Infinite loop */
+		while (1)
+		{
 
+		}
 	}
-}
 #endif
 
 
 
-/******************* fin *****END OF FILE****/
+	/******************* fin *****END OF FILE****/

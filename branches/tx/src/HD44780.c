@@ -135,9 +135,9 @@ void LCD_INIT(void)
 	GPIO_WriteHigh(LCDControlPort, LCD_Enable);
 	GPIO_WriteLow(LCDControlPort, LCD_RS);
 	//Initialization of HD44780-based LCD (4-bit HW)
-	Delay(45000);
+	Delayms(45);
 	LCD_CMD(0x33);
-	Delay(4700);
+	Delayms(5);
 	LCD_CMD(0x32);
 	Delay(170);
 	//Function Set 4-bit mode
@@ -148,7 +148,7 @@ void LCD_INIT(void)
 	LCD_CMD(0x06);
 	LCD_CLEAR_DISPLAY();
 	//Minimum Delay to wait before driving LCD module
-	Delay(4000);
+	Delayms(4);
 }
 
 /**
@@ -192,7 +192,7 @@ void LCD_printstring(unsigned char *text)
 void LCD_CLEAR_DISPLAY(void)
 {
 	LCD_CMD(0x01);
-	Delay(1500);
+	Delayms(3);
 }
 
 /**
