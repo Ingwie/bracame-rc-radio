@@ -24,6 +24,7 @@
 #include "tx.h"
 #include "hd44780.h"
 #include "main.h"
+#include "delay.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -50,6 +51,7 @@ extern u8 tempsbip3;
 extern u8 tempsbip4;
 extern u8 tempsbip5;
 extern u8 tempotrimdyn;
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -501,8 +503,8 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 		secondes++;
 
 
-		if (Menu_actif) Tempo_menu++;
-
+		if (Menu_actif)	Tempo_menu++;
+		
 		if (Menu_raz)
 		{
 			Tempo_menu = 0;
@@ -511,7 +513,6 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 		
 		if (Tempo_menu >= tempsmenu)
 		{
-			LCD_CLEAR_DISPLAY();
 			Menu_actif = 0;
 			popup = 0;
 			Tempo_menu = 0;
@@ -762,9 +763,8 @@ void TIM6_UPD_OVF_TRG_IRQHandler(void) interrupt 23
 void TIM4_UPD_OVF_IRQHandler(void) interrupt 23
 #endif /* _COSMIC_ */
 {
-	/* In order to detect unexpected events during development,
-	it is recommended to set a breakpoint on the following instruction.
-*/
+	decmilisec();
+	TIM4_ClearITPendingBit(TIM4_IT_UPDATE);
 }
 #endif /*STM8S903*/
 

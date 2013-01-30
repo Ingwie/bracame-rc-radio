@@ -3,4 +3,5 @@
 
 void Delay(u16 nCount);
 void Delayms(u16 nCount);
+void decmilisec(void);
 #endif

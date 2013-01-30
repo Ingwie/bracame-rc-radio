@@ -25,6 +25,7 @@
 
 typedef struct
 {
+	u8 dr;
 	u16 usValue;
 	u16 usMinValue;
 	u16 usNeutralValue;
