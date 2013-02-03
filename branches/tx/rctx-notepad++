@@ -1,0 +1,20 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\stm8s_it.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\delay.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="882" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\main.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\HD44780.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\menu.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\src\stm8_interrupt_vector.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\tx.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\delay.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\stm8s.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\menu.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\stm8s_it.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\HD44780.h" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="553" startPos="0" endPos="0" selMode="0" lang="C++" encoding="-1" filename="C:\Users\Christophe\Desktop\Mon TX 2.4ghz\bracame-rc-radio\branches\tx\inc\main.h" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

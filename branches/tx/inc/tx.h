@@ -19,7 +19,7 @@
 #define BASE_EEPROM 0x4000 // Plage EEprom 0X4000 à 0X43FF : 1024 Bytes
 #define SECUMOTEUR_LENGTH 2 //Canal moteur + ratiobat
 #define MODEL_ACTUEL_LENGTH 1
-#define PHASE_LENGTH ((2 * NUM_INPUT) + (3 * NUM_MIXER) + (4 * NUM_OUTPUT) + SECUMOTEUR_LENGTH) // 94
+#define PHASE_LENGTH ((2 * NUM_INPUT) + (3 * NUM_MIXER) + (NUM_INPUT + NUM_INPUT_SWITCH) +(3 * NUM_OUTPUT) + SECUMOTEUR_LENGTH) // 94
 #define INPUT_LENGTH (6 * NUM_INPUT) // 36
 
 
@@ -43,7 +43,7 @@ typedef struct
 typedef struct
 {
 	u8 secumoteur;
-	u8 dr[NUM_OUTPUT];
+	u8 dr[NUM_INPUT + NUM_INPUT_SWITCH];
 	s32 sValue[NUM_OUTPUT];
 	u16 usMinValue[NUM_OUTPUT];
 	u16 usNeutralValue[NUM_OUTPUT];
