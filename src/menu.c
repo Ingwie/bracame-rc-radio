@@ -480,14 +480,14 @@ void m60(void)
 
 }
 
-/* DR par sortie */
+/* DR par entree */
 void m61(void)
 { 
 	static u8 i = 0;
 	u8 val;		
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
-	LCD_printtruc(1,1,"Sortie\n",0);
+	LCD_printtruc(1,1,"Entree\n",0);
 	LCD_printtruc(1,12,"Taux\n",0);
 	LCD_DISP_ON();
 	

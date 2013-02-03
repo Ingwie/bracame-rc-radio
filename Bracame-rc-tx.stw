@@ -1,0 +1,12 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=src\rc-tx.stp
+Dependencies=
+[Options]
+ActiveProject=rc-tx
+ActiveConfig=Debug
+AddSortedElements=1

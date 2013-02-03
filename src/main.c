@@ -135,7 +135,7 @@ void biponoff(void)
 	Tempo_menu = 8;
 
 	bipon = !bipon;
-switchinfo = 1;
+	switchinfo = 1;
 	if (bipon)
 	{
 		LCD_printtruc(1,6,"Bip On",0);
@@ -380,9 +380,14 @@ void reset_model(void)
 	
 	output.usValueOut[NUM_OUTPUT] =  LONGUEUR_TRAME; //22.5 ms
 	
+	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
+	{
+		output.dr[i] = 100;
+	}
+	
+	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
-		output.dr[i] = 50;
 		output.sValue[i] = 0;
 		output.usValueOut[i] = NEUTRE_COURSE;
 		output.usMinValue[i] = MIN_COURSE;
@@ -484,11 +489,14 @@ void load_phase(u8 phase)
 	
 	//output
 	
-	
-	for(i = 0; i < NUM_OUTPUT; i++)
+	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
 	{
 		output.dr[i] = FLASH_ReadByte(addr);
 		addr++;
+	}
+
+	for(i = 0; i < NUM_OUTPUT; i++)
+	{
 		temp = FLASH_ReadByte(addr);
 		addr++;		
 		output.usMinValue[i] = pourcentsortie(temp);
@@ -508,7 +516,7 @@ void load_phase(u8 phase)
 
 }
 
-void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (4 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (94) PHASE_LENGTH
+void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER) + (NUM_INPUT + NUM_INPUT_SWITCH) + (3 x NUM_OUTPUT) + SECUMOTEUR_LENGTH (94) PHASE_LENGTH
 {
 	u8 i = 0;
 	u8 j = 0;
@@ -554,12 +562,16 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 	
 	//output
 	
+	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
+	{
+		FLASH_ProgramByte(addr,output.dr[i]);		
+		addr++;
+	}
+
 	
 	for(i = 0; i < NUM_OUTPUT; i++)
 	{
 		
-		FLASH_ProgramByte(addr,output.dr[i]);		
-		addr++;
 		temp = sortiepourcent(output.usMinValue[i]);
 		FLASH_ProgramByte(addr,temp);
 		addr ++;
@@ -879,6 +891,7 @@ void duree(void) // pour debugger optimiser
 s16 entreswitch(u8 i,u8 in)
 { 
 	s16 val;
+	s32 drtemp;
 	
 	val = 0;
 	
@@ -887,11 +900,21 @@ s16 entreswitch(u8 i,u8 in)
 		if (tor1moins) val = mixer[i].pente[0] * (-10);
 		if (tor1plus) val = mixer[i].pente[1] * 10;
 	}
+
 	if (in == (NUM_INPUT + 1))
 	{
 		if (tor2moins) val = mixer[i].pente[0] * (-10);
 		if (tor2plus) val = mixer[i].pente[1] * 10;
 	}
+	
+	if (switchdr)
+	{
+		drtemp = val;
+		drtemp *= output.dr[in];
+		drtemp /= 100;
+		val = drtemp;
+	}
+
 	return val;
 }
 
@@ -965,6 +988,18 @@ void captureADC(void)
 			ecartneutre = delta;
 			value = 1000 + ((delta * input.channel[i].pente[1]) / 256);
 		}
+		
+		if (switchdr) //switchdr
+		{
+			drtemp = value;
+			drtemp -= 1000;
+			drtemp *= output.dr[i];
+			drtemp /= 100;
+			drtemp += 1000;
+			value = drtemp;
+		}
+
+		
 		
 		input.channel[i].usValue = value;
 		
@@ -1219,21 +1254,12 @@ void scale_output(void)
 { 
 	s16 val;
 	u8 i = 0;
-	s32 drtemp;
 	
 	output.usValueOut[NUM_OUTPUT] = LONGUEUR_TRAME;
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
 		
-		if (switchdr) //switchdr
-		{
-			drtemp = output.dr[i];
-			drtemp *= output.sValue[i];
-			drtemp /= 100;
-			output.sValue[i] = drtemp;
-		}
-
 		val = output.sValue[i] + output.usNeutralValue[i];
 		
 		if(val < output.usMinValue[i])
@@ -1436,22 +1462,22 @@ void main(void)
 					switchinfo = 0;
 					LCD_CLEAR_DISPLAY();
 				}
-					info();
-					sec = 0;
-					if (bas) changeratiotrimdyn();
-					if (gauche) razchrono();
-					if (droite) biponoff();
-				}
-				
-				
+				info();
+				sec = 0;
+				if (bas) changeratiotrimdyn();
+				if (gauche) razchrono();
+				if (droite) biponoff();
 			}
+			
+			
 		}
-		
 	}
+	
+}
 
 #ifdef USE_FULL_ASSERT
 
-	/**
+/**
 * @brief  Reports the name of the source file and the source line number
 * where the assert_param error has occurred.
 * @param file: pointer to the source file name
@@ -1459,21 +1485,21 @@ void main(void)
 * @retval 
 * None
 */
-	void assert_failed(u8* file, u32 line)
-	{ 
-		/* User can add his own implementation to report the file name and line number,
+void assert_failed(u8* file, u32 line)
+{ 
+	/* User can add his own implementation to report the file name and line number,
 	ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-		LCD_printtruc(1,1,"file %s \n",file);
-		LCD_printtruc(1,1,"line %d\r\n",line);
+	LCD_printtruc(1,1,"file %s \n",file);
+	LCD_printtruc(1,1,"line %d\r\n",line);
 
-		/* Infinite loop */
-		while (1)
-		{
+	/* Infinite loop */
+	while (1)
+	{
 
-		}
 	}
+}
 #endif
 
 
 
-	/******************* fin *****END OF FILE****/
+/******************* fin *****END OF FILE****/
