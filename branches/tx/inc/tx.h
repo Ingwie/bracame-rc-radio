@@ -25,12 +25,11 @@
 
 typedef struct
 {
-	u8 dr;
-	u16 usValue;
+	s16 usValue;
 	u16 usMinValue;
 	u16 usNeutralValue;
 	u16 usMaxValue;
-	u32 pente[2];
+	u16 pente[2];
 	s8 expo[2];
 } struct_input_channel;
 

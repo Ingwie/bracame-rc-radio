@@ -600,9 +600,9 @@ void m175(void)
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_LOCATE(1,1);
-	LCD_printf("%4u%4u%4u%4u\n",input.channel[0].usValue,input.channel[1].usValue,input.channel[2].usValue,input.channel[3].usValue);
+	LCD_printf("%4u%4u%4u%4u\n",input.channel[0].usValue + 1000,input.channel[1].usValue + 1000,input.channel[2].usValue + 1000,input.channel[3].usValue + 1000);
 	LCD_LOCATE(2,1);
-	LCD_printf("%4u        %4u\n",input.channel[4].usValue,input.channel[5].usValue);
+	LCD_printf("%4u        %4u\n",input.channel[4].usValue + 1000,input.channel[5].usValue + 1000);
 	LCD_DISP_ON();
 	menudyn = 1;
 

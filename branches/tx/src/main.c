@@ -50,7 +50,7 @@ struct_input NEAR input;
 struct_mixer_settings NEAR mixer[NUM_MIXER];
 struct_output NEAR output;
 u16 trimmem[NUM_OUTPUT];
-_Bool flashencour = 0;
+volatile _Bool flashencour = 0;
 _Bool menudyn = 0;
 _Bool switchinfo = 0;
 _Bool haut = 0; // PG1
@@ -835,16 +835,16 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 
 }
 
-// expo only for plus values: x: 0..1000, exp: 1..99
-static s16 expou(u16 x, u8 exp)
+
+static s16 expou(u16 x, u8 exp) // expo only for plus values: x: 0..1000, exp: 1..99
 {
 	// (x*x/1000*x*exp/1000+x*(100-exp)+50)/100
 	return (s16)(((u32)x * x / 1000 * x * exp / 1000
 	+ (u32)x * (u8)(100 - exp) + 50) / 100);
 }
 
-// apply expo: inval: -1000..1000, exp: -99..99
-static s16 expo(s16 inval, u8 i)
+
+static s16 expo(s16 inval, u8 i) // apply expo: inval: -1000..1000, exp: -99..99
 {
 	u8  neg;
 	s16 val;
@@ -907,14 +907,15 @@ s16 entreswitch(u8 i,u8 in)
 		if (tor2plus) val = mixer[i].pente[1] * 10;
 	}
 	
-	if (switchdr)
+	if (switchdr) 
 	{
+		
 		drtemp = val;
 		drtemp *= output.dr[in];
 		drtemp /= 100;
 		val = drtemp;
 	}
-
+	
 	return val;
 }
 
@@ -950,10 +951,8 @@ void lecturetrim(void)
 void captureADC(void)
 {
 	u8 i;
-	s32 drtemp;
-	u16 value;
-	u16 delta;
-	u16 ecartneutre;
+	s16 value;
+	u32 delta;
 	
 	ADC1_StartConversion();
 	
@@ -978,34 +977,21 @@ void captureADC(void)
 		
 		if(value  < input.channel[i].usNeutralValue)
 		{
-			ecartneutre = input.channel[i].usNeutralValue - value;
-			delta = value - input.channel[i].usMinValue;
-			value = (delta * input.channel[i].pente[0]) / 256;
+			delta = input.channel[i].usNeutralValue - value;
+			value = -((delta * input.channel[i].pente[0]) / 256);
 		}
 		else
 		{
 			delta = value - input.channel[i].usNeutralValue;
-			ecartneutre = delta;
-			value = 1000 + ((delta * input.channel[i].pente[1]) / 256);
+			value = ((delta * input.channel[i].pente[1]) / 256);
 		}
-		
-		if (switchdr) //switchdr
-		{
-			drtemp = value;
-			drtemp -= 1000;
-			drtemp *= output.dr[i];
-			drtemp /= 100;
-			drtemp += 1000;
-			value = drtemp;
-		}
-
 		
 		
 		input.channel[i].usValue = value;
 		
 		// Detection de manche au neutre
 		
-		if (ecartneutre < 5)
+		if (delta < 5)
 		{
 			if (i == 0) manche0neutre = 1;
 			if (i == 1) manche1neutre = 1;
@@ -1067,9 +1053,23 @@ void compute_expo(void)
 	for(i =0 ; i < NUM_INPUT; i++)
 	{
 		
-		val16 = input.channel[i].usValue - 1000;
+		val16 = input.channel[i].usValue;
 		
-		input.channel[i].usValue = expo(val16,i) + 1000; 
+		input.channel[i].usValue = expo(val16,i); 
+	}
+}
+
+void compute_dr(void)
+{
+	u8 i;
+	s32 drtemp;
+
+	for(i =0 ; i < NUM_INPUT; i++)
+	{
+		drtemp = input.channel[i].usValue;
+		drtemp *= output.dr[i];
+		drtemp /= 100;
+		input.channel[i].usValue = drtemp;
 	}
 }
 
@@ -1153,22 +1153,23 @@ void compute_mixer(void)
 		{
 			if(in < 4) // que les manches ...
 			{
-				if(input.channel[in].usValue < 1000)
+				delta32 = input.channel[in].usValue;
+
+				if(input.channel[in].usValue < 0)
 				{
-					delta32 = 1000 - input.channel[in].usValue;
 					delta32 *= mixer[i].pente[0];
-					delta32 /= 100;
-					if ((trimdyn) && (out != output.secumoteur)) delta32 /= ratiotrimdyn;
-					output.sValue[out] -= delta32; 
 				}
 				else
 				{
-					delta32 = input.channel[in].usValue - 1000;
 					delta32 *= mixer[i].pente[1];
-					delta32 /= 100;
-					if ((trimdyn) && (out != output.secumoteur)) delta32 /= ratiotrimdyn;
-					output.sValue[out] += delta32;
 				}
+				
+				delta32 /= 100;
+				
+				if ((trimdyn) && (out != output.secumoteur)) delta32 /= ratiotrimdyn;
+				
+				output.sValue[out] += delta32; 
+
 				
 				if (trimdynencour)
 				{
@@ -1198,32 +1199,23 @@ void compute_mixer(void)
 		{
 			if((in > 3) && (in < NUM_INPUT)) // Les autres voies proportionnelles
 			{
-				if(input.channel[in].usValue < 1000)
+				delta32 = input.channel[in].usValue;
+
+				if(input.channel[in].usValue < 0)
 				{
-					delta32 = 1000 - input.channel[in].usValue;
 					delta32 *= mixer[i].pente[0];
-					delta32 /= 100;
-					output.sValue[out] -= delta32; 
 				}
 				else
 				{
-					delta32 = input.channel[in].usValue - 1000;
 					delta32 *= mixer[i].pente[1];
-					delta32 /= 100;
-					output.sValue[out] += delta32;
 				}
 				
+				delta32 /= 100;
+				
+				output.sValue[out] += delta32; 
+				
 			}
-		}
-	}
-	
-	for(i = 0; i < NUM_MIXER ; i++)
-	{
-		in = mixer[i].in;
-		out = mixer[i].out;
-		
-		if (out < NUM_OUTPUT)
-		{						
+			
 			if((in > (NUM_INPUT - 1)) && (in < (NUM_INPUT + NUM_INPUT_SWITCH))) // Switchs
 			{
 				output.sValue[out] += entreswitch(i,in);
@@ -1236,18 +1228,20 @@ void compute_mixer(void)
 				if (wave > 0)
 				{
 					delta32 *= mixer[i].pente[0];
-					delta32 /= 100;
 				} 
 				else
 				{
 					delta32 *= mixer[i].pente[1];
-					delta32 /= 100;
 				}
+				
+				delta32 /= 100;
 				
 				output.sValue[out] += delta32;
 			}
-		}			
+			
+		}
 	}
+	
 }
 
 void scale_output(void)
@@ -1371,6 +1365,7 @@ void calcultrame(void) // Boucle principale irq14
 	captureADC();
 	lectureswitch();
 	if (expon) compute_expo();
+	if (switchdr) compute_dr();
 	compute_trim();
 	compute_mixer();
 	if (!flashencour) scale_output();
