@@ -303,7 +303,7 @@ s8 sortiepourcent(u16 sortie) // Valeurs des temps en %
 	return a;
 }
 
-u16 pourcentsortie(s8 pourcent)
+u16 pourcentsortie(s8 pourcent) // % en temps
 { 
 	return ((pourcent * 10) + NEUTRE_COURSE);
 	
@@ -539,7 +539,8 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 		//expo
 		for(j = 0; j < 2;j++)
 		{
-			FLASH_ProgramByte(addr, input.channel[i].expo[j]);
+			temp = input.channel[i].expo[j];
+			FLASH_ProgramByte(addr, temp);
 			addr ++;
 		}
 	}
@@ -554,9 +555,11 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 
 		
 		addr ++;
-		FLASH_ProgramByte(addr,mixer[i].pente[0]);
+		temp = mixer[i].pente[0];
+		FLASH_ProgramByte(addr,temp);
 		addr ++;
-		FLASH_ProgramByte(addr,mixer[i].pente[1]);
+		temp = mixer[i].pente[1];
+		FLASH_ProgramByte(addr,temp);
 		addr ++;
 	}
 	
@@ -564,7 +567,8 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 	
 	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
 	{
-		FLASH_ProgramByte(addr,output.dr[i]);		
+		mix = output.dr[i];
+		FLASH_ProgramByte(addr,mix);		
 		addr++;
 	}
 
@@ -584,7 +588,8 @@ void save_phase(u8 modele,u8 phase) // taille : (2 x NUM_INPUT) + (3 x NUM_MIXER
 
 	}
 	
-	FLASH_ProgramByte(addr,output.secumoteur);
+	mix = output.secumoteur;
+	FLASH_ProgramByte(addr,mix);
 	addr ++;
 	FLASH_ProgramByte(addr,ratiobat);
 	
@@ -603,7 +608,7 @@ void save_neutre(u8 phase) // Sauve les neutre si modifiés (trimchange)
 	
 	addr = addr + ( PHASE_LENGTH * phase );
 	
-	addr = addr + (2 * NUM_INPUT) + (3 * NUM_MIXER);
+	addr = addr + (2 * NUM_INPUT) + (3 * NUM_MIXER) + (NUM_INPUT + NUM_INPUT_SWITCH);
 	
 	flashencour = 1;
 
@@ -613,7 +618,6 @@ void save_neutre(u8 phase) // Sauve les neutre si modifiés (trimchange)
 	for(i = 0; i < NUM_OUTPUT; i++)
 	{
 		
-		addr++;
 		addr++;
 		temp = sortiepourcent(output.usNeutralValue[i]);
 		FLASH_ProgramByte(addr,temp);
@@ -835,14 +839,12 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 
 }
 
-
 static s16 expou(u16 x, u8 exp) // expo only for plus values: x: 0..1000, exp: 1..99
 {
 	// (x*x/1000*x*exp/1000+x*(100-exp)+50)/100
 	return (s16)(((u32)x * x / 1000 * x * exp / 1000
 	+ (u32)x * (u8)(100 - exp) + 50) / 100);
 }
-
 
 static s16 expo(s16 inval, u8 i) // apply expo: inval: -1000..1000, exp: -99..99
 {
