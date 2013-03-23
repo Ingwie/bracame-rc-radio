@@ -116,13 +116,13 @@ void m122(void)
 	
 	if (droite)
 	{
-	i++;
-	if (i >= NUM_PHASE)
-	{
-	i = 0;
-	j++;
-	}
-	if (j >= NUM_MODEL) j = 0;
+		i++;
+		if (i >= NUM_PHASE)
+		{
+			i = 0;
+			j++;
+		}
+		if (j >= NUM_MODEL) j = 0;
 	}
 	
 	LCD_DISP_OFF();
@@ -856,5 +856,4 @@ s8 reglage_variable(s8 nom,s8 actuel,s8 mini,s8 maxi,s8 pas)
 	
 	return actuel;
 
-	
 }
