@@ -99,7 +99,7 @@ u8 tempsbip2 = 0;
 u8 tempsbip3 = 0;
 u8 tempsbip4 = 0;
 u8 tempsbip5 = 0;
-_Bool bipon = 0;
+_Bool bipon = 1;
 
 char cur[64] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F,
@@ -332,7 +332,7 @@ u32 FLASH_ProgramdoubleByte(u32 add,u16 val)
 	u8 tval;
 	
 	tval = val & 0xff;
-	FLASH_ProgramByte(add, val);
+	FLASH_ProgramByte(add, tval);
 	add ++;
 	
 	tval = (val >> 8) & 0xff;
@@ -958,11 +958,12 @@ void captureADC(void)
 	
 	ADC1_StartConversion();
 	
+	manche0neutre = manche1neutre = manche2neutre = manche3neutre = 0;
+
 	while(ADC1_GetFlagStatus(ADC1_FLAG_EOC) == 0)
 	{
 	}
 
-	manche0neutre = manche1neutre = manche2neutre = manche3neutre = 0;
 
 	for(i = 0; i < NUM_INPUT; i++)
 	{
@@ -1333,8 +1334,7 @@ void initialise(void)
 	DISABLE,
 	ADC1_ALIGN_RIGHT,
 	ADC1_SCHMITTTRIG_CHANNEL0|ADC1_SCHMITTTRIG_CHANNEL1|ADC1_SCHMITTTRIG_CHANNEL2|ADC1_SCHMITTTRIG_CHANNEL3|
-	ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,
-	DISABLE);
+	ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,	DISABLE);
 	ADC1_ScanModeCmd(ENABLE);
 	ADC1_DataBufferCmd(ENABLE);
 	
@@ -1343,7 +1343,7 @@ void initialise(void)
 	TIM3_TimeBaseInit(TIM3_PRESCALER_512,6249); // 0.2 Seconde
 	TIM3_ITConfig(TIM3_IT_UPDATE, ENABLE);
 
-	//Compteur fonction delay
+	//Compteur fonction Delayms
 	TIM4_DeInit();
 	TIM4_TimeBaseInit(TIM4_PRESCALER_128,124); // 0.001 Seconde
 	TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
