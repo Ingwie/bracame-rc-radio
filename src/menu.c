@@ -16,6 +16,7 @@ extern _Bool menudyn;
 extern u8 ratiobat;
 extern u8 trimstep;
 extern u8 tempsmenu;
+extern _Bool switchdr;
 
 /* modele */
 void m10(void)
@@ -842,6 +843,9 @@ void navigue(u8 dou,u8 jetonh,u8 jetonb,u8 jetong,u8 jetond)(void)
 s8 reglage_variable(s8 nom,s8 actuel,s8 mini,s8 maxi,s8 pas)
 {
 	LCD_printtruc(2,3,"%u\n",(nom  + 1));
+	
+	if (switchdr) pas = 1; //Reglage fin
+	
 	if (gauche)
 	{	
 		if (actuel >= (mini + pas)) actuel -= pas;
