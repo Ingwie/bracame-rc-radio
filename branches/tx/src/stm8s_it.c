@@ -41,7 +41,6 @@ u8 Tempo_menu;
 extern u8 tempsmenu;
 extern _Bool trimdyn;
 extern _Bool trimdynencour;
-extern u8 temptrimdyn;
 extern u8 secondesurcinq;
 extern u8 secondes;
 extern u8 minutes;

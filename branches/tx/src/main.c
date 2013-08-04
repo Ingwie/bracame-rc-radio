@@ -37,7 +37,7 @@ _Bool phase_change = 0;
 _Bool phase_changemenu = 0;
 
 
-_Bool trimdyn = 0; // PD7
+_Bool trimdyn = 0; // Lié a PD7
 _Bool switchdr = 0; // PE2
 _Bool expon = 0; // PE3
 _Bool secumot = 0; // PE0
@@ -140,7 +140,8 @@ void biponoff(void)
 	{
 		LCD_printtruc(1,6,"Bip On",0);
 		bip(2,1,1,0,0);
-	} else
+	}
+	else
 	{
 		LCD_printtruc(1,6,"Bip Off",0);
 	}
@@ -274,7 +275,8 @@ void info(void) // Affichage pendant le vol ...
 
 void chronobat(void) // Autonomie batterie f des gaz
 {
-	u16 temp;
+	u16 temp; static _Bool c = 0; static _Bool q = 0; static _Bool t = 0;
+	static _Bool d = 0;
 
 	if (output.secumoteur != 255)
 	{
@@ -288,10 +290,10 @@ void chronobat(void) // Autonomie batterie f des gaz
 		if (chargeeaccus > 9999) chargeeaccus = 0;
 		temp = chargeeaccus/100;
 		if (Menu_actif == 0)	LCD_printtruc(2,9,"%2.2u%%\n",temp);
-		if (temp == 50) bip(3,0,0,0,0);
-		if (temp == 40) bip(6,0,0,0,0);
-		if (temp == 30) bip(12,1,12,1,12);
-		if (temp == 20) bip(12,2,36,1,36);
+		if((temp == 50) && (c == 0)) {bip(3,0,3,0,0); c = 1;}
+		if ((temp == 40) && (q == 0)) {bip(6,0,6,0,0); q = 1;}
+		if ((temp == 30) && (t == 0)) {bip(12,1,12,1,12); t = 1;}
+		if ((temp == 20) && (d == 0)) {bip(12,2,36,1,36); d = 1;}
 	}
 }
 
