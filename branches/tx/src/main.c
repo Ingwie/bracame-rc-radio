@@ -8,7 +8,7 @@
 /* */
 /* Un seul etalonnage des manches pour tous les modeles : 5 possibles maintenant (petite modif), ajout réglage tempo du menu*/
 /* */
-/* */
+/* Multiplexage des switchs secumoteur, phase, expo et dr liberation des entrées i2c pour ise en place d'une 24C256*/
 /* */
 /* */
 /* */
@@ -27,7 +27,6 @@ extern _Bool popup;
 extern _Bool Menu_raz;
 extern _Bool synchro;
 extern u8 Tempo_menu;
-
 extern u8 jeton;
 extern u8 channel;
 
@@ -923,23 +922,46 @@ s16 entreswitch(u8 i,u8 in)
 	return val;
 }
 
-void lecturetrim(void)
+void lectureswitchmultiplex(void)
 {
 	if (trimflag)
 	{
+		// TRIM PLUS
 		trim0plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
 		trim1plus = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
 		trim2plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
 		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		// SECUMOTEUR
+		secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
+		// DUALRATE
+		switchdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_3);
 		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
 	}
 	else
 	{
+		// TRIMS MOINS
 		trim0moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_6);
 		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
 		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
 		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
+		// PHASE
+		if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_0))
+		{
+			if (phase_actuelle == 0) phase_change = 1;
+			phase_actuelle = 1;
+		}
+		else 
+		{
+			if (phase_actuelle == 1) phase_change = 1;
+			phase_actuelle = 0;
+		}	
+		
+		if (phase_change) phase_changemenu = 1;
+		
+		// EXPO
+		expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
+		
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
 		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
 	}
@@ -1016,29 +1038,6 @@ void lectureswitch(void)
 	if (GPIO_ReadInputPin(GPIOD,GPIO_PIN_7)) memtrimdyn();
 	else
 	if (trimdyn) settrimdyn(); // Applique les nouveaux neutres des sorties
-	
-	// SECUMOTEUR
-	secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
-	
-	// PHASE
-	if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_1))
-	{
-		if (phase_actuelle == 0) phase_change = 1;
-		phase_actuelle = 1;
-	}
-	else 
-	{
-		if (phase_actuelle == 1) phase_change = 1;
-		phase_actuelle = 0;
-	}	
-	
-	if (phase_change) phase_changemenu = 1;
-	
-	// DUALRATE
-	switchdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_2);
-	
-	// EXPO
-	expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
 	
 	// TOR1
 	tor1plus = GPIO_ReadInputPin(GPIOA,GPIO_PIN_3);
@@ -1311,8 +1310,10 @@ void initialise(void)
 	GPIO_DeInit(GPIOA);
 	//BAS
 	GPIO_Init(GPIOC,GPIO_PIN_1,GPIO_MODE_IN_FL_NO_IT);
-	// SECUMOTEUR PHASE DUALRATE EXPO DROITE  et trim manches 3 et 2
-	GPIO_Init(GPIOE,GPIO_PIN_ALL,GPIO_MODE_IN_FL_NO_IT);
+	// SECUMOTEUR+PHASE DUALRATE+EXPO DROITE  et trim manches 3 et 2
+	GPIO_Init(GPIOE,GPIO_PIN_0|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7,GPIO_MODE_IN_FL_NO_IT);
+	// I2C SCL ET I2C SDA
+	GPIO_Init(GPIOE,GPIO_PIN_1|GPIO_PIN_2,GPIO_MODE_IN_PU_NO_IT);
 	//GAUCHE (0) ET HAUT (1)
 	GPIO_Init(GPIOG,(GPIO_PIN_0 |GPIO_PIN_1),GPIO_MODE_IN_FL_NO_IT);
 	// TOR1 ET TOR2 (PLUS ET MOINS)
@@ -1365,9 +1366,17 @@ void initialise(void)
 
 void calcultrame(void) // Boucle principale irq14
 {
+	static u8 compteur = 0;
+
 	channel = 0xff;
 	captureADC();
 	lectureswitch();
+	if (compteur >= 3)
+	{
+		lectureswitchmultiplex();
+		compteur = 0;
+	}
+	compteur++;
 	if (expon) compute_expo();
 	if (switchdr) compute_dr();
 	compute_trim();
@@ -1393,8 +1402,15 @@ void main(void)
 	TIM4_Cmd(ENABLE); // 0.001 seconde
 	
 	modele_actuel = FLASH_ReadByte(BASE_EEPROM);
-	
 	load_input();
+	// Lecture des switchs multiplexes
+	GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
+	GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
+	trimflag = 0;
+	lectureswitchmultiplex();
+	Delayms(20);
+	lectureswitchmultiplex();	
+	
 	lectureswitch();
 	load_phase(phase_actuelle);
 	
@@ -1416,9 +1432,6 @@ void main(void)
 	TIM2_SetAutoreload(output.usValueOut[0]);
 	TIM2_Cmd(ENABLE);	
 	
-	GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
-	GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
-	trimflag = 0;
 
 	while (1)
 	{
@@ -1438,7 +1451,6 @@ void main(void)
 				//HAUT
 				haut = GPIO_ReadInputPin(GPIOG,GPIO_PIN_1);
 				
-				lecturetrim();
 				
 				Menu_on = 0;
 				
