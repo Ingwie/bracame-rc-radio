@@ -34,6 +34,8 @@ u8 modele_actuel;
 u8 phase_actuelle = 0;
 _Bool phase_change = 0;
 _Bool phase_changemenu = 0;
+u8 nom_modele[10] = "        \n";
+
 
 
 _Bool trimdyn = 0; // Lié a PD7
@@ -1313,7 +1315,7 @@ void initialise(void)
 	// SECUMOTEUR+PHASE DUALRATE+EXPO DROITE  et trim manches 3 et 2
 	GPIO_Init(GPIOE,GPIO_PIN_0|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7,GPIO_MODE_IN_FL_NO_IT);
 	// I2C SCL ET I2C SDA
-	GPIO_Init(GPIOE,GPIO_PIN_1|GPIO_PIN_2,GPIO_MODE_IN_PU_NO_IT);
+	GPIO_Init(GPIOE,GPIO_PIN_1|GPIO_PIN_2,GPIO_MODE_OUT_OD_HIZ_FAST);
 	//GAUCHE (0) ET HAUT (1)
 	GPIO_Init(GPIOG,(GPIO_PIN_0 |GPIO_PIN_1),GPIO_MODE_IN_FL_NO_IT);
 	// TOR1 ET TOR2 (PLUS ET MOINS)

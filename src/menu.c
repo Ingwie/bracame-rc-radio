@@ -17,6 +17,7 @@ extern u8 ratiobat;
 extern u8 trimstep;
 extern u8 tempsmenu;
 extern _Bool switchdr;
+extern u8 nom_modele[];
 
 /* modele */
 void m10(void)
@@ -28,7 +29,7 @@ void m10(void)
 	LCD_printtruc(2,5,"Actions",0);
 	LCD_DISP_ON();
 
-	navigue(10,10,11,70,20);
+	navigue(10,10,11,80,20);
 	
 }
 
@@ -513,7 +514,7 @@ void m70(void)
 	LCD_printtruc(2,5,"Options\n",0);
 	LCD_DISP_ON();
 
-	navigue(70,0,71,60,10);
+	navigue(70,0,71,60,80);
 	
 }
 
@@ -684,6 +685,50 @@ void m78(void)
 	
 }
 
+/* Nom du modele */
+void m80(void)
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,1,"Modifier le nom\n",0);
+	LCD_printtruc(2,4,"du modele\n",0);
+	LCD_DISP_ON();
+
+	navigue(80,0,81,70,10);
+	
+}
+
+/* Edition du nom du modele */
+void m81(void)
+{
+	static u8 i = 0;
+	u8 caractere;
+
+	caractere = nom_modele[i];	
+	if ((gauche)&(i>=1)) i--;
+	if ((droite)&(i<=6)) i++;
+	if (bas)
+	{
+		caractere++;
+		if (caractere>90) caractere = 32;
+		if (caractere == 33) caractere = 48;
+		if (caractere == 58) caractere = 65;
+		nom_modele[i] = caractere;
+	}
+
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,2,"Nom du modele:\n",0);
+	LCD_LOCATE(2,4);
+	LCD_printstring(nom_modele);
+	LCD_DISP_ON();
+	LCD_LOCATE(2,(4+i));
+	LCD_CMD(0X0F);
+
+	navigue(81,80,81,81,81);
+	
+}
+
 /* Entrée mode menu */
 void Menu(void)
 {
@@ -815,6 +860,15 @@ void Menu(void)
 	case 78:
 		m78();
 		break;
+		
+	case 80:
+		m80();
+		break;
+		
+	case 81:
+		m81();
+		break;
+
 		
 	default:
 		jeton = 10;
