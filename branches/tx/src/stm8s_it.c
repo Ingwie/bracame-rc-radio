@@ -412,7 +412,7 @@ void TIM2_UPD_OVF_BRK_IRQHandler(void) interrupt 13
 	/* Timer2 Update/Overflow/Break Interrupt routine
 */
 
-	if(channel == 0)
+	if(channel == 0) // Premier canal d'emission 
 	{	
 		synchro = 1;
 	}	
@@ -444,8 +444,7 @@ void TIM2_CAP_COM_IRQHandler(void) interrupt 14
 	}
 	else
 	{
-		// Boucle principale
-		calcultrame();
+		calcultrame();  // Boucle principale ++++++++++++++++++++++++++++++++++++++++++
 	}
 	TIM2_ClearITPendingBit(TIM2_IT_CC2);
 }

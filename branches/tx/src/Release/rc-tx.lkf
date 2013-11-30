@@ -52,11 +52,11 @@ crtsi0.sm8
 #<BEGIN OBJECT_FILES>
 Release\delay.o
 Release\hd44780.o
+Release\iic.o
 Release\main.o
 Release\menu.o
 Release\stm8s_adc1.o
 Release\stm8s_clk.o
-Release\stm8s_flash.o
 Release\stm8s_gpio.o
 Release\stm8s_it.o
 Release\stm8s_tim2.o

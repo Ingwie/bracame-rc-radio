@@ -3,24 +3,21 @@
 
 
 //modele
-#define NUM_MODEL 5
-#define NUM_PHASE 2
+#define NUM_MODEL 15
+#define NUM_PHASE 3
 
 #define NUM_INPUT 6
 #define NUM_INPUT_SWITCH 2
 #define NUM_OUTPUT 8
-#define NUM_MIXER 16
+#define NUM_MIXER 18
 
 #define LONGUEUR_TRAME 44100  //40000 = 20MS 44100 = 22.5 MS
 #define LONGUEUR_PULSE 600 // 0.3MS
 #define MIN_COURSE 2000 // Servo min course
 #define NEUTRE_COURSE 3000 // Servo neutre course
 #define MAX_COURSE 4000 // Servo max course
-#define BASE_EEPROM 0x4000 // Plage EEprom 0X4000 à 0X43FF : 1024 Bytes
-#define SECUMOTEUR_LENGTH 2 //Canal moteur + ratiobat
-#define MODEL_ACTUEL_LENGTH 1
-#define PHASE_LENGTH ((2 * NUM_INPUT) + (3 * NUM_MIXER) + (NUM_INPUT + NUM_INPUT_SWITCH) +(3 * NUM_OUTPUT) + SECUMOTEUR_LENGTH) // 94
-#define INPUT_LENGTH (6 * NUM_INPUT) // 36
+#define PLACE_1 7 // Reserve de memoire eeprom 1
+#define PLACE_2 16 // Reserve de memoire eeprom 2
 
 
 typedef struct
@@ -30,7 +27,6 @@ typedef struct
 	u16 usNeutralValue;
 	u16 usMaxValue;
 	u16 pente[2];
-	s8 expo[2];
 } struct_input_channel;
 
 typedef struct
@@ -41,29 +37,37 @@ typedef struct
 
 typedef struct
 {
-	u8 secumoteur;
-	u8 dr[NUM_INPUT + NUM_INPUT_SWITCH];
 	s32 sValue[NUM_OUTPUT];
-	u16 usMinValue[NUM_OUTPUT];
-	u16 usNeutralValue[NUM_OUTPUT];
-	u16 usMaxValue[NUM_OUTPUT];
 	u16 usValueOut[NUM_OUTPUT + 1]; 
 } struct_output;
 
 
 typedef struct
-{	u8  in;
+{	
+	u8  in;
 	u8  out;
 	s8  pente[2];
 } struct_mixer_settings; 
 
 
+typedef struct
+{
+	u8 secumoteur;
+	u8 ratiobat;
+	s8 expo[NUM_INPUT][2];
+	u8 dr[NUM_INPUT + NUM_INPUT_SWITCH];
+	struct_mixer_settings mixer[NUM_MIXER];
+	s16 usMinValue[NUM_OUTPUT];
+	s16 usNeutralValue[NUM_OUTPUT];
+	s16 usMaxValue[NUM_OUTPUT]; 
+} struct_param_phase;
+
 
 extern u8  modele_actuel;
 extern u8  phase_actuelle;
 extern struct_input NEAR input;
-extern struct_mixer_settings NEAR mixer[NUM_MIXER];
 extern struct_output NEAR output;
+extern struct_param_phase NEAR param_phase[NUM_PHASE];
 
 
 
