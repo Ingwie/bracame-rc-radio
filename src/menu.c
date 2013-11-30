@@ -3,7 +3,7 @@
 #include "menu.h"
 #include "main.h"
 #include "tx.h"
-#include "Delay.h"
+#include "delay.h"
 
 u8 jeton = 10;
 
@@ -13,7 +13,6 @@ extern _Bool gauche;
 extern _Bool droite;
 extern _Bool flashencour;
 extern _Bool menudyn;
-extern u8 ratiobat;
 extern u8 trimstep;
 extern u8 tempsmenu;
 extern _Bool switchdr;
@@ -24,8 +23,10 @@ void m10(void)
 { 
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
-	LCD_printtruc(1,1,"Modele %u\n",modele_actuel);
-	LCD_printtruc(1,10,"Phase %u\n",phase_actuelle);
+	LCD_printtruc(1,13,"%2.2u.\n",modele_actuel+1);
+	LCD_LOCATE(1,1);
+	LCD_printstring(nom_modele);
+	LCD_printtruc(1,16,"%u\n",phase_actuelle);
 	LCD_printtruc(2,5,"Actions",0);
 	LCD_DISP_ON();
 
@@ -36,31 +37,18 @@ void m10(void)
 /* change sauve raz modele */
 void m11(void)
 { 
-	if (gauche)
-	{
-		if (modele_actuel != (NUM_MODEL - 1)) modele_actuel++;
-		else modele_actuel = 0;
-		
-		load_phase(phase_actuelle);
-		flashencour = 1;
-		prepareflash();	
-		FLASH_ProgramByte(BASE_EEPROM, modele_actuel);
-		FLASH_Lock(FLASH_MEMTYPE_DATA);			
-		flashencour = 0;
-		Delayms(200);
-
-	}
-	
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
-	LCD_printtruc(1,1,"Modele %u\n",modele_actuel);
-	LCD_printtruc(1,10,"Phase %u\n",phase_actuelle);
+	LCD_LOCATE(1,1);
+	LCD_printstring(nom_modele);
+	LCD_printtruc(1,13,"%2.2u.\n",modele_actuel+1);
+	LCD_printtruc(1,16,"%u\n",phase_actuelle);
 	LCD_printtruc(2,1,"Change Sauve Raz \n",0);
 	LCD_DISP_ON();
 	
 	Delayms(100);
 	
-	navigue(11,10,12,11,13);
+	navigue(11,10,12,14,13);
 	
 }
 
@@ -75,7 +63,7 @@ void m12(void)
 	
 	if (gauche)
 	{
-		save_phase(modele_actuel,phase_actuelle);
+		save_phase_ee(modele_actuel,phase_actuelle);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 	}
@@ -87,10 +75,10 @@ void m12(void)
 /* Sauve autre phase */
 void m121(void)
 { 
-	u8 i;
+	static u8 i = 0;
 	
-	i = phase_actuelle;
-	i++;
+	if (droite)	i++;
+
 	if (i == NUM_PHASE) i = 0;
 	
 	LCD_DISP_OFF();
@@ -101,7 +89,8 @@ void m121(void)
 	
 	if (gauche)
 	{
-		save_phase(modele_actuel,i);
+		save_phase_ee(modele_actuel,i);
+		charge_param_phase();
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 	}
@@ -130,13 +119,14 @@ void m122(void)
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_LOCATE(1,1);
-	LCD_printf("Sauve en %u - %u\n",(u16)j,(u16)i);
+	LCD_printf("Sauve en %u - %u\n",(u16)j+1,(u16)i);
 	LCD_printtruc(2,1,"Appuyer gauche\n",0);
 	LCD_DISP_ON();
 	
 	if (gauche)
 	{
-		save_phase(j,i);
+		save_phase_ee(j,i);
+		charge_param_phase();
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 	}
@@ -156,15 +146,14 @@ void m13(void)
 	
 	if (gauche)
 	{
-		reset_model();
+		reset_modele();
 		LCD_DISP_OFF();
 		LCD_CLEAR_DISPLAY();
 		LCD_printtruc(1,4,"reset ok\n",0);
 		LCD_DISP_ON();
 
-		save_phase(modele_actuel,phase_actuelle);
+		save_phase_ee(modele_actuel,phase_actuelle);
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
-		//load_input(modele_actuel);
 		Delayms(500);
 		haut = 1;
 	}
@@ -173,7 +162,7 @@ void m13(void)
 
 }
 
-/* Raz neutres*/
+/* Raz neutres */
 void m131(void)
 { 
 	LCD_DISP_OFF();
@@ -190,7 +179,7 @@ void m131(void)
 		LCD_printtruc(1,4,"reset ok\n",0);
 		LCD_DISP_ON();
 
-		save_neutre(phase_actuelle);
+		save_neutre_ee();
 		LCD_printtruc(2,1,"   sauvegarde   \n",0);
 		Delayms(500);
 		haut = 1;
@@ -198,6 +187,41 @@ void m131(void)
 
 	navigue(131,11,131,10,131);
 
+}
+
+/* changer de modele */
+void m14(void)
+{ 
+	if(haut) haut = 0;
+	
+	if (droite)
+	{
+		charge_param_phase();
+		sauve_numero_modele_actuel_ee(modele_actuel);
+		haut = 1;
+	}	
+	
+	if (gauche)
+	{
+		if (modele_actuel != (NUM_MODEL - 1)) modele_actuel++;
+		else modele_actuel = 0;
+		charge_nom_modele_ee(modele_actuel);
+		Delayms(200);
+	}
+	
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_LOCATE(1,1);
+	LCD_printstring(nom_modele);
+	LCD_printtruc(1,13,"%2.2u.\n",modele_actuel+1);
+	LCD_printtruc(1,16,"%u\n",phase_actuelle);
+	LCD_printtruc(2,1,"Changer  Valider\n",0);
+	LCD_DISP_ON();
+	
+	Delayms(100);
+	
+	navigue(14,10,14,14,14);
+	
 }
 
 /* Entrees */
@@ -236,8 +260,8 @@ void m21(void)
 	}
 	if (j	== 0) LCD_printtruc(1,5,"+\n",0); else LCD_printtruc(1,5,"-\n",0);
 
-	val = reglage_variable(i,input.channel[i].expo[j],-99,99,3);
-	input.channel[i].expo[j] = val;
+	val = reglage_variable(i,param_phase[phase_actuelle].expo[i][j],-99,99,3);
+	param_phase[phase_actuelle].expo[i][j] = val;
 	
 	navigue(21,20,21,21,21);
 
@@ -290,8 +314,8 @@ void m32(void)
 	}
 	if (i != 255)
 	{
-		j = mixer[i].in;
-		k = mixer[i].out;
+		j = param_phase[phase_actuelle].mixer[i].in;
+		k = param_phase[phase_actuelle].mixer[i].out;
 
 		if (gauche)
 		{
@@ -301,8 +325,8 @@ void m32(void)
 		{
 			if (k != (NUM_OUTPUT -1)) k++; else k = 255;
 		}
-		mixer[i].in = j;
-		mixer[i].out = k;
+		param_phase[phase_actuelle].mixer[i].in = j;
+		param_phase[phase_actuelle].mixer[i].out = k;
 	}
 	if (i != 255)
 	{	LCD_printtruc(2,8,"%u\n",(i + 1));
@@ -340,7 +364,7 @@ void m33(void)
 			{
 				i++;
 recherche:
-				if ((mixer[i].in == 255) || (mixer[i].out == 255) || (i > (NUM_MIXER - 1)))
+				if ((param_phase[phase_actuelle].mixer[i].in == 255) || (param_phase[phase_actuelle].mixer[i].out == 255) || (i > (NUM_MIXER - 1)))
 				{
 					i++;
 					goto recherche;
@@ -351,17 +375,17 @@ recherche:
 	}
 	if (j != 0) LCD_printtruc(1,6,"+\n",0); else LCD_printtruc(1,6,"-\n",0);
 	
-	if ((mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH + 1)) && (mixer[i].out < NUM_OUTPUT))
+	if ((param_phase[phase_actuelle].mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH + 1)) && (param_phase[phase_actuelle].mixer[i].out < NUM_OUTPUT))
 	{
-		mixin = mixer[i].in + 1;
-		mixout = mixer[i].out + 1;
-		if (mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH)) LCD_printtruc(2,6,"(%u\n",mixin);
+		mixin = param_phase[phase_actuelle].mixer[i].in + 1;
+		mixout = param_phase[phase_actuelle].mixer[i].out + 1;
+		if (param_phase[phase_actuelle].mixer[i].in < (NUM_INPUT + NUM_INPUT_SWITCH)) LCD_printtruc(2,6,"(%u\n",mixin);
 		else LCD_printtruc(2,6,"(t",0);
 		LCD_printtruc(2,8,"~%u)\n",mixout);
 		
 		
-		val = reglage_variable(i,mixer[i].pente[j],-125,125,5);
-		mixer[i].pente[j] = val;
+		val = reglage_variable(i,param_phase[phase_actuelle].mixer[i].pente[j],-125,125,5);
+		param_phase[phase_actuelle].mixer[i].pente[j] = val;
 	}
 	navigue(33,31,33,33,33);
 
@@ -405,27 +429,27 @@ void m41(void)
 	{
 		LCD_printtruc(1,12,"Mini\n",0);
 		
-		toto = sortiepourcent(output.usMinValue[i]);
+		toto = sortiepourcent(param_phase[phase_actuelle].usMinValue[i]);
 		toto = reglage_variable(i,toto,-125,125,5);	
-		output.usMinValue[i] = pourcentsortie(toto);
+		param_phase[phase_actuelle].usMinValue[i] = pourcentsortie(toto);
 
 	}
 	else if (j == 1)
 	{
 		LCD_printtruc(1,11,"Neutre\n",0);
 
-		toto = sortiepourcent(output.usNeutralValue[i]);
+		toto = sortiepourcent(param_phase[phase_actuelle].usNeutralValue[i]);
 		toto = reglage_variable(i,toto,-120,120,2);	
-		output.usNeutralValue[i] = pourcentsortie(toto);
+		param_phase[phase_actuelle].usNeutralValue[i] = pourcentsortie(toto);
 
 	}
 	else 
 	{
 		LCD_printtruc(1,12,"Maxi\n",0);
 
-		toto = sortiepourcent(output.usMaxValue[i]);
+		toto = sortiepourcent(param_phase[phase_actuelle].usMaxValue[i]);
 		toto = reglage_variable(i,toto,-125,125,5);	
-		output.usMaxValue[i] = pourcentsortie(toto);
+		param_phase[phase_actuelle].usMaxValue[i] = pourcentsortie(toto);
 
 	}
 
@@ -451,7 +475,7 @@ void m51(void)
 { 
 	u8 i;
 	
-	i = output.secumoteur;
+	i = param_phase[phase_actuelle].secumoteur;
 	if (bas) 
 	{
 		if (i != (NUM_OUTPUT -1)) i++;	else i = 255;
@@ -463,7 +487,7 @@ void m51(void)
 	if (i != 255) LCD_printtruc(2,8,"%u\n",(i + 1));
 	LCD_DISP_ON();
 	
-	output.secumoteur = i;
+	param_phase[phase_actuelle].secumoteur = i;
 	
 	navigue(51,50,51,51,51);
 	
@@ -498,8 +522,8 @@ void m61(void)
 		if (i != (NUM_OUTPUT -1)) i++; else i = 0;
 	}
 	
-	val = reglage_variable(i,output.dr[i],5,100,5);
-	output.dr[i] = val;
+	val = reglage_variable(i,param_phase[phase_actuelle].dr[i],5,100,5);
+	param_phase[phase_actuelle].dr[i] = val;
 
 	navigue(61,60,61,61,61);
 	
@@ -545,10 +569,10 @@ void m72(void)
 	LCD_printtruc(1,1,"Ratio moteur/bat\n",0);
 	LCD_DISP_ON();
 	
-	if ((droite) && (ratiobat < 65)) ratiobat++;
-	if ((gauche) && (ratiobat > 0)) ratiobat--;
+	if ((droite) && (param_phase[phase_actuelle].ratiobat < 65)) param_phase[phase_actuelle].ratiobat++;
+	if ((gauche) && (param_phase[phase_actuelle].ratiobat > 0)) param_phase[phase_actuelle].ratiobat--;
 	
-	LCD_printtruc(2,4,"%u Heure-1\n",ratiobat);
+	LCD_printtruc(2,4,"%u Heure-1\n",param_phase[phase_actuelle].ratiobat);
 	
 	navigue(72,71,73,72,72);
 	
@@ -702,11 +726,31 @@ void m80(void)
 void m81(void)
 {
 	static u8 i = 0;
-	u8 caractere;
+	u8 j;
+	char caractere;
 
 	caractere = nom_modele[i];	
-	if ((gauche)&(i>=1)) i--;
-	if ((droite)&(i<=6)) i++;
+	
+	if ((gauche)&&(i==0))
+	{
+		for(j = 0; j < 10 ; j++)
+		{
+			nom_modele[j] = nom_modele[j+1];
+		}
+		nom_modele[10] = 32;
+	}
+	if ((droite)&&(i==10))
+	{
+		for(j = 0; j < 10 ; j++)
+		{
+			nom_modele[10-j] = nom_modele[9-j];
+		}
+		nom_modele[0] = 32;
+	}
+	
+	if ((gauche)&&(i>=1)) i--;
+	if ((droite)&&(i<=9)) i++;
+	
 	if (bas)
 	{
 		caractere++;
@@ -719,10 +763,10 @@ void m81(void)
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_printtruc(1,2,"Nom du modele:\n",0);
-	LCD_LOCATE(2,4);
+	LCD_LOCATE(2,3);
 	LCD_printstring(nom_modele);
 	LCD_DISP_ON();
-	LCD_LOCATE(2,(4+i));
+	LCD_LOCATE(2,(3+i));
 	LCD_CMD(0X0F);
 
 	navigue(81,80,81,81,81);
@@ -765,6 +809,10 @@ void Menu(void)
 		m131();
 		break;
 		
+	case 14:
+		m14();
+		break;
+
 	case 20:
 		m20();
 		break;

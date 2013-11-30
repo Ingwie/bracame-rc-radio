@@ -1,26 +1,26 @@
 
-Map of Debug\rc-tx.sm8 from link file Debug\rc-tx.lkf - Sun Nov 03 13:39:57 2013
+Map of Debug\rc-tx.sm8 from link file Debug\rc-tx.lkf - Sat Nov 30 18:29:50 2013
 
 
                                --------
                                Segments
                                --------
 
-start 00008080 end 000084df length  1119 segment .const
-start 0000855e end 0000d2a8 length 19786 segment .text
+start 00008080 end 000084ef length  1135 segment .const
+start 00008572 end 0000da69 length 21751 segment .text
 start 00004000 end 00004000 length     0 segment .eeprom
-start 00000000 end 0000006c length   108 segment .bsct, initialized
-start 000084ec end 00008558 length   108 segment .bsct, from
-start 0000006c end 000000bb length    79 segment .ubsct
-start 0000bb:0 end 0000c1:0 length    48 segment .bit, initialized
-start 00008558 end 0000855e length     6 segment .bit, from
-start 000000c1 end 000000c1 length     0 segment .share
+start 00000000 end 0000006f length   111 segment .bsct, initialized
+start 000084fc end 0000856b length   111 segment .bsct, from
+start 0000006f end 000000b8 length    73 segment .ubsct
+start 0000b8:0 end 0000be:1 length    49 segment .bit, initialized
+start 0000856b end 00008572 length     7 segment .bit, from
+start 000000bf end 000000bf length     0 segment .share
 start 00000100 end 00000100 length     0 segment .data
-start 00000100 end 000001ff length   255 segment .bss
-start 00000000 end 00000e4d length  3661 segment .info.
-start 00000000 end 0000cb7c length 52092 segment .debug
+start 00000100 end 00000324 length   548 segment .bss
+start 00000000 end 00000de7 length  3559 segment .info.
+start 00000000 end 0000c25a length 49754 segment .debug
 start 00008000 end 00008080 length   128 segment .const
-start 000084df end 000084ec length    13 segment .init
+start 000084ef end 000084fc length    13 segment .init
 
 
                                -------
@@ -28,229 +28,222 @@ start 000084df end 000084ec length    13 segment .init
                                -------
 
 C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8:
-start 0000855e end 000085a9 length    75 section .text
+start 00008572 end 000085bd length    75 section .text
 start 00000100 end 00000100 length     0 section .bss
-start 0000006c end 0000006c length     0 section .ubsct
+start 0000006f end 0000006f length     0 section .ubsct
 start 00000000 end 0000002f length    47 section .info.
 
 Debug\delay.o:
-start 000085a9 end 000085cd length    36 section .text
+start 000085bd end 000085e1 length    36 section .text
 start 00000000 end 00000002 length     2 section .bsct
 start 00000000 end 00000186 length   390 section .debug
 start 0000002f end 000000ab length   124 section .info.
 
 Debug\hd44780.o:
-start 000085cd end 000087a7 length   474 section .text
-start 0000006c end 0000007c length    16 section .ubsct
+start 000085e1 end 000087bb length   474 section .text
+start 0000006f end 0000007f length    16 section .ubsct
 start 00000186 end 0000086f length  1769 section .debug
 start 000000ab end 00000129 length   126 section .info.
 
+Debug\iic.o:
+start 000087bb end 00008a90 length   725 section .text
+start 0000086f end 00000d5e length  1263 section .debug
+start 00000129 end 000001a3 length   122 section .info.
+start 0000b8:0 end 0000b8:1 length     1 section .bit
+
 Debug\main.o:
-start 000087a7 end 0000a52f length  7560 section .text
-start 00000100 end 000001ff length   255 section .bss
-start 00000002 end 0000005d length    91 section .bsct
-start 0000007c end 000000b0 length    52 section .ubsct
-start 0000086f end 0000259a length  7467 section .debug
-start 00000129 end 000001a4 length   123 section .info.
-start 0000bb:0 end 0000c0:2 length    42 section .bit
-start 00008080 end 000081be length   318 section .const
+start 00008a90 end 0000ad47 length  8887 section .text
+start 00000100 end 00000324 length   548 section .bss
+start 00000002 end 0000005f length    93 section .bsct
+start 0000007f end 000000ad length    46 section .ubsct
+start 00000d5e end 00002a5c length  7422 section .debug
+start 000001a3 end 0000021e length   123 section .info.
+start 0000b8:1 end 0000bd:3 length    42 section .bit
+start 00008080 end 000081c9 length   329 section .const
 
 Debug\menu.o:
-start 0000a52f end 0000b4d3 length  4004 section .text
-start 0000005d end 0000006b length    14 section .bsct
-start 0000259a end 0000310c length  2930 section .debug
-start 000001a4 end 0000021f length   123 section .info.
-start 000081be end 00008475 length   695 section .const
+start 0000ad47 end 0000bef4 length  4525 section .text
+start 0000005f end 0000006e length    15 section .bsct
+start 00002a5c end 0000361a length  3006 section .debug
+start 0000021e end 00000299 length   123 section .info.
+start 000081c9 end 00008485 length   700 section .const
 
 Debug\stm8s_adc1.o:
-start 0000b4d3 end 0000b88d length   954 section .text
-start 0000310c end 000046fd length  5617 section .debug
-start 0000021f end 000002a0 length   129 section .info.
+start 0000bef4 end 0000c2ae length   954 section .text
+start 0000361a end 00004c0b length  5617 section .debug
+start 00000299 end 0000031a length   129 section .info.
 
 Debug\stm8s_clk.o:
-start 0000b88d end 0000bb87 length   762 section .text
-start 000046fd end 00005d6c length  5743 section .debug
-start 000002a0 end 00000320 length   128 section .info.
-start 00008475 end 00008481 length    12 section .const
-
-Debug\stm8s_flash.o:
-start 0000bb87 end 0000bdc1 length   570 section .text
-start 00005d6c end 00006b9c length  3632 section .debug
-start 00000320 end 000003a2 length   130 section .info.
+start 0000c2ae end 0000c5a8 length   762 section .text
+start 00004c0b end 0000627a length  5743 section .debug
+start 0000031a end 0000039a length   128 section .info.
+start 00008485 end 00008491 length    12 section .const
 
 Debug\stm8s_gpio.o:
-start 0000bdc1 end 0000be5e length   157 section .text
-start 00006b9c end 000075a6 length  2570 section .debug
-start 000003a2 end 00000423 length   129 section .info.
+start 0000c5a8 end 0000c645 length   157 section .text
+start 0000627a end 00006c84 length  2570 section .debug
+start 0000039a end 0000041b length   129 section .info.
 
 Debug\stm8s_it.o:
-start 0000be5e end 0000bfc7 length   361 section .text
-start 0000006b end 0000006c length     1 section .bsct
-start 000000b0 end 000000b1 length     1 section .ubsct
-start 000075a6 end 00007d71 length  1995 section .debug
-start 00000423 end 000004a2 length   127 section .info.
-start 0000c0:2 end 0000c1:0 length     6 section .bit
+start 0000c645 end 0000c7ae length   361 section .text
+start 0000006e end 0000006f length     1 section .bsct
+start 000000ad end 000000ae length     1 section .ubsct
+start 00006c84 end 0000744f length  1995 section .debug
+start 0000041b end 0000049a length   127 section .info.
+start 0000bd:3 end 0000be:1 length     6 section .bit
 
 Debug\stm8s_tim2.o:
-start 0000bfc7 end 0000c462 length  1179 section .text
-start 00007d71 end 0000a085 length  8980 section .debug
-start 000004a2 end 00000523 length   129 section .info.
+start 0000c7ae end 0000cc49 length  1179 section .text
+start 0000744f end 00009763 length  8980 section .debug
+start 0000049a end 0000051b length   129 section .info.
 
 Debug\stm8s_tim3.o:
-start 0000c462 end 0000c7ef length   909 section .text
-start 0000a085 end 0000be9f length  7706 section .debug
-start 00000523 end 000005a4 length   129 section .info.
+start 0000cc49 end 0000cfd6 length   909 section .text
+start 00009763 end 0000b57d length  7706 section .debug
+start 0000051b end 0000059c length   129 section .info.
 
 Debug\stm8s_tim4.o:
-start 0000c7ef end 0000c8b8 length   201 section .text
-start 0000be9f end 0000ca56 length  2999 section .debug
-start 000005a4 end 00000625 length   129 section .info.
+start 0000cfd6 end 0000d09f length   201 section .text
+start 0000b57d end 0000c134 length  2999 section .debug
+start 0000059c end 0000061d length   129 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)vsprnt.o:
-start 0000c8b8 end 0000c8ca length    18 section .text
-start 00000625 end 00000699 length   116 section .info.
+start 0000d09f end 0000d0b1 length    18 section .text
+start 0000061d end 00000691 length   116 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o:
-start 0000c8ca end 0000cdf7 length  1325 section .text
-start 00000699 end 0000070d length   116 section .info.
-start 00008481 end 000084ba length    57 section .const
+start 0000d0b1 end 0000d5de length  1325 section .text
+start 00000691 end 00000705 length   116 section .info.
+start 00008491 end 000084ca length    57 section .const
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o:
-start 0000cdf7 end 0000cf07 length   272 section .text
-start 0000070d end 0000077f length   114 section .info.
-start 000084ba end 000084df length    37 section .const
+start 0000d5de end 0000d6ee length   272 section .text
+start 00000705 end 00000777 length   114 section .info.
+start 000084ca end 000084ef length    37 section .const
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)idiv0.o:
-start 0000cf07 end 0000cf12 length    11 section .text
-start 0000077f end 000007ab length    44 section .info.
+start 0000d6ee end 0000d6f9 length    11 section .text
+start 00000777 end 000007a3 length    44 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o:
-start 0000cf12 end 0000cf2d length    27 section .text
-start 000007ab end 000007d8 length    45 section .info.
+start 0000d6f9 end 0000d714 length    27 section .text
+start 000007a3 end 000007d0 length    45 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)putchr.o:
-start 0000cf2d end 0000cf34 length     7 section .text
-start 000007d8 end 0000084c length   116 section .info.
+start 0000d714 end 0000d71b length     7 section .text
+start 000007d0 end 00000844 length   116 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)strlen0.o:
-start 0000cf34 end 0000cf40 length    12 section .text
-start 0000084c end 0000087a length    46 section .info.
+start 0000d71b end 0000d727 length    12 section .text
+start 00000844 end 00000872 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)toup0.o:
-start 0000cf40 end 0000cf4b length    11 section .text
-start 0000087a end 000008a6 length    44 section .info.
+start 0000d727 end 0000d732 length    11 section .text
+start 00000872 end 0000089e length    44 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)cmulx.o:
-start 0000cf4b end 0000cf5f length    20 section .text
-start 000008a6 end 000008d5 length    47 section .info.
+start 0000d732 end 0000d746 length    20 section .text
+start 0000089e end 000008cd length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o:
-start 0000cf5f end 0000d04a length   235 section .text
-start 000008d5 end 00000903 length    46 section .info.
+start 0000d746 end 0000d831 length   235 section .text
+start 000008cd end 000008fb length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)imul.o:
-start 0000d04a end 0000d06b length    33 section .text
-start 00000903 end 00000931 length    46 section .info.
+start 0000d831 end 0000d852 length    33 section .text
+start 000008fb end 00000929 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o:
-start 0000d06b end 0000d079 length    14 section .text
-start 00000931 end 00000960 length    47 section .info.
+start 0000d852 end 0000d860 length    14 section .text
+start 00000929 end 00000958 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladc.o:
-start 0000d079 end 0000d08a length    17 section .text
-start 00000960 end 0000098e length    46 section .info.
+start 0000d860 end 0000d871 length    17 section .text
+start 00000958 end 00000986 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o:
-start 0000d08a end 0000d0a2 length    24 section .text
-start 0000098e end 000009bc length    46 section .info.
+start 0000d871 end 0000d889 length    24 section .text
+start 00000986 end 000009b4 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lcmp.o:
-start 0000d0a2 end 0000d0c2 length    32 section .text
-start 000009bc end 000009ea length    46 section .info.
+start 0000d889 end 0000d8a9 length    32 section .text
+start 000009b4 end 000009e2 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lsdiv.o:
-start 0000d0c2 end 0000d0e1 length    31 section .text
-start 000009ea end 00000a19 length    47 section .info.
-
-(C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadc.o:
-start 0000d0e1 end 0000d0f1 length    16 section .text
-start 00000a19 end 00000a48 length    47 section .info.
+start 0000d8a9 end 0000d8c8 length    31 section .text
+start 000009e2 end 00000a11 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o:
-start 0000d0f1 end 0000d108 length    23 section .text
-start 00000a48 end 00000a77 length    47 section .info.
+start 0000d8c8 end 0000d8df length    23 section .text
+start 00000a11 end 00000a40 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgmul.o:
-start 0000d108 end 0000d110 length     8 section .text
-start 00000a77 end 00000aa6 length    47 section .info.
+start 0000d8df end 0000d8e7 length     8 section .text
+start 00000a40 end 00000a6f length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgneg.o:
-start 0000d110 end 0000d123 length    19 section .text
-start 00000aa6 end 00000ad5 length    47 section .info.
-
-(C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgsbc.o:
-start 0000d123 end 0000d139 length    22 section .text
-start 00000ad5 end 00000b04 length    47 section .info.
+start 0000d8e7 end 0000d8fa length    19 section .text
+start 00000a6f end 00000a9e length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o:
-start 0000d139 end 0000d1c4 length   139 section .text
-start 00000b04 end 00000b32 length    46 section .info.
+start 0000d8fa end 0000d985 length   139 section .text
+start 00000a9e end 00000acc length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lneg.o:
-start 0000d1c4 end 0000d1d9 length    21 section .text
-start 00000b32 end 00000b60 length    46 section .info.
+start 0000d985 end 0000d99a length    21 section .text
+start 00000acc end 00000afa length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lreg.o:
-start 000000b1 end 000000b5 length     4 section .ubsct
-start 00000b60 end 00000b8e length    46 section .info.
+start 000000ae end 000000b2 length     4 section .ubsct
+start 00000afa end 00000b28 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o:
-start 0000d1d9 end 0000d1eb length    18 section .text
-start 00000b8e end 00000bbc length    46 section .info.
+start 0000d99a end 0000d9ac length    18 section .text
+start 00000b28 end 00000b56 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ludiv.o:
-start 0000d1eb end 0000d1ff length    20 section .text
-start 00000bbc end 00000beb length    47 section .info.
+start 0000d9ac end 0000d9c0 length    20 section .text
+start 00000b56 end 00000b85 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lursh.o:
-start 0000d1ff end 0000d20e length    15 section .text
-start 00000beb end 00000c1a length    47 section .info.
+start 0000d9c0 end 0000d9cf length    15 section .text
+start 00000b85 end 00000bb4 length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lzmp.o:
-start 0000d20e end 0000d220 length    18 section .text
-start 00000c1a end 00000c48 length    46 section .info.
+start 0000d9cf end 0000d9e1 length    18 section .text
+start 00000bb4 end 00000be2 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o:
-start 0000d220 end 0000d232 length    18 section .text
-start 00000c48 end 00000c76 length    46 section .info.
+start 0000d9e1 end 0000d9f3 length    18 section .text
+start 00000be2 end 00000c10 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o:
-start 0000d232 end 0000d25d length    43 section .text
-start 00000c76 end 00000ca5 length    47 section .info.
+start 0000d9f3 end 0000da1e length    43 section .text
+start 00000c10 end 00000c3f length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utolx.o:
-start 0000d25d end 0000d264 length     7 section .text
-start 00000ca5 end 00000cd4 length    47 section .info.
+start 0000da1e end 0000da25 length     7 section .text
+start 00000c3f end 00000c6e length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utoly.o:
-start 0000d264 end 0000d26c length     8 section .text
-start 00000cd4 end 00000d03 length    47 section .info.
+start 0000da25 end 0000da2d length     8 section .text
+start 00000c6e end 00000c9d length    47 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o:
-start 0000d26c end 0000d2a8 length    60 section .text
-start 00000d03 end 00000d31 length    46 section .info.
+start 0000da2d end 0000da69 length    60 section .text
+start 00000c9d end 00000ccb length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)xreg.o:
-start 000000b5 end 000000b8 length     3 section .ubsct
-start 00000d31 end 00000d5f length    46 section .info.
+start 000000b2 end 000000b5 length     3 section .ubsct
+start 00000ccb end 00000cf9 length    46 section .info.
 
 (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)yreg.o:
-start 000000b8 end 000000bb length     3 section .ubsct
-start 00000d5f end 00000d8d length    46 section .info.
+start 000000b5 end 000000b8 length     3 section .ubsct
+start 00000cf9 end 00000d27 length    46 section .info.
 
 Debug\stm8_interrupt_vector.o:
-start 0000ca56 end 0000cb7c length   294 section .debug
-start 00000d8d end 00000e19 length   140 section .info.
+start 0000c134 end 0000c25a length   294 section .debug
+start 00000d27 end 00000db3 length   140 section .info.
 start 00008000 end 00008080 length   128 section .const
 
 
@@ -283,80 +276,95 @@ _LCD_printf                            91   (9)
 _LCD_printstring                       17   (4)
 _LCD_printtruc                         99   (8)
 
+Debug\iic.o:
+_demitempo                              9   (2)
+_iic_ack                               11   (2)
+_iic_attend_ack                        13   (2)
+_iic_ecrire                            26   (8)
+_iic_envoi_16bit                       18   (4)
+_iic_envoi_byte                        14   (5)
+_iic_lire                              25   (7)
+_iic_nack                              11   (2)
+_iic_recoi_byte                        13   (4)
+_iic_start                             11   (2)
+_iic_stop                              11   (2)
+_tempo                                  9   (2)
+
 Debug\main.o:
-L3541_expo                             42   (11)
-L7241_expou                            31   (17)
-_FLASH_ProgramdoubleByte               16   (9)
-_FLASH_ReaddoubleByte                  16   (10)
+L3351_expou                            31   (17)
+L7551_expo                             42   (11)
 _bip                                   12   (7)
 _biponoff                             101   (2)
 _calcultrame                           51   (2)
 _captureADC                            17   (9)
 _changeratiotrimdyn                   101   (2)
+_charge_nom_modele_ee                 107   (4)
+_charge_param_phase                   119   (3)
 _chronobat                            103   (4)
 _compute_dr                            21   (7)
 _compute_expo                          49   (7)
-_compute_mixer                         37   (13)
-_compute_trim                          10   (7)
-_duree                             >  101   (2)
-_entreswitch                           24   (10)
-_etalonnage                           156   (57)
+_compute_mixer                         39   (13)
+_compute_trim                          14   (11)
+_entreswitch                           26   (12)
+_erreur_ee                            103   (4)
+_etalonnage                           171   (57)
 _info                                 105   (6)
 _initialise                            17   (2)
 _lectureswitch                         16   (2)
 _lectureswitchmultiplex                14   (2)
-_load_input                            29   (13)
-_load_phase                            15   (9)
-_main                              >  162   (2) *** Recursive ***
+_load_input                           114   (11)
+_load_phase_ee                        116   (13)
+_main                              >  177   (2) *** Recursive ***
 _memtrimdyn                            14   (2)
 _nivbar                                 4   (4)
 _pourcentsortie                         5   (2)
-_prepareflash                           4   (2)
 _razchrono                             14   (2)
-_reset_model                            3   (3)
-_reset_neutre                           3   (3)
-_save_neutre                           16   (9)
-_save_phase                            18   (11)
-_scale_output                           9   (5)
-_settrimdyn                             5   (5)
+_reset_modele                           5   (5)
+_reset_neutre                           5   (5)
+_sauve_numero_modele_actuel_ee        106   (3)
+_save_neutre_ee                       118   (15)
+_save_phase_ee                        115   (12)
+_scale_output                           7   (7)
+_settrimdyn                             7   (7)
 _sortiepourcent                         6   (4)
 
 Debug\menu.o:
-_Menu                                 160   (2) *** Recursive ***
-_m10                                  169   (2) *** Recursive ***
-_m11                                  169   (2) *** Recursive ***
-_m12                                  169   (2) *** Recursive ***
-_m121                                 170   (3) *** Recursive ***
-_m122                                 169   (2) *** Recursive ***
-_m13                                  169   (2) *** Recursive ***
-_m131                                 169   (2) *** Recursive ***
-_m175                                 169   (2) *** Recursive ***
-_m176                                 169   (2) *** Recursive ***
-_m177                                 169   (2) *** Recursive ***
-_m20                                  169   (2) *** Recursive ***
-_m21                                  170   (3) *** Recursive ***
-_m30                                  169   (2) *** Recursive ***
-_m31                                  169   (2) *** Recursive ***
-_m32                                  169   (2) *** Recursive ***
-_m33                                  171   (4) *** Recursive ***
-_m40                                  169   (2) *** Recursive ***
-_m41                                  170   (3) *** Recursive ***
-_m50                                  169   (2) *** Recursive ***
-_m51                                  170   (3) *** Recursive ***
-_m60                                  169   (2) *** Recursive ***
-_m61                                  170   (3) *** Recursive ***
-_m70                                  169   (2) *** Recursive ***
-_m71                                  169   (2) *** Recursive ***
-_m72                                  169   (2) *** Recursive ***
-_m73                                  169   (2) *** Recursive ***
-_m74                                  169   (2) *** Recursive ***
-_m75                                  169   (2) *** Recursive ***
-_m76                                  169   (2) *** Recursive ***
-_m77                                  169   (2) *** Recursive ***
-_m78                                  169   (2) *** Recursive ***
-_m80                                  169   (2) *** Recursive ***
-_m81                                  172   (5) *** Recursive ***
-_navigue                              167   (7) *** Recursive ***
+_Menu                                 175   (2) *** Recursive ***
+_m10                                  101   (2) *** Recursive ***
+_m11                                  101   (2) *** Recursive ***
+_m12                                  117   (2) *** Recursive ***
+_m121                                 121   (2) *** Recursive ***
+_m122                                 121   (2) *** Recursive ***
+_m13                                  117   (2) *** Recursive ***
+_m131                                 120   (2) *** Recursive ***
+_m14                                  121   (2) *** Recursive ***
+_m175                                  93   (2) *** Recursive ***
+_m176                                  93   (2) *** Recursive ***
+_m177                                  93   (2) *** Recursive ***
+_m20                                  101   (2) *** Recursive ***
+_m21                                  113   (5) *** Recursive ***
+_m30                                  101   (2) *** Recursive ***
+_m31                                  101   (2) *** Recursive ***
+_m32                                  103   (4) *** Recursive ***
+_m33                                  114   (6) *** Recursive ***
+_m40                                  101   (2) *** Recursive ***
+_m41                                  115   (7) *** Recursive ***
+_m50                                  101   (2) *** Recursive ***
+_m51                                  102   (3) *** Recursive ***
+_m60                                  101   (2) *** Recursive ***
+_m61                                  111   (3) *** Recursive ***
+_m70                                  101   (2) *** Recursive ***
+_m71                                  173   (2) *** Recursive ***
+_m72                                  101   (2) *** Recursive ***
+_m73                                  101   (2) *** Recursive ***
+_m74                                  101   (2) *** Recursive ***
+_m75                                  101   (2) *** Recursive ***
+_m76                                  101   (2) *** Recursive ***
+_m77                                  101   (2) *** Recursive ***
+_m78                                  101   (2) *** Recursive ***
+_m80                                  101   (2) *** Recursive ***
+_m81                                  103   (4) *** Recursive ***
+_navigue                              182   (7) *** Recursive ***
 _reglage_variable                     108   (9)
 
 Debug\stm8s_adc1.o:
@@ -406,28 +414,6 @@ _CLK_SWIMConfig                    >    2   (2)
 _CLK_SYSCLKConfig                  >    3   (3)
 _CLK_SYSCLKEmergencyClear          >    2   (2)
 _CLK_SlowActiveHaltWakeUpCmd       >    2   (2)
-
-Debug\stm8s_flash.o:
-_FLASH_DeInit                           2   (2)
-_FLASH_EraseBlock                  >   13   (11)
-_FLASH_EraseByte                   >    6   (6)
-_FLASH_EraseOptionByte             >   13   (4)
-_FLASH_GetBootSize                 >    9   (6)
-_FLASH_GetFlagStatus               >    3   (3)
-_FLASH_GetLowPowerMode             >    2   (2)
-_FLASH_GetProgrammingTime          >    2   (2)
-_FLASH_ITConfig                    >    2   (2)
-_FLASH_Lock                             2   (2)
-_FLASH_ProgramBlock                >   16   (14)
-_FLASH_ProgramByte                      7   (7)
-_FLASH_ProgramOptionByte           >   14   (5)
-_FLASH_ProgramWord                 >   10   (10)
-_FLASH_ReadByte                         6   (6)
-_FLASH_ReadOptionByte              >    6   (6)
-_FLASH_SetLowPowerMode             >    3   (3)
-_FLASH_SetProgrammingTime               2   (2)
-_FLASH_Unlock                           2   (2)
-_FLASH_WaitForLastOperation             9   (7)
 
 Debug\stm8s_gpio.o:
 _GPIO_DeInit                            2   (2)
@@ -526,7 +512,7 @@ _TIM3_ForcedOC2Config              >    3   (3)
 _TIM3_GenerateEvent                >    2   (2)
 _TIM3_GetCapture1                  >    6   (6)
 _TIM3_GetCapture2                  >    6   (6)
-_TIM3_GetCounter                        4   (4)
+_TIM3_GetCounter                   >    4   (4)
 _TIM3_GetFlagStatus                >    6   (6)
 _TIM3_GetITStatus                  >    5   (5)
 _TIM3_GetPrescaler                 >    2   (2)
@@ -586,7 +572,7 @@ _strlen                                 2   (2)
 _toupper                                2   (2)
 _vsprintf                              82   (8)
 
-Stack size: 224
+Stack size: 239
 
 
                               ---------
@@ -646,1084 +632,1147 @@ Stack size: 224
 
   27 > _CLK_SlowActiveHaltWakeUpCmd: (2)
 
-  28 > _FLASH_EraseBlock: (11)
+  28 > _GPIO_ExternalPullUpConfig: (6)
 
-  29 > _FLASH_EraseByte: (6)
+  29 > _GPIO_ReadInputData: (2)
 
-  30 > _FLASH_EraseOptionByte: (4)
-  31      + _FLASH_WaitForLastOperation: (7)
-       
-  32 > _FLASH_GetBootSize: (6)
+  30 > _GPIO_WriteReverse: (5)
 
-  33 > _FLASH_GetFlagStatus: (3)
-
-  34 > _FLASH_GetLowPowerMode: (2)
-
-  35 > _FLASH_GetProgrammingTime: (2)
-
-  36 > _FLASH_ITConfig: (2)
-
-  37 > _FLASH_ProgramBlock: (14)
-
-  38 > _FLASH_ProgramOptionByte: (5)
-  39      + _FLASH_WaitForLastOperation --> 31
-       
-  40 > _FLASH_ProgramWord: (10)
-
-  41 > _FLASH_ReadOptionByte: (6)
-
-  42 > _FLASH_SetLowPowerMode: (3)
-
-  43 > _GPIO_ExternalPullUpConfig: (6)
-
-  44 > _GPIO_ReadInputData: (2)
-
-  45 > _GPIO_WriteReverse: (5)
-
-  46 > _LCD_2ndROW: (2)
-  47      + _Delay: (4)
-  48      + _LCD_CMD: (4)
-  49      |    + _Delay --> 47
-  50      |    + _GPIO_ReadOutputData: (2)
-  51      |    + _GPIO_Write: (5)
-  52      |    + _GPIO_WriteLow: (5)
-  53      |    + _LCD_ENABLE: (2)
-  54      |    |    + _Delay --> 47
-  55      |    |    + _GPIO_WriteHigh: (5)
-  56      |    |    + _GPIO_WriteLow --> 52
+  31 > _LCD_2ndROW: (2)
+  32      + _Delay: (4)
+  33      + _LCD_CMD: (4)
+  34      |    + _Delay --> 32
+  35      |    + _GPIO_ReadOutputData: (2)
+  36      |    + _GPIO_Write: (5)
+  37      |    + _GPIO_WriteLow: (5)
+  38      |    + _LCD_ENABLE: (2)
+  39      |    |    + _Delay --> 32
+  40      |    |    + _GPIO_WriteHigh: (5)
+  41      |    |    + _GPIO_WriteLow --> 37
           |    | 
           | 
        
-  57 > _LCD_HOME: (2)
-  58      + _Delay --> 47
-  59      + _LCD_CMD --> 48
+  42 > _LCD_HOME: (2)
+  43      + _Delay --> 32
+  44      + _LCD_CMD --> 33
        
-  60 > _LCD_LSHIFT: (2)
-  61      + _LCD_CMD --> 48
+  45 > _LCD_LSHIFT: (2)
+  46      + _LCD_CMD --> 33
        
-  62 > _LCD_PWROFF: (2)
+  47 > _LCD_PWROFF: (2)
 
-  63 > _LCD_PWRON: (2)
+  48 > _LCD_PWRON: (2)
 
-  64 > _LCD_RSHIFT: (2)
-  65      + _LCD_CMD --> 48
+  49 > _LCD_RSHIFT: (2)
+  50      + _LCD_CMD --> 33
        
-  66 > _TIM2_CCxCmd: (4)
+  51 > _TIM2_CCxCmd: (4)
 
-  67 > _TIM2_ClearFlag: (2)
+  52 > _TIM2_ClearFlag: (2)
 
-  68 > _TIM2_ForcedOC1Config: (3)
+  53 > _TIM2_ForcedOC1Config: (3)
 
-  69 > _TIM2_ForcedOC2Config: (3)
+  54 > _TIM2_ForcedOC2Config: (3)
 
-  70 > _TIM2_ForcedOC3Config: (3)
+  55 > _TIM2_ForcedOC3Config: (3)
 
-  71 > _TIM2_GenerateEvent: (2)
+  56 > _TIM2_GenerateEvent: (2)
 
-  72 > _TIM2_GetCapture1: (6)
+  57 > _TIM2_GetCapture1: (6)
 
-  73 > _TIM2_GetCapture2: (6)
+  58 > _TIM2_GetCapture2: (6)
 
-  74 > _TIM2_GetCapture3: (6)
+  59 > _TIM2_GetCapture3: (6)
 
-  75 > _TIM2_GetCounter: (4)
+  60 > _TIM2_GetCounter: (4)
 
-  76 > _TIM2_GetFlagStatus: (6)
+  61 > _TIM2_GetFlagStatus: (6)
 
-  77 > _TIM2_GetITStatus: (5)
+  62 > _TIM2_GetITStatus: (5)
 
-  78 > _TIM2_GetPrescaler: (2)
+  63 > _TIM2_GetPrescaler: (2)
 
-  79 > _TIM2_ICInit: (7)
-  80      + L3_TI1_Config: (6)
-  81      + L5_TI2_Config: (6)
-  82      + L7_TI3_Config: (6)
-  83      + _TIM2_SetIC1Prescaler: (3)
-  84      + _TIM2_SetIC2Prescaler: (3)
-  85      + _TIM2_SetIC3Prescaler: (3)
+  64 > _TIM2_ICInit: (7)
+  65      + L3_TI1_Config: (6)
+  66      + L5_TI2_Config: (6)
+  67      + L7_TI3_Config: (6)
+  68      + _TIM2_SetIC1Prescaler: (3)
+  69      + _TIM2_SetIC2Prescaler: (3)
+  70      + _TIM2_SetIC3Prescaler: (3)
        
-  86 > _TIM2_OC1Init: (8)
+  71 > _TIM2_OC1Init: (8)
 
-  87 > _TIM2_OC1PolarityConfig: (2)
+  72 > _TIM2_OC1PolarityConfig: (2)
 
-  88 > _TIM2_OC1PreloadConfig: (2)
+  73 > _TIM2_OC1PreloadConfig: (2)
 
-  89 > _TIM2_OC2PolarityConfig: (2)
+  74 > _TIM2_OC2PolarityConfig: (2)
 
-  90 > _TIM2_OC3Init: (8)
+  75 > _TIM2_OC3Init: (8)
 
-  91 > _TIM2_OC3PolarityConfig: (2)
+  76 > _TIM2_OC3PolarityConfig: (2)
 
-  92 > _TIM2_OC3PreloadConfig: (2)
+  77 > _TIM2_OC3PreloadConfig: (2)
 
-  93 > _TIM2_PWMIConfig: (9)
-  94      + L3_TI1_Config --> 80
-  95      + L5_TI2_Config --> 81
-  96      + _TIM2_SetIC1Prescaler --> 83
-  97      + _TIM2_SetIC2Prescaler --> 84
+  78 > _TIM2_PWMIConfig: (9)
+  79      + L3_TI1_Config --> 65
+  80      + L5_TI2_Config --> 66
+  81      + _TIM2_SetIC1Prescaler --> 68
+  82      + _TIM2_SetIC2Prescaler --> 69
        
-  98 > _TIM2_SelectOCxM: (4)
+  83 > _TIM2_SelectOCxM: (4)
 
-  99 > _TIM2_SelectOnePulseMode: (2)
+  84 > _TIM2_SelectOnePulseMode: (2)
 
- 100 > _TIM2_SetCompare1: (2)
+  85 > _TIM2_SetCompare1: (2)
 
- 101 > _TIM2_SetCompare2: (2)
+  86 > _TIM2_SetCompare2: (2)
 
- 102 > _TIM2_SetCompare3: (2)
+  87 > _TIM2_SetCompare3: (2)
 
- 103 > _TIM2_UpdateDisableConfig: (2)
+  88 > _TIM2_UpdateDisableConfig: (2)
 
- 104 > _TIM2_UpdateRequestConfig: (2)
+  89 > _TIM2_UpdateRequestConfig: (2)
 
- 105 > _TIM3_ARRPreloadConfig: (2)
+  90 > _TIM3_ARRPreloadConfig: (2)
 
- 106 > _TIM3_CCxCmd: (4)
+  91 > _TIM3_CCxCmd: (4)
 
- 107 > _TIM3_ClearFlag: (4)
+  92 > _TIM3_ClearFlag: (4)
 
- 108 > _TIM3_ForcedOC1Config: (3)
+  93 > _TIM3_ForcedOC1Config: (3)
 
- 109 > _TIM3_ForcedOC2Config: (3)
+  94 > _TIM3_ForcedOC2Config: (3)
 
- 110 > _TIM3_GenerateEvent: (2)
+  95 > _TIM3_GenerateEvent: (2)
 
- 111 > _TIM3_GetCapture1: (6)
+  96 > _TIM3_GetCapture1: (6)
 
- 112 > _TIM3_GetCapture2: (6)
+  97 > _TIM3_GetCapture2: (6)
 
- 113 > _TIM3_GetFlagStatus: (6)
+  98 > _TIM3_GetCounter: (4)
 
- 114 > _TIM3_GetITStatus: (5)
+  99 > _TIM3_GetFlagStatus: (6)
 
- 115 > _TIM3_GetPrescaler: (2)
+ 100 > _TIM3_GetITStatus: (5)
 
- 116 > _TIM3_ICInit: (7)
- 117      + L3_TI1_Config --> 80
- 118      + L5_TI2_Config --> 81
- 119      + _TIM3_SetIC1Prescaler: (3)
- 120      + _TIM3_SetIC2Prescaler: (3)
+ 101 > _TIM3_GetPrescaler: (2)
+
+ 102 > _TIM3_ICInit: (7)
+ 103      + L3_TI1_Config --> 65
+ 104      + L5_TI2_Config --> 66
+ 105      + _TIM3_SetIC1Prescaler: (3)
+ 106      + _TIM3_SetIC2Prescaler: (3)
        
- 121 > _TIM3_OC1Init: (8)
+ 107 > _TIM3_OC1Init: (8)
 
- 122 > _TIM3_OC1PolarityConfig: (2)
+ 108 > _TIM3_OC1PolarityConfig: (2)
 
- 123 > _TIM3_OC1PreloadConfig: (2)
+ 109 > _TIM3_OC1PreloadConfig: (2)
 
- 124 > _TIM3_OC2Init: (8)
+ 110 > _TIM3_OC2Init: (8)
 
- 125 > _TIM3_OC2PolarityConfig: (2)
+ 111 > _TIM3_OC2PolarityConfig: (2)
 
- 126 > _TIM3_OC2PreloadConfig: (2)
+ 112 > _TIM3_OC2PreloadConfig: (2)
 
- 127 > _TIM3_PWMIConfig: (9)
- 128      + L3_TI1_Config --> 80
- 129      + L5_TI2_Config --> 81
- 130      + _TIM3_SetIC1Prescaler --> 119
- 131      + _TIM3_SetIC2Prescaler --> 120
+ 113 > _TIM3_PWMIConfig: (9)
+ 114      + L3_TI1_Config --> 65
+ 115      + L5_TI2_Config --> 66
+ 116      + _TIM3_SetIC1Prescaler --> 105
+ 117      + _TIM3_SetIC2Prescaler --> 106
        
- 132 > _TIM3_PrescalerConfig: (2)
+ 118 > _TIM3_PrescalerConfig: (2)
 
- 133 > _TIM3_SelectOCxM: (4)
+ 119 > _TIM3_SelectOCxM: (4)
 
- 134 > _TIM3_SelectOnePulseMode: (2)
+ 120 > _TIM3_SelectOnePulseMode: (2)
 
- 135 > _TIM3_SetAutoreload: (2)
+ 121 > _TIM3_SetAutoreload: (2)
 
- 136 > _TIM3_SetCompare1: (2)
+ 122 > _TIM3_SetCompare1: (2)
 
- 137 > _TIM3_SetCompare2: (2)
+ 123 > _TIM3_SetCompare2: (2)
 
- 138 > _TIM3_SetCounter: (2)
+ 124 > _TIM3_SetCounter: (2)
 
- 139 > _TIM3_UpdateDisableConfig: (2)
+ 125 > _TIM3_UpdateDisableConfig: (2)
 
- 140 > _TIM3_UpdateRequestConfig: (2)
+ 126 > _TIM3_UpdateRequestConfig: (2)
 
- 141 > _TIM4_ARRPreloadConfig: (2)
+ 127 > _TIM4_ARRPreloadConfig: (2)
 
- 142 > _TIM4_ClearFlag: (2)
+ 128 > _TIM4_ClearFlag: (2)
 
- 143 > _TIM4_GenerateEvent: (2)
+ 129 > _TIM4_GenerateEvent: (2)
 
- 144 > _TIM4_GetCounter: (2)
+ 130 > _TIM4_GetCounter: (2)
 
- 145 > _TIM4_GetFlagStatus: (3)
+ 131 > _TIM4_GetFlagStatus: (3)
 
- 146 > _TIM4_GetITStatus: (5)
+ 132 > _TIM4_GetITStatus: (5)
 
- 147 > _TIM4_GetPrescaler: (2)
+ 133 > _TIM4_GetPrescaler: (2)
 
- 148 > _TIM4_PrescalerConfig: (2)
+ 134 > _TIM4_PrescalerConfig: (2)
 
- 149 > _TIM4_SelectOnePulseMode: (2)
+ 135 > _TIM4_SelectOnePulseMode: (2)
 
- 150 > _TIM4_SetAutoreload: (2)
+ 136 > _TIM4_SetAutoreload: (2)
 
- 151 > _TIM4_SetCounter: (2)
+ 137 > _TIM4_SetCounter: (2)
 
- 152 > _TIM4_UpdateDisableConfig: (2)
+ 138 > _TIM4_UpdateDisableConfig: (2)
 
- 153 > _TIM4_UpdateRequestConfig: (2)
+ 139 > _TIM4_UpdateRequestConfig: (2)
 
- 154 > __stext: (0)
+ 140 > __stext: (0)
 
- 155 > _duree: (2)
- 156      + _LCD_printtruc: (8)
- 157      |    + _LCD_LOCATE: (4)
- 158      |    |    + _LCD_CMD --> 48
+ 141 > _main: (2)
+ 142      + _Delayms: (2)
+ 143      + _GPIO_ReadInputPin: (5)
+ 144      + _GPIO_WriteHigh --> 40
+ 145      + _GPIO_WriteLow --> 37
+ 146      + _LCD_CLEAR_DISPLAY: (2)
+ 147      |    + _Delayms --> 142
+ 148      |    + _LCD_CMD --> 33
+          | 
+ 149      + _LCD_CMD --> 33
+ 150      + _LCD_INIT: (2)
+ 151      |    + _Delay --> 32
+ 152      |    + _Delayms --> 142
+ 153      |    + _GPIO_WriteHigh --> 40
+ 154      |    + _GPIO_WriteLow --> 37
+ 155      |    + _LCD_CLEAR_DISPLAY --> 146
+ 156      |    + _LCD_CMD --> 33
+          | 
+ 157      + _LCD_LOAD_CGRAM: (6)
+ 158      |    + _Delay --> 32
+ 159      |    + _LCD_printchar: (4)
+ 160      |    |    + _Delay --> 32
+ 161      |    |    + _GPIO_ReadOutputData --> 35
+ 162      |    |    + _GPIO_Write --> 36
+ 163      |    |    + _GPIO_WriteHigh --> 40
+ 164      |    |    + _LCD_ENABLE --> 38
           |    | 
- 159      |    + _LCD_printf: (9)
- 160      |    |    + _LCD_printchar: (4)
- 161      |    |    |    + _Delay --> 47
- 162      |    |    |    + _GPIO_ReadOutputData --> 50
- 163      |    |    |    + _GPIO_Write --> 51
- 164      |    |    |    + _GPIO_WriteHigh --> 55
- 165      |    |    |    + _LCD_ENABLE --> 53
-          |    |    | 
- 166      |    |    + _vsprintf: (8)
- 167      |    |    |    + __print: (51)
- 168      |    |    |    |    + L11__cvtup: (6)
- 169      |    |    |    |    |    + _toupper: (2)
+          | 
+ 165      + _LCD_LOCATE: (4)
+ 166      |    + _LCD_CMD --> 33
+          | 
+ 167      + _LCD_printstring: (4)
+ 168      |    + _LCD_printchar --> 159
+          | 
+ 169      + _LCD_printtruc: (8)
+ 170      |    + _LCD_LOCATE --> 165
+ 171      |    + _LCD_printf: (9)
+ 172      |    |    + _LCD_printchar --> 159
+ 173      |    |    + _vsprintf: (8)
+ 174      |    |    |    + __print: (51)
+ 175      |    |    |    |    + L11__cvtup: (6)
+ 176      |    |    |    |    |    + _toupper: (2)
           |    |    |    |    | 
- 170      |    |    |    |    + L31__putbuf: (9)
- 171      |    |    |    |    |    + _putchar: (3)
+ 177      |    |    |    |    + L31__putbuf: (9)
+ 178      |    |    |    |    |    + _putchar: (3)
           |    |    |    |    | 
- 172      |    |    |    |    + L7__gnum: (16)
- 173      |    |    |    |    + __itob: (15)
- 174      |    |    |    |    |    + __udiv: (4)
+ 179      |    |    |    |    + L7__gnum: (16)
+ 180      |    |    |    |    + __itob: (15)
+ 181      |    |    |    |    |    + __udiv: (4)
           |    |    |    |    | 
- 175      |    |    |    |    + __ltob: (17)
- 176      |    |    |    |    |    + __uldiv: (6)
+ 182      |    |    |    |    + __ltob: (17)
+ 183      |    |    |    |    |    + __uldiv: (6)
           |    |    |    |    | 
- 177      |    |    |    |    + _strlen: (2)
+ 184      |    |    |    |    + _strlen: (2)
           |    |    |    | 
           |    |    | 
           |    | 
           | 
- 178      + _TIM3_GetCounter: (4)
-       
- 179 > _main: (2)
- 180      + _Delayms: (2)
- 181      + _FLASH_ReadByte: (6)
- 182      + _GPIO_ReadInputPin: (5)
- 183      + _GPIO_WriteHigh --> 55
- 184      + _GPIO_WriteLow --> 52
- 185      + _LCD_CLEAR_DISPLAY: (2)
- 186      |    + _Delayms --> 180
- 187      |    + _LCD_CMD --> 48
-          | 
- 188      + _LCD_CMD --> 48
- 189      + _LCD_INIT: (2)
- 190      |    + _Delay --> 47
- 191      |    + _Delayms --> 180
- 192      |    + _GPIO_WriteHigh --> 55
- 193      |    + _GPIO_WriteLow --> 52
- 194      |    + _LCD_CLEAR_DISPLAY --> 185
- 195      |    + _LCD_CMD --> 48
-          | 
- 196      + _LCD_LOAD_CGRAM: (6)
- 197      |    + _Delay --> 47
- 198      |    + _LCD_printchar --> 160
-          | 
- 199      + _LCD_printtruc --> 156
- 200      + _Menu: (2)
- 201      |    + _m10: (2)
- 202      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 203      |    |    + _LCD_DISP_OFF: (2)
- 204      |    |    |    + _LCD_CMD --> 48
+ 185      + _Menu: (2)
+ 186      |    + _m10: (2)
+ 187      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 188      |    |    + _LCD_DISP_OFF: (2)
+ 189      |    |    |    + _LCD_CMD --> 33
           |    |    | 
- 205      |    |    + _LCD_DISP_ON: (2)
- 206      |    |    |    + _LCD_CMD --> 48
+ 190      |    |    + _LCD_DISP_ON: (2)
+ 191      |    |    |    + _LCD_CMD --> 33
           |    |    | 
- 207      |    |    + _LCD_printtruc --> 156
- 208      |    |    + _navigue: (7)
- 209      |    |    |    + _Menu --> 200
+ 192      |    |    + _LCD_LOCATE --> 165
+ 193      |    |    + _LCD_printstring --> 167
+ 194      |    |    + _LCD_printtruc --> 169
+ 195      |    |    + _navigue: (7)
+ 196      |    |    |    + _Menu --> 185
           |    |    | 
           |    | 
- 210      |    + _m11: (2)
- 211      |    |    + _Delayms --> 180
- 212      |    |    + _FLASH_Lock: (2)
- 213      |    |    + _FLASH_ProgramByte: (7)
- 214      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 215      |    |    + _LCD_DISP_OFF --> 203
- 216      |    |    + _LCD_DISP_ON --> 205
- 217      |    |    + _LCD_printtruc --> 156
- 218      |    |    + _load_phase: (9)
- 219      |    |    |    + _FLASH_ReadByte --> 181
- 220      |    |    |    + _pourcentsortie: (2)
-          |    |    | 
- 221      |    |    + _navigue --> 208
- 222      |    |    + _prepareflash: (2)
- 223      |    |    |    + _FLASH_DeInit: (2)
- 224      |    |    |    + _FLASH_SetProgrammingTime: (2)
- 225      |    |    |    + _FLASH_Unlock: (2)
-          |    |    | 
+ 197      |    + _m11: (2)
+ 198      |    |    + _Delayms --> 142
+ 199      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 200      |    |    + _LCD_DISP_OFF --> 188
+ 201      |    |    + _LCD_DISP_ON --> 190
+ 202      |    |    + _LCD_LOCATE --> 165
+ 203      |    |    + _LCD_printstring --> 167
+ 204      |    |    + _LCD_printtruc --> 169
+ 205      |    |    + _navigue --> 195
           |    | 
- 226      |    + _m12: (2)
- 227      |    |    + _Delayms --> 180
- 228      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 229      |    |    + _LCD_DISP_OFF --> 203
- 230      |    |    + _LCD_DISP_ON --> 205
- 231      |    |    + _LCD_printtruc --> 156
- 232      |    |    + _navigue --> 208
- 233      |    |    + _save_phase: (11)
- 234      |    |    |    + _FLASH_Lock --> 212
- 235      |    |    |    + _FLASH_ProgramByte --> 213
- 236      |    |    |    + _prepareflash --> 222
- 237      |    |    |    + _sortiepourcent: (4)
-          |    |    | 
-          |    | 
- 238      |    + _m121: (3)
- 239      |    |    + _Delayms --> 180
- 240      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 241      |    |    + _LCD_DISP_OFF --> 203
- 242      |    |    + _LCD_DISP_ON --> 205
- 243      |    |    + _LCD_printtruc --> 156
- 244      |    |    + _navigue --> 208
- 245      |    |    + _save_phase --> 233
-          |    | 
- 246      |    + _m122: (2)
- 247      |    |    + _Delayms --> 180
- 248      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 249      |    |    + _LCD_DISP_OFF --> 203
- 250      |    |    + _LCD_DISP_ON --> 205
- 251      |    |    + _LCD_LOCATE --> 157
- 252      |    |    + _LCD_printf --> 159
- 253      |    |    + _LCD_printtruc --> 156
- 254      |    |    + _navigue --> 208
- 255      |    |    + _save_phase --> 233
-          |    | 
- 256      |    + _m13: (2)
- 257      |    |    + _Delayms --> 180
- 258      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 259      |    |    + _LCD_DISP_OFF --> 203
- 260      |    |    + _LCD_DISP_ON --> 205
- 261      |    |    + _LCD_printtruc --> 156
- 262      |    |    + _navigue --> 208
- 263      |    |    + _reset_model: (3)
- 264      |    |    + _save_phase --> 233
-          |    | 
- 265      |    + _m131: (2)
- 266      |    |    + _Delayms --> 180
- 267      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 268      |    |    + _LCD_DISP_OFF --> 203
- 269      |    |    + _LCD_DISP_ON --> 205
- 270      |    |    + _LCD_printtruc --> 156
- 271      |    |    + _navigue --> 208
- 272      |    |    + _reset_neutre: (3)
- 273      |    |    + _save_neutre: (9)
- 274      |    |    |    + _FLASH_Lock --> 212
- 275      |    |    |    + _FLASH_ProgramByte --> 213
- 276      |    |    |    + _prepareflash --> 222
- 277      |    |    |    + _sortiepourcent --> 237
-          |    |    | 
-          |    | 
- 278      |    + _m175: (2)
- 279      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 280      |    |    + _LCD_DISP_OFF --> 203
- 281      |    |    + _LCD_DISP_ON --> 205
- 282      |    |    + _LCD_LOCATE --> 157
- 283      |    |    + _LCD_printf --> 159
- 284      |    |    + _navigue --> 208
-          |    | 
- 285      |    + _m176: (2)
- 286      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 287      |    |    + _LCD_DISP_OFF --> 203
- 288      |    |    + _LCD_DISP_ON --> 205
- 289      |    |    + _LCD_LOCATE --> 157
- 290      |    |    + _LCD_printf --> 159
- 291      |    |    + _navigue --> 208
-          |    | 
- 292      |    + _m177: (2)
- 293      |    |    + _ADC1_GetBufferValue: (8)
- 294      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 295      |    |    + _LCD_DISP_OFF --> 203
- 296      |    |    + _LCD_DISP_ON --> 205
- 297      |    |    + _LCD_LOCATE --> 157
- 298      |    |    + _LCD_printf --> 159
- 299      |    |    + _navigue --> 208
-          |    | 
- 300      |    + _m20: (2)
- 301      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 302      |    |    + _LCD_DISP_OFF --> 203
- 303      |    |    + _LCD_DISP_ON --> 205
- 304      |    |    + _LCD_printtruc --> 156
- 305      |    |    + _navigue --> 208
-          |    | 
- 306      |    + _m21: (3)
- 307      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 308      |    |    + _LCD_DISP_OFF --> 203
- 309      |    |    + _LCD_DISP_ON --> 205
- 310      |    |    + _LCD_printtruc --> 156
- 311      |    |    + _navigue --> 208
- 312      |    |    + _reglage_variable: (9)
- 313      |    |    |    + _LCD_printtruc --> 156
-          |    |    | 
-          |    | 
- 314      |    + _m30: (2)
- 315      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 316      |    |    + _LCD_DISP_OFF --> 203
- 317      |    |    + _LCD_DISP_ON --> 205
- 318      |    |    + _LCD_printtruc --> 156
- 319      |    |    + _navigue --> 208
-          |    | 
- 320      |    + _m31: (2)
- 321      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 322      |    |    + _LCD_DISP_OFF --> 203
- 323      |    |    + _LCD_DISP_ON --> 205
- 324      |    |    + _LCD_printtruc --> 156
- 325      |    |    + _navigue --> 208
-          |    | 
- 326      |    + _m32: (2)
- 327      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 328      |    |    + _LCD_DISP_OFF --> 203
- 329      |    |    + _LCD_DISP_ON --> 205
- 330      |    |    + _LCD_printtruc --> 156
- 331      |    |    + _navigue --> 208
-          |    | 
- 332      |    + _m33: (4)
- 333      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 334      |    |    + _LCD_DISP_OFF --> 203
- 335      |    |    + _LCD_DISP_ON --> 205
- 336      |    |    + _LCD_printtruc --> 156
- 337      |    |    + _navigue --> 208
- 338      |    |    + _reglage_variable --> 312
-          |    | 
- 339      |    + _m40: (2)
- 340      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 341      |    |    + _LCD_DISP_OFF --> 203
- 342      |    |    + _LCD_DISP_ON --> 205
- 343      |    |    + _LCD_printtruc --> 156
- 344      |    |    + _navigue --> 208
-          |    | 
- 345      |    + _m41: (3)
- 346      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 347      |    |    + _LCD_DISP_OFF --> 203
- 348      |    |    + _LCD_DISP_ON --> 205
- 349      |    |    + _LCD_printtruc --> 156
- 350      |    |    + _navigue --> 208
- 351      |    |    + _pourcentsortie --> 220
- 352      |    |    + _reglage_variable --> 312
- 353      |    |    + _sortiepourcent --> 237
-          |    | 
- 354      |    + _m50: (2)
- 355      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 356      |    |    + _LCD_DISP_OFF --> 203
- 357      |    |    + _LCD_DISP_ON --> 205
- 358      |    |    + _LCD_printtruc --> 156
- 359      |    |    + _navigue --> 208
-          |    | 
- 360      |    + _m51: (3)
- 361      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 362      |    |    + _LCD_DISP_OFF --> 203
- 363      |    |    + _LCD_DISP_ON --> 205
- 364      |    |    + _LCD_printtruc --> 156
- 365      |    |    + _navigue --> 208
-          |    | 
- 366      |    + _m60: (2)
- 367      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 368      |    |    + _LCD_DISP_OFF --> 203
- 369      |    |    + _LCD_DISP_ON --> 205
- 370      |    |    + _LCD_printtruc --> 156
- 371      |    |    + _navigue --> 208
-          |    | 
- 372      |    + _m61: (3)
- 373      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 374      |    |    + _LCD_DISP_OFF --> 203
- 375      |    |    + _LCD_DISP_ON --> 205
- 376      |    |    + _LCD_printtruc --> 156
- 377      |    |    + _navigue --> 208
- 378      |    |    + _reglage_variable --> 312
-          |    | 
- 379      |    + _m70: (2)
- 380      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 381      |    |    + _LCD_DISP_OFF --> 203
- 382      |    |    + _LCD_DISP_ON --> 205
- 383      |    |    + _LCD_printtruc --> 156
- 384      |    |    + _navigue --> 208
-          |    | 
- 385      |    + _m71: (2)
- 386      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 387      |    |    + _LCD_DISP_OFF --> 203
- 388      |    |    + _LCD_DISP_ON --> 205
- 389      |    |    + _LCD_printtruc --> 156
- 390      |    |    + _etalonnage: (57)
- 391      |    |    |    + _ADC1_ClearFlag: (4)
- 392      |    |    |    + _ADC1_GetBufferValue --> 293
- 393      |    |    |    + _ADC1_GetFlagStatus: (4)
- 394      |    |    |    + _ADC1_StartConversion: (2)
- 395      |    |    |    + _Delayms --> 180
- 396      |    |    |    + _FLASH_Lock --> 212
- 397      |    |    |    + _FLASH_ProgramdoubleByte: (9)
- 398      |    |    |    |    + _FLASH_ProgramByte --> 213
+ 206      |    + _m12: (2)
+ 207      |    |    + _Delayms --> 142
+ 208      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 209      |    |    + _LCD_DISP_OFF --> 188
+ 210      |    |    + _LCD_DISP_ON --> 190
+ 211      |    |    + _LCD_printtruc --> 169
+ 212      |    |    + _navigue --> 195
+ 213      |    |    + _save_phase_ee: (12)
+ 214      |    |    |    + _erreur_ee: (4)
+ 215      |    |    |    |    + _Delayms --> 142
+ 216      |    |    |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 217      |    |    |    |    + _LCD_DISP_OFF --> 188
+ 218      |    |    |    |    + _LCD_DISP_ON --> 190
+ 219      |    |    |    |    + _LCD_printtruc --> 169
           |    |    |    | 
- 399      |    |    |    + _GPIO_ReadInputPin --> 182
- 400      |    |    |    + _LCD_CLEAR_DISPLAY --> 185
- 401      |    |    |    + _LCD_DISP_OFF --> 203
- 402      |    |    |    + _LCD_DISP_ON --> 205
- 403      |    |    |    + _LCD_printtruc --> 156
- 404      |    |    |    + _bip: (7)
- 405      |    |    |    |    + _GPIO_WriteLow --> 52
-          |    |    |    | 
- 406      |    |    |    + _load_input: (13)
- 407      |    |    |    |    + _FLASH_ReaddoubleByte: (10)
- 408      |    |    |    |    |    + _FLASH_ReadByte --> 181
+ 220      |    |    |    + _iic_ecrire: (8)
+ 221      |    |    |    |    + _Delayms --> 142
+ 222      |    |    |    |    + _iic_attend_ack: (2)
+ 223      |    |    |    |    |    + _GPIO_ReadInputPin --> 143
+ 224      |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 225      |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 226      |    |    |    |    |    + _demitempo: (2)
+ 227      |    |    |    |    |    |    + _Delay --> 32
+          |    |    |    |    |    | 
+ 228      |    |    |    |    |    + _iic_stop: (2)
+ 229      |    |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 230      |    |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 231      |    |    |    |    |    |    + _demitempo --> 226
+          |    |    |    |    |    | 
+ 232      |    |    |    |    |    + _tempo: (2)
+ 233      |    |    |    |    |    |    + _Delay --> 32
+          |    |    |    |    |    | 
           |    |    |    |    | 
+ 234      |    |    |    |    + _iic_envoi_16bit: (4)
+ 235      |    |    |    |    |    + _iic_attend_ack --> 222
+ 236      |    |    |    |    |    + _iic_envoi_byte: (5)
+ 237      |    |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 238      |    |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 239      |    |    |    |    |    |    + _demitempo --> 226
+ 240      |    |    |    |    |    |    + _tempo --> 232
+          |    |    |    |    |    | 
+          |    |    |    |    | 
+ 241      |    |    |    |    + _iic_envoi_byte --> 236
+ 242      |    |    |    |    + _iic_start: (2)
+ 243      |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 244      |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 245      |    |    |    |    |    + _demitempo --> 226
+ 246      |    |    |    |    |    + _tempo --> 232
+          |    |    |    |    | 
+ 247      |    |    |    |    + _iic_stop --> 228
           |    |    |    | 
- 409      |    |    |    + _prepareflash --> 222
-          |    |    | 
- 410      |    |    + _navigue --> 208
-          |    | 
- 411      |    + _m72: (2)
- 412      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 413      |    |    + _LCD_DISP_OFF --> 203
- 414      |    |    + _LCD_DISP_ON --> 205
- 415      |    |    + _LCD_printtruc --> 156
- 416      |    |    + _navigue --> 208
-          |    | 
- 417      |    + _m73: (2)
- 418      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 419      |    |    + _LCD_DISP_OFF --> 203
- 420      |    |    + _LCD_DISP_ON --> 205
- 421      |    |    + _LCD_printtruc --> 156
- 422      |    |    + _navigue --> 208
-          |    | 
- 423      |    + _m74: (2)
- 424      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 425      |    |    + _LCD_DISP_OFF --> 203
- 426      |    |    + _LCD_DISP_ON --> 205
- 427      |    |    + _LCD_printtruc --> 156
- 428      |    |    + _navigue --> 208
-          |    | 
- 429      |    + _m75: (2)
- 430      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 431      |    |    + _LCD_DISP_OFF --> 203
- 432      |    |    + _LCD_DISP_ON --> 205
- 433      |    |    + _LCD_printtruc --> 156
- 434      |    |    + _navigue --> 208
-          |    | 
- 435      |    + _m76: (2)
- 436      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 437      |    |    + _LCD_DISP_OFF --> 203
- 438      |    |    + _LCD_DISP_ON --> 205
- 439      |    |    + _LCD_printtruc --> 156
- 440      |    |    + _navigue --> 208
-          |    | 
- 441      |    + _m77: (2)
- 442      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 443      |    |    + _LCD_DISP_OFF --> 203
- 444      |    |    + _LCD_DISP_ON --> 205
- 445      |    |    + _LCD_printtruc --> 156
- 446      |    |    + _navigue --> 208
-          |    | 
- 447      |    + _m78: (2)
- 448      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 449      |    |    + _LCD_DISP_OFF --> 203
- 450      |    |    + _LCD_DISP_ON --> 205
- 451      |    |    + _LCD_printtruc --> 156
- 452      |    |    + _navigue --> 208
-          |    | 
- 453      |    + _m80: (2)
- 454      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 455      |    |    + _LCD_DISP_OFF --> 203
- 456      |    |    + _LCD_DISP_ON --> 205
- 457      |    |    + _LCD_printtruc --> 156
- 458      |    |    + _navigue --> 208
-          |    | 
- 459      |    + _m81: (5)
- 460      |    |    + _LCD_CLEAR_DISPLAY --> 185
- 461      |    |    + _LCD_CMD --> 48
- 462      |    |    + _LCD_DISP_OFF --> 203
- 463      |    |    + _LCD_DISP_ON --> 205
- 464      |    |    + _LCD_LOCATE --> 157
- 465      |    |    + _LCD_printstring: (4)
- 466      |    |    |    + _LCD_printchar --> 160
-          |    |    | 
- 467      |    |    + _LCD_printtruc --> 156
- 468      |    |    + _navigue --> 208
-          |    | 
-          | 
- 469      + _TIM2_Cmd: (2)
- 470      + _TIM2_SetAutoreload: (2)
- 471      + _TIM3_Cmd: (2)
- 472      + _TIM4_Cmd: (2)
- 473      + _biponoff: (2)
- 474      |    + _LCD_CLEAR_DISPLAY --> 185
- 475      |    + _LCD_DISP_OFF --> 203
- 476      |    + _LCD_DISP_ON --> 205
- 477      |    + _LCD_printtruc --> 156
- 478      |    + _bip --> 404
-          | 
- 479      + _calcultrame: (2)
- 480      |    + _captureADC: (9)
- 481      |    |    + _ADC1_ClearFlag --> 391
- 482      |    |    + _ADC1_GetBufferValue --> 293
- 483      |    |    + _ADC1_GetFlagStatus --> 393
- 484      |    |    + _ADC1_StartConversion --> 394
-          |    | 
- 485      |    + _compute_dr: (7)
- 486      |    + _compute_expo: (7)
- 487      |    |    + L3541_expo: (11)
- 488      |    |    |    + L7241_expou: (17)
+ 248      |    |    |    + _sortiepourcent: (4)
           |    |    | 
           |    | 
- 489      |    + _compute_mixer: (13)
- 490      |    |    + _entreswitch: (10)
-          |    | 
- 491      |    + _compute_trim: (7)
- 492      |    + _lectureswitch: (2)
- 493      |    |    + _GPIO_ReadInputPin --> 182
- 494      |    |    + _memtrimdyn: (2)
- 495      |    |    |    + _bip --> 404
+ 249      |    + _m121: (2)
+ 250      |    |    + _Delayms --> 142
+ 251      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 252      |    |    + _LCD_DISP_OFF --> 188
+ 253      |    |    + _LCD_DISP_ON --> 190
+ 254      |    |    + _LCD_printtruc --> 169
+ 255      |    |    + _charge_param_phase: (3)
+ 256      |    |    |    + _load_phase_ee: (13)
+ 257      |    |    |    |    + _erreur_ee --> 214
+ 258      |    |    |    |    + _iic_lire: (7)
+ 259      |    |    |    |    |    + _iic_ack: (2)
+ 260      |    |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 261      |    |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 262      |    |    |    |    |    |    + _demitempo --> 226
+ 263      |    |    |    |    |    |    + _tempo --> 232
+          |    |    |    |    |    | 
+ 264      |    |    |    |    |    + _iic_attend_ack --> 222
+ 265      |    |    |    |    |    + _iic_envoi_16bit --> 234
+ 266      |    |    |    |    |    + _iic_envoi_byte --> 236
+ 267      |    |    |    |    |    + _iic_nack: (2)
+ 268      |    |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 269      |    |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 270      |    |    |    |    |    |    + _demitempo --> 226
+ 271      |    |    |    |    |    |    + _tempo --> 232
+          |    |    |    |    |    | 
+ 272      |    |    |    |    |    + _iic_recoi_byte: (4)
+ 273      |    |    |    |    |    |    + _GPIO_ReadInputPin --> 143
+ 274      |    |    |    |    |    |    + _GPIO_WriteHigh --> 40
+ 275      |    |    |    |    |    |    + _GPIO_WriteLow --> 37
+ 276      |    |    |    |    |    |    + _demitempo --> 226
+ 277      |    |    |    |    |    |    + _tempo --> 232
+          |    |    |    |    |    | 
+ 278      |    |    |    |    |    + _iic_start --> 242
+ 279      |    |    |    |    |    + _iic_stop --> 228
+          |    |    |    |    | 
+ 280      |    |    |    |    + _pourcentsortie: (2)
+          |    |    |    | 
           |    |    | 
- 496      |    |    + _settrimdyn: (5)
+ 281      |    |    + _navigue --> 195
+ 282      |    |    + _save_phase_ee --> 213
           |    | 
- 497      |    + _lectureswitchmultiplex: (2)
- 498      |    |    + _GPIO_ReadInputPin --> 182
- 499      |    |    + _GPIO_WriteHigh --> 55
- 500      |    |    + _GPIO_WriteLow --> 52
- 501      |    |    + _bip --> 404
+ 283      |    + _m122: (2)
+ 284      |    |    + _Delayms --> 142
+ 285      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 286      |    |    + _LCD_DISP_OFF --> 188
+ 287      |    |    + _LCD_DISP_ON --> 190
+ 288      |    |    + _LCD_LOCATE --> 165
+ 289      |    |    + _LCD_printf --> 171
+ 290      |    |    + _LCD_printtruc --> 169
+ 291      |    |    + _charge_param_phase --> 255
+ 292      |    |    + _navigue --> 195
+ 293      |    |    + _save_phase_ee --> 213
           |    | 
- 502      |    + _load_phase --> 218
- 503      |    + _save_neutre --> 273
- 504      |    + _scale_output: (5)
- 505      |    |    + _nivbar: (4)
+ 294      |    + _m13: (2)
+ 295      |    |    + _Delayms --> 142
+ 296      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 297      |    |    + _LCD_DISP_OFF --> 188
+ 298      |    |    + _LCD_DISP_ON --> 190
+ 299      |    |    + _LCD_printtruc --> 169
+ 300      |    |    + _navigue --> 195
+ 301      |    |    + _reset_modele: (5)
+ 302      |    |    + _save_phase_ee --> 213
+          |    | 
+ 303      |    + _m131: (2)
+ 304      |    |    + _Delayms --> 142
+ 305      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 306      |    |    + _LCD_DISP_OFF --> 188
+ 307      |    |    + _LCD_DISP_ON --> 190
+ 308      |    |    + _LCD_printtruc --> 169
+ 309      |    |    + _navigue --> 195
+ 310      |    |    + _reset_neutre: (5)
+ 311      |    |    + _save_neutre_ee: (15)
+ 312      |    |    |    + _erreur_ee --> 214
+ 313      |    |    |    + _iic_ecrire --> 220
+ 314      |    |    |    + _sortiepourcent --> 248
+          |    |    | 
+          |    | 
+ 315      |    + _m14: (2)
+ 316      |    |    + _Delayms --> 142
+ 317      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 318      |    |    + _LCD_DISP_OFF --> 188
+ 319      |    |    + _LCD_DISP_ON --> 190
+ 320      |    |    + _LCD_LOCATE --> 165
+ 321      |    |    + _LCD_printstring --> 167
+ 322      |    |    + _LCD_printtruc --> 169
+ 323      |    |    + _charge_nom_modele_ee: (4)
+ 324      |    |    |    + _erreur_ee --> 214
+ 325      |    |    |    + _iic_lire --> 258
+          |    |    | 
+ 326      |    |    + _charge_param_phase --> 255
+ 327      |    |    + _navigue --> 195
+ 328      |    |    + _sauve_numero_modele_actuel_ee: (3)
+ 329      |    |    |    + _erreur_ee --> 214
+ 330      |    |    |    + _iic_ecrire --> 220
+          |    |    | 
+          |    | 
+ 331      |    + _m175: (2)
+ 332      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 333      |    |    + _LCD_DISP_OFF --> 188
+ 334      |    |    + _LCD_DISP_ON --> 190
+ 335      |    |    + _LCD_LOCATE --> 165
+ 336      |    |    + _LCD_printf --> 171
+ 337      |    |    + _navigue --> 195
+          |    | 
+ 338      |    + _m176: (2)
+ 339      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 340      |    |    + _LCD_DISP_OFF --> 188
+ 341      |    |    + _LCD_DISP_ON --> 190
+ 342      |    |    + _LCD_LOCATE --> 165
+ 343      |    |    + _LCD_printf --> 171
+ 344      |    |    + _navigue --> 195
+          |    | 
+ 345      |    + _m177: (2)
+ 346      |    |    + _ADC1_GetBufferValue: (8)
+ 347      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 348      |    |    + _LCD_DISP_OFF --> 188
+ 349      |    |    + _LCD_DISP_ON --> 190
+ 350      |    |    + _LCD_LOCATE --> 165
+ 351      |    |    + _LCD_printf --> 171
+ 352      |    |    + _navigue --> 195
+          |    | 
+ 353      |    + _m20: (2)
+ 354      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 355      |    |    + _LCD_DISP_OFF --> 188
+ 356      |    |    + _LCD_DISP_ON --> 190
+ 357      |    |    + _LCD_printtruc --> 169
+ 358      |    |    + _navigue --> 195
+          |    | 
+ 359      |    + _m21: (5)
+ 360      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 361      |    |    + _LCD_DISP_OFF --> 188
+ 362      |    |    + _LCD_DISP_ON --> 190
+ 363      |    |    + _LCD_printtruc --> 169
+ 364      |    |    + _navigue --> 195
+ 365      |    |    + _reglage_variable: (9)
+ 366      |    |    |    + _LCD_printtruc --> 169
+          |    |    | 
+          |    | 
+ 367      |    + _m30: (2)
+ 368      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 369      |    |    + _LCD_DISP_OFF --> 188
+ 370      |    |    + _LCD_DISP_ON --> 190
+ 371      |    |    + _LCD_printtruc --> 169
+ 372      |    |    + _navigue --> 195
+          |    | 
+ 373      |    + _m31: (2)
+ 374      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 375      |    |    + _LCD_DISP_OFF --> 188
+ 376      |    |    + _LCD_DISP_ON --> 190
+ 377      |    |    + _LCD_printtruc --> 169
+ 378      |    |    + _navigue --> 195
+          |    | 
+ 379      |    + _m32: (4)
+ 380      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 381      |    |    + _LCD_DISP_OFF --> 188
+ 382      |    |    + _LCD_DISP_ON --> 190
+ 383      |    |    + _LCD_printtruc --> 169
+ 384      |    |    + _navigue --> 195
+          |    | 
+ 385      |    + _m33: (6)
+ 386      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 387      |    |    + _LCD_DISP_OFF --> 188
+ 388      |    |    + _LCD_DISP_ON --> 190
+ 389      |    |    + _LCD_printtruc --> 169
+ 390      |    |    + _navigue --> 195
+ 391      |    |    + _reglage_variable --> 365
+          |    | 
+ 392      |    + _m40: (2)
+ 393      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 394      |    |    + _LCD_DISP_OFF --> 188
+ 395      |    |    + _LCD_DISP_ON --> 190
+ 396      |    |    + _LCD_printtruc --> 169
+ 397      |    |    + _navigue --> 195
+          |    | 
+ 398      |    + _m41: (7)
+ 399      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 400      |    |    + _LCD_DISP_OFF --> 188
+ 401      |    |    + _LCD_DISP_ON --> 190
+ 402      |    |    + _LCD_printtruc --> 169
+ 403      |    |    + _navigue --> 195
+ 404      |    |    + _pourcentsortie --> 280
+ 405      |    |    + _reglage_variable --> 365
+ 406      |    |    + _sortiepourcent --> 248
+          |    | 
+ 407      |    + _m50: (2)
+ 408      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 409      |    |    + _LCD_DISP_OFF --> 188
+ 410      |    |    + _LCD_DISP_ON --> 190
+ 411      |    |    + _LCD_printtruc --> 169
+ 412      |    |    + _navigue --> 195
+          |    | 
+ 413      |    + _m51: (3)
+ 414      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 415      |    |    + _LCD_DISP_OFF --> 188
+ 416      |    |    + _LCD_DISP_ON --> 190
+ 417      |    |    + _LCD_printtruc --> 169
+ 418      |    |    + _navigue --> 195
+          |    | 
+ 419      |    + _m60: (2)
+ 420      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 421      |    |    + _LCD_DISP_OFF --> 188
+ 422      |    |    + _LCD_DISP_ON --> 190
+ 423      |    |    + _LCD_printtruc --> 169
+ 424      |    |    + _navigue --> 195
+          |    | 
+ 425      |    + _m61: (3)
+ 426      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 427      |    |    + _LCD_DISP_OFF --> 188
+ 428      |    |    + _LCD_DISP_ON --> 190
+ 429      |    |    + _LCD_printtruc --> 169
+ 430      |    |    + _navigue --> 195
+ 431      |    |    + _reglage_variable --> 365
+          |    | 
+ 432      |    + _m70: (2)
+ 433      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 434      |    |    + _LCD_DISP_OFF --> 188
+ 435      |    |    + _LCD_DISP_ON --> 190
+ 436      |    |    + _LCD_printtruc --> 169
+ 437      |    |    + _navigue --> 195
+          |    | 
+ 438      |    + _m71: (2)
+ 439      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 440      |    |    + _LCD_DISP_OFF --> 188
+ 441      |    |    + _LCD_DISP_ON --> 190
+ 442      |    |    + _LCD_printtruc --> 169
+ 443      |    |    + _etalonnage: (57)
+ 444      |    |    |    + _ADC1_ClearFlag: (4)
+ 445      |    |    |    + _ADC1_GetBufferValue --> 346
+ 446      |    |    |    + _ADC1_GetFlagStatus: (4)
+ 447      |    |    |    + _ADC1_StartConversion: (2)
+ 448      |    |    |    + _Delayms --> 142
+ 449      |    |    |    + _GPIO_ReadInputPin --> 143
+ 450      |    |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 451      |    |    |    + _LCD_DISP_OFF --> 188
+ 452      |    |    |    + _LCD_DISP_ON --> 190
+ 453      |    |    |    + _LCD_printtruc --> 169
+ 454      |    |    |    + _bip: (7)
+ 455      |    |    |    |    + _GPIO_WriteLow --> 37
+          |    |    |    | 
+ 456      |    |    |    + _erreur_ee --> 214
+ 457      |    |    |    + _iic_ecrire --> 220
+ 458      |    |    |    + _load_input: (11)
+ 459      |    |    |    |    + _erreur_ee --> 214
+ 460      |    |    |    |    + _iic_lire --> 258
+          |    |    |    | 
+          |    |    | 
+ 461      |    |    + _navigue --> 195
+          |    | 
+ 462      |    + _m72: (2)
+ 463      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 464      |    |    + _LCD_DISP_OFF --> 188
+ 465      |    |    + _LCD_DISP_ON --> 190
+ 466      |    |    + _LCD_printtruc --> 169
+ 467      |    |    + _navigue --> 195
+          |    | 
+ 468      |    + _m73: (2)
+ 469      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 470      |    |    + _LCD_DISP_OFF --> 188
+ 471      |    |    + _LCD_DISP_ON --> 190
+ 472      |    |    + _LCD_printtruc --> 169
+ 473      |    |    + _navigue --> 195
+          |    | 
+ 474      |    + _m74: (2)
+ 475      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 476      |    |    + _LCD_DISP_OFF --> 188
+ 477      |    |    + _LCD_DISP_ON --> 190
+ 478      |    |    + _LCD_printtruc --> 169
+ 479      |    |    + _navigue --> 195
+          |    | 
+ 480      |    + _m75: (2)
+ 481      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 482      |    |    + _LCD_DISP_OFF --> 188
+ 483      |    |    + _LCD_DISP_ON --> 190
+ 484      |    |    + _LCD_printtruc --> 169
+ 485      |    |    + _navigue --> 195
+          |    | 
+ 486      |    + _m76: (2)
+ 487      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 488      |    |    + _LCD_DISP_OFF --> 188
+ 489      |    |    + _LCD_DISP_ON --> 190
+ 490      |    |    + _LCD_printtruc --> 169
+ 491      |    |    + _navigue --> 195
+          |    | 
+ 492      |    + _m77: (2)
+ 493      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 494      |    |    + _LCD_DISP_OFF --> 188
+ 495      |    |    + _LCD_DISP_ON --> 190
+ 496      |    |    + _LCD_printtruc --> 169
+ 497      |    |    + _navigue --> 195
+          |    | 
+ 498      |    + _m78: (2)
+ 499      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 500      |    |    + _LCD_DISP_OFF --> 188
+ 501      |    |    + _LCD_DISP_ON --> 190
+ 502      |    |    + _LCD_printtruc --> 169
+ 503      |    |    + _navigue --> 195
+          |    | 
+ 504      |    + _m80: (2)
+ 505      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 506      |    |    + _LCD_DISP_OFF --> 188
+ 507      |    |    + _LCD_DISP_ON --> 190
+ 508      |    |    + _LCD_printtruc --> 169
+ 509      |    |    + _navigue --> 195
+          |    | 
+ 510      |    + _m81: (4)
+ 511      |    |    + _LCD_CLEAR_DISPLAY --> 146
+ 512      |    |    + _LCD_CMD --> 33
+ 513      |    |    + _LCD_DISP_OFF --> 188
+ 514      |    |    + _LCD_DISP_ON --> 190
+ 515      |    |    + _LCD_LOCATE --> 165
+ 516      |    |    + _LCD_printstring --> 167
+ 517      |    |    + _LCD_printtruc --> 169
+ 518      |    |    + _navigue --> 195
           |    | 
           | 
- 506      + _changeratiotrimdyn: (2)
- 507      |    + _LCD_CLEAR_DISPLAY --> 185
- 508      |    + _LCD_DISP_OFF --> 203
- 509      |    + _LCD_DISP_ON --> 205
- 510      |    + _LCD_printtruc --> 156
- 511      |    + _bip --> 404
+ 519      + _TIM2_Cmd: (2)
+ 520      + _TIM2_SetAutoreload: (2)
+ 521      + _TIM3_Cmd: (2)
+ 522      + _TIM4_Cmd: (2)
+ 523      + _biponoff: (2)
+ 524      |    + _LCD_CLEAR_DISPLAY --> 146
+ 525      |    + _LCD_DISP_OFF --> 188
+ 526      |    + _LCD_DISP_ON --> 190
+ 527      |    + _LCD_printtruc --> 169
+ 528      |    + _bip --> 454
           | 
- 512      + _chronobat: (4)
- 513      |    + _LCD_printtruc --> 156
- 514      |    + _bip --> 404
-          | 
- 515      + _info: (6)
- 516      |    + _ADC1_GetBufferValue --> 293
- 517      |    + _LCD_CLEAR_DISPLAY --> 185
- 518      |    + _LCD_DISP_OFF --> 203
- 519      |    + _LCD_DISP_ON --> 205
- 520      |    + _LCD_LOCATE --> 157
- 521      |    + _LCD_printstring --> 465
- 522      |    + _LCD_printtruc --> 156
- 523      |    + _bip --> 404
-          | 
- 524      + _initialise: (2)
- 525      |    + _ADC1_DataBufferCmd: (2)
- 526      |    + _ADC1_DeInit: (2)
- 527      |    + _ADC1_Init: (10)
- 528      |    |    + _ADC1_ConversionConfig: (5)
- 529      |    |    + _ADC1_ExternalTriggerConfig: (4)
- 530      |    |    + _ADC1_PrescalerConfig: (3)
- 531      |    |    + _ADC1_SchmittTriggerConfig: (4)
+ 529      + _calcultrame: (2)
+ 530      |    + _captureADC: (9)
+ 531      |    |    + _ADC1_ClearFlag --> 444
+ 532      |    |    + _ADC1_GetBufferValue --> 346
+ 533      |    |    + _ADC1_GetFlagStatus --> 446
+ 534      |    |    + _ADC1_StartConversion --> 447
           |    | 
- 532      |    + _ADC1_ScanModeCmd: (2)
- 533      |    + _CLK_ClockSecuritySystemEnable: (2)
- 534      |    + _CLK_ClockSwitchConfig: (10)
- 535      |    + _CLK_DeInit: (2)
- 536      |    + _CLK_HSIPrescalerConfig: (3)
- 537      |    + _CLK_PeripheralClockConfig: (4)
- 538      |    + _GPIO_DeInit: (2)
- 539      |    + _GPIO_Init: (6)
- 540      |    + _GPIO_WriteHigh --> 55
- 541      |    + _TIM2_ARRPreloadConfig: (2)
- 542      |    + _TIM2_DeInit: (2)
- 543      |    + _TIM2_ITConfig: (4)
- 544      |    + _TIM2_OC2Init: (8)
- 545      |    + _TIM2_OC2PreloadConfig: (2)
- 546      |    + _TIM2_PrescalerConfig: (2)
- 547      |    + _TIM2_SetCounter: (2)
- 548      |    + _TIM2_TimeBaseInit: (5)
- 549      |    + _TIM3_DeInit: (2)
- 550      |    + _TIM3_ITConfig: (4)
- 551      |    + _TIM3_TimeBaseInit: (5)
- 552      |    + _TIM4_DeInit: (2)
- 553      |    + _TIM4_ITConfig: (4)
- 554      |    + _TIM4_TimeBaseInit: (2)
+ 535      |    + _compute_dr: (7)
+ 536      |    + _compute_expo: (7)
+ 537      |    |    + L7551_expo: (11)
+ 538      |    |    |    + L3351_expou: (17)
+          |    |    | 
+          |    | 
+ 539      |    + _compute_mixer: (13)
+ 540      |    |    + _entreswitch: (12)
+          |    | 
+ 541      |    + _compute_trim: (11)
+ 542      |    + _lectureswitch: (2)
+ 543      |    |    + _GPIO_ReadInputPin --> 143
+ 544      |    |    + _memtrimdyn: (2)
+ 545      |    |    |    + _bip --> 454
+          |    |    | 
+ 546      |    |    + _settrimdyn: (7)
+          |    | 
+ 547      |    + _lectureswitchmultiplex: (2)
+ 548      |    |    + _GPIO_ReadInputPin --> 143
+ 549      |    |    + _GPIO_WriteHigh --> 40
+ 550      |    |    + _GPIO_WriteLow --> 37
+ 551      |    |    + _bip --> 454
+          |    | 
+ 552      |    + _scale_output: (7)
           | 
- 555      + _lectureswitch --> 492
- 556      + _lectureswitchmultiplex --> 497
- 557      + _load_input --> 406
- 558      + _load_phase --> 218
- 559      + _razchrono: (2)
- 560      |    + _bip --> 404
+ 553      + _changeratiotrimdyn: (2)
+ 554      |    + _LCD_CLEAR_DISPLAY --> 146
+ 555      |    + _LCD_DISP_OFF --> 188
+ 556      |    + _LCD_DISP_ON --> 190
+ 557      |    + _LCD_printtruc --> 169
+ 558      |    + _bip --> 454
           | 
+ 559      + _charge_param_phase --> 255
+ 560      + _chronobat: (4)
+ 561      |    + _LCD_printtruc --> 169
+ 562      |    + _bip --> 454
+          | 
+ 563      + _erreur_ee --> 214
+ 564      + _iic_lire --> 258
+ 565      + _info: (6)
+ 566      |    + _ADC1_GetBufferValue --> 346
+ 567      |    + _LCD_CLEAR_DISPLAY --> 146
+ 568      |    + _LCD_DISP_OFF --> 188
+ 569      |    + _LCD_DISP_ON --> 190
+ 570      |    + _LCD_LOCATE --> 165
+ 571      |    + _LCD_printstring --> 167
+ 572      |    + _LCD_printtruc --> 169
+ 573      |    + _bip --> 454
+ 574      |    + _nivbar: (4)
+          | 
+ 575      + _initialise: (2)
+ 576      |    + _ADC1_DataBufferCmd: (2)
+ 577      |    + _ADC1_DeInit: (2)
+ 578      |    + _ADC1_Init: (10)
+ 579      |    |    + _ADC1_ConversionConfig: (5)
+ 580      |    |    + _ADC1_ExternalTriggerConfig: (4)
+ 581      |    |    + _ADC1_PrescalerConfig: (3)
+ 582      |    |    + _ADC1_SchmittTriggerConfig: (4)
+          |    | 
+ 583      |    + _ADC1_ScanModeCmd: (2)
+ 584      |    + _CLK_ClockSecuritySystemEnable: (2)
+ 585      |    + _CLK_ClockSwitchConfig: (10)
+ 586      |    + _CLK_DeInit: (2)
+ 587      |    + _CLK_HSIPrescalerConfig: (3)
+ 588      |    + _CLK_PeripheralClockConfig: (4)
+ 589      |    + _GPIO_DeInit: (2)
+ 590      |    + _GPIO_Init: (6)
+ 591      |    + _GPIO_WriteHigh --> 40
+ 592      |    + _TIM2_ARRPreloadConfig: (2)
+ 593      |    + _TIM2_DeInit: (2)
+ 594      |    + _TIM2_ITConfig: (4)
+ 595      |    + _TIM2_OC2Init: (8)
+ 596      |    + _TIM2_OC2PreloadConfig: (2)
+ 597      |    + _TIM2_PrescalerConfig: (2)
+ 598      |    + _TIM2_SetCounter: (2)
+ 599      |    + _TIM2_TimeBaseInit: (5)
+ 600      |    + _TIM3_DeInit: (2)
+ 601      |    + _TIM3_ITConfig: (4)
+ 602      |    + _TIM3_TimeBaseInit: (5)
+ 603      |    + _TIM4_DeInit: (2)
+ 604      |    + _TIM4_ITConfig: (4)
+ 605      |    + _TIM4_TimeBaseInit: (2)
+          | 
+ 606      + _lectureswitch --> 542
+ 607      + _lectureswitchmultiplex --> 547
+ 608      + _load_input --> 458
+ 609      + _razchrono: (2)
+ 610      |    + _bip --> 454
+          | 
+ 611      + _save_neutre_ee --> 311
        
- 561 > f_ADC1_IRQHandler: (5)
+ 612 > f_ADC1_IRQHandler: (5)
 
- 562 > f_AWU_IRQHandler: (5)
+ 613 > f_AWU_IRQHandler: (5)
 
- 563 > f_CLK_IRQHandler: (5)
+ 614 > f_CLK_IRQHandler: (5)
 
- 564 > f_EEPROM_EEC_IRQHandler: (5)
+ 615 > f_EEPROM_EEC_IRQHandler: (5)
 
- 565 > f_EXTI_PORTA_IRQHandler: (5)
+ 616 > f_EXTI_PORTA_IRQHandler: (5)
 
- 566 > f_EXTI_PORTB_IRQHandler: (5)
+ 617 > f_EXTI_PORTB_IRQHandler: (5)
 
- 567 > f_EXTI_PORTC_IRQHandler: (5)
+ 618 > f_EXTI_PORTC_IRQHandler: (5)
 
- 568 > f_EXTI_PORTD_IRQHandler: (5)
+ 619 > f_EXTI_PORTD_IRQHandler: (5)
 
- 569 > f_EXTI_PORTE_IRQHandler: (5)
+ 620 > f_EXTI_PORTE_IRQHandler: (5)
 
- 570 > f_I2C_IRQHandler: (5)
+ 621 > f_I2C_IRQHandler: (5)
 
- 571 > f_NonHandledInterrupt: (5)
+ 622 > f_NonHandledInterrupt: (5)
 
- 572 > f_SPI_IRQHandler: (5)
+ 623 > f_SPI_IRQHandler: (5)
 
- 573 > f_TIM1_CAP_COM_IRQHandler: (5)
+ 624 > f_TIM1_CAP_COM_IRQHandler: (5)
 
- 574 > f_TIM1_UPD_OVF_TRG_BRK_IRQHandler: (5)
+ 625 > f_TIM1_UPD_OVF_TRG_BRK_IRQHandler: (5)
 
- 575 > f_TIM2_CAP_COM_IRQHandler: (11)
- 576      + _TIM2_ClearITPendingBit: (2)
- 577      + _TIM2_SetAutoreload --> 470
- 578      + _calcultrame --> 479
+ 626 > f_TIM2_CAP_COM_IRQHandler: (11)
+ 627      + _TIM2_ClearITPendingBit: (2)
+ 628      + _TIM2_SetAutoreload --> 520
+ 629      + _calcultrame --> 529
        
- 579 > f_TIM2_UPD_OVF_BRK_IRQHandler: (11)
- 580      + _TIM2_ClearITPendingBit --> 576
+ 630 > f_TIM2_UPD_OVF_BRK_IRQHandler: (11)
+ 631      + _TIM2_ClearITPendingBit --> 627
        
- 581 > f_TIM3_CAP_COM_IRQHandler: (5)
+ 632 > f_TIM3_CAP_COM_IRQHandler: (5)
 
- 582 > f_TIM3_UPD_OVF_BRK_IRQHandler: (11)
- 583      + _GPIO_WriteHigh --> 55
- 584      + _GPIO_WriteLow --> 52
- 585      + _TIM3_ClearITPendingBit: (2)
- 586      + _bip --> 404
+ 633 > f_TIM3_UPD_OVF_BRK_IRQHandler: (11)
+ 634      + _GPIO_WriteHigh --> 40
+ 635      + _GPIO_WriteLow --> 37
+ 636      + _TIM3_ClearITPendingBit: (2)
+ 637      + _bip --> 454
        
- 587 > f_TIM4_UPD_OVF_IRQHandler: (11)
- 588      + _TIM4_ClearITPendingBit: (2)
- 589      + _decmilisec: (2)
+ 638 > f_TIM4_UPD_OVF_IRQHandler: (11)
+ 639      + _TIM4_ClearITPendingBit: (2)
+ 640      + _decmilisec: (2)
        
- 590 > f_TLI_IRQHandler: (5)
+ 641 > f_TLI_IRQHandler: (5)
 
- 591 > f_TRAP_IRQHandler: (5)
+ 642 > f_TRAP_IRQHandler: (5)
 
- 592 > f_UART2_RX_IRQHandler: (5)
+ 643 > f_UART2_RX_IRQHandler: (5)
 
- 593 > f_UART2_TX_IRQHandler: (5)
+ 644 > f_UART2_TX_IRQHandler: (5)
 
- 594   L11__cvtup --> 168
+ 645   L11__cvtup --> 175
 
- 595   L31__putbuf --> 170
+ 646   L31__putbuf --> 177
 
- 596   L3541_expo --> 487
+ 647   L3351_expou --> 538
 
- 597   L3_TI1_Config --> 80
+ 648   L3_TI1_Config --> 65
 
- 598   L5_TI2_Config --> 81
+ 649   L5_TI2_Config --> 66
 
- 599   L7241_expou --> 488
+ 650   L7551_expo --> 537
 
- 600   L7_TI3_Config --> 82
+ 651   L7_TI3_Config --> 67
 
- 601   L7__gnum --> 172
+ 652   L7__gnum --> 179
 
- 602   _ADC1_ClearFlag --> 391
+ 653   _ADC1_ClearFlag --> 444
 
- 603   _ADC1_ConversionConfig --> 528
+ 654   _ADC1_ConversionConfig --> 579
 
- 604   _ADC1_DataBufferCmd --> 525
+ 655   _ADC1_DataBufferCmd --> 576
 
- 605   _ADC1_DeInit --> 526
+ 656   _ADC1_DeInit --> 577
 
- 606   _ADC1_ExternalTriggerConfig --> 529
+ 657   _ADC1_ExternalTriggerConfig --> 580
 
- 607   _ADC1_GetBufferValue --> 293
+ 658   _ADC1_GetBufferValue --> 346
 
- 608   _ADC1_GetFlagStatus --> 393
+ 659   _ADC1_GetFlagStatus --> 446
 
- 609   _ADC1_Init --> 527
+ 660   _ADC1_Init --> 578
 
- 610   _ADC1_PrescalerConfig --> 530
+ 661   _ADC1_PrescalerConfig --> 581
 
- 611   _ADC1_ScanModeCmd --> 532
+ 662   _ADC1_ScanModeCmd --> 583
 
- 612   _ADC1_SchmittTriggerConfig --> 531
+ 663   _ADC1_SchmittTriggerConfig --> 582
 
- 613   _ADC1_StartConversion --> 394
+ 664   _ADC1_StartConversion --> 447
 
- 614   _CLK_ClockSecuritySystemEnable --> 533
+ 665   _CLK_ClockSecuritySystemEnable --> 584
 
- 615   _CLK_ClockSwitchConfig --> 534
+ 666   _CLK_ClockSwitchConfig --> 585
 
- 616   _CLK_DeInit --> 535
+ 667   _CLK_DeInit --> 586
 
- 617   _CLK_HSIPrescalerConfig --> 536
+ 668   _CLK_HSIPrescalerConfig --> 587
 
- 618   _CLK_PeripheralClockConfig --> 537
+ 669   _CLK_PeripheralClockConfig --> 588
 
- 619   _Delay --> 47
+ 670   _Delay --> 32
 
- 620   _Delayms --> 180
+ 671   _Delayms --> 142
 
- 621   _FLASH_DeInit --> 223
+ 672   _GPIO_DeInit --> 589
 
- 622   _FLASH_Lock --> 212
+ 673   _GPIO_Init --> 590
 
- 623   _FLASH_ProgramByte --> 213
+ 674   _GPIO_ReadInputPin --> 143
 
- 624   _FLASH_ProgramdoubleByte --> 397
+ 675   _GPIO_ReadOutputData --> 35
 
- 625   _FLASH_ReadByte --> 181
+ 676   _GPIO_Write --> 36
 
- 626   _FLASH_ReaddoubleByte --> 407
+ 677   _GPIO_WriteHigh --> 40
 
- 627   _FLASH_SetProgrammingTime --> 224
+ 678   _GPIO_WriteLow --> 37
 
- 628   _FLASH_Unlock --> 225
+ 679   _LCD_CLEAR_DISPLAY --> 146
 
- 629   _FLASH_WaitForLastOperation --> 31
+ 680   _LCD_CMD --> 33
 
- 630   _GPIO_DeInit --> 538
+ 681   _LCD_DISP_OFF --> 188
 
- 631   _GPIO_Init --> 539
+ 682   _LCD_DISP_ON --> 190
 
- 632   _GPIO_ReadInputPin --> 182
+ 683   _LCD_ENABLE --> 38
 
- 633   _GPIO_ReadOutputData --> 50
+ 684   _LCD_INIT --> 150
 
- 634   _GPIO_Write --> 51
+ 685   _LCD_LOAD_CGRAM --> 157
 
- 635   _GPIO_WriteHigh --> 55
+ 686   _LCD_LOCATE --> 165
 
- 636   _GPIO_WriteLow --> 52
+ 687   _LCD_printchar --> 159
 
- 637   _LCD_CLEAR_DISPLAY --> 185
+ 688   _LCD_printf --> 171
 
- 638   _LCD_CMD --> 48
+ 689   _LCD_printstring --> 167
 
- 639   _LCD_DISP_OFF --> 203
+ 690   _LCD_printtruc --> 169
 
- 640   _LCD_DISP_ON --> 205
+ 691   _Menu --> 185
 
- 641   _LCD_ENABLE --> 53
+ 692   _TIM2_ARRPreloadConfig --> 592
 
- 642   _LCD_INIT --> 189
+ 693   _TIM2_ClearITPendingBit --> 627
 
- 643   _LCD_LOAD_CGRAM --> 196
+ 694   _TIM2_Cmd --> 519
 
- 644   _LCD_LOCATE --> 157
+ 695   _TIM2_DeInit --> 593
 
- 645   _LCD_printchar --> 160
+ 696   _TIM2_ITConfig --> 594
 
- 646   _LCD_printf --> 159
+ 697   _TIM2_OC2Init --> 595
 
- 647   _LCD_printstring --> 465
+ 698   _TIM2_OC2PreloadConfig --> 596
 
- 648   _LCD_printtruc --> 156
+ 699   _TIM2_PrescalerConfig --> 597
 
- 649   _Menu --> 200
+ 700   _TIM2_SetAutoreload --> 520
 
- 650   _TIM2_ARRPreloadConfig --> 541
+ 701   _TIM2_SetCounter --> 598
 
- 651   _TIM2_ClearITPendingBit --> 576
+ 702   _TIM2_SetIC1Prescaler --> 68
 
- 652   _TIM2_Cmd --> 469
+ 703   _TIM2_SetIC2Prescaler --> 69
 
- 653   _TIM2_DeInit --> 542
+ 704   _TIM2_SetIC3Prescaler --> 70
 
- 654   _TIM2_ITConfig --> 543
+ 705   _TIM2_TimeBaseInit --> 599
 
- 655   _TIM2_OC2Init --> 544
+ 706   _TIM3_ClearITPendingBit --> 636
 
- 656   _TIM2_OC2PreloadConfig --> 545
+ 707   _TIM3_Cmd --> 521
 
- 657   _TIM2_PrescalerConfig --> 546
+ 708   _TIM3_DeInit --> 600
 
- 658   _TIM2_SetAutoreload --> 470
+ 709   _TIM3_ITConfig --> 601
 
- 659   _TIM2_SetCounter --> 547
+ 710   _TIM3_SetIC1Prescaler --> 105
 
- 660   _TIM2_SetIC1Prescaler --> 83
+ 711   _TIM3_SetIC2Prescaler --> 106
 
- 661   _TIM2_SetIC2Prescaler --> 84
+ 712   _TIM3_TimeBaseInit --> 602
 
- 662   _TIM2_SetIC3Prescaler --> 85
+ 713   _TIM4_ClearITPendingBit --> 639
 
- 663   _TIM2_TimeBaseInit --> 548
+ 714   _TIM4_Cmd --> 522
 
- 664   _TIM3_ClearITPendingBit --> 585
+ 715   _TIM4_DeInit --> 603
 
- 665   _TIM3_Cmd --> 471
+ 716   _TIM4_ITConfig --> 604
 
- 666   _TIM3_DeInit --> 549
+ 717   _TIM4_TimeBaseInit --> 605
 
- 667   _TIM3_GetCounter --> 178
+ 718   __itob --> 180
 
- 668   _TIM3_ITConfig --> 550
+ 719   __ltob --> 182
 
- 669   _TIM3_SetIC1Prescaler --> 119
+ 720   __print --> 174
 
- 670   _TIM3_SetIC2Prescaler --> 120
+ 721   __udiv --> 181
 
- 671   _TIM3_TimeBaseInit --> 551
+ 722   __uldiv --> 183
 
- 672   _TIM4_ClearITPendingBit --> 588
+ 723   _bip --> 454
 
- 673   _TIM4_Cmd --> 472
+ 724   _biponoff --> 523
 
- 674   _TIM4_DeInit --> 552
+ 725   _calcultrame --> 529
 
- 675   _TIM4_ITConfig --> 553
+ 726   _captureADC --> 530
 
- 676   _TIM4_TimeBaseInit --> 554
+ 727   _changeratiotrimdyn --> 553
 
- 677   __itob --> 173
+ 728   _charge_nom_modele_ee --> 323
 
- 678   __ltob --> 175
+ 729   _charge_param_phase --> 255
 
- 679   __print --> 167
+ 730   _chronobat --> 560
 
- 680   __udiv --> 174
+ 731   _compute_dr --> 535
 
- 681   __uldiv --> 176
+ 732   _compute_expo --> 536
 
- 682   _bip --> 404
+ 733   _compute_mixer --> 539
 
- 683   _biponoff --> 473
+ 734   _compute_trim --> 541
 
- 684   _calcultrame --> 479
+ 735   _decmilisec --> 640
 
- 685   _captureADC --> 480
+ 736   _demitempo --> 226
 
- 686   _changeratiotrimdyn --> 506
+ 737   _entreswitch --> 540
 
- 687   _chronobat --> 512
+ 738   _erreur_ee --> 214
 
- 688   _compute_dr --> 485
+ 739   _etalonnage --> 443
 
- 689   _compute_expo --> 486
+ 740   _iic_ack --> 259
 
- 690   _compute_mixer --> 489
+ 741   _iic_attend_ack --> 222
 
- 691   _compute_trim --> 491
+ 742   _iic_ecrire --> 220
 
- 692   _decmilisec --> 589
+ 743   _iic_envoi_16bit --> 234
 
- 693   _entreswitch --> 490
+ 744   _iic_envoi_byte --> 236
 
- 694   _etalonnage --> 390
+ 745   _iic_lire --> 258
 
- 695   _info --> 515
+ 746   _iic_nack --> 267
 
- 696   _initialise --> 524
+ 747   _iic_recoi_byte --> 272
 
- 697   _lectureswitch --> 492
+ 748   _iic_start --> 242
 
- 698   _lectureswitchmultiplex --> 497
+ 749   _iic_stop --> 228
 
- 699   _load_input --> 406
+ 750   _info --> 565
 
- 700   _load_phase --> 218
+ 751   _initialise --> 575
 
- 701   _m10 --> 201
+ 752   _lectureswitch --> 542
 
- 702   _m11 --> 210
+ 753   _lectureswitchmultiplex --> 547
 
- 703   _m12 --> 226
+ 754   _load_input --> 458
 
- 704   _m121 --> 238
+ 755   _load_phase_ee --> 256
 
- 705   _m122 --> 246
+ 756   _m10 --> 186
 
- 706   _m13 --> 256
+ 757   _m11 --> 197
 
- 707   _m131 --> 265
+ 758   _m12 --> 206
 
- 708   _m175 --> 278
+ 759   _m121 --> 249
 
- 709   _m176 --> 285
+ 760   _m122 --> 283
 
- 710   _m177 --> 292
+ 761   _m13 --> 294
 
- 711   _m20 --> 300
+ 762   _m131 --> 303
 
- 712   _m21 --> 306
+ 763   _m14 --> 315
 
- 713   _m30 --> 314
+ 764   _m175 --> 331
 
- 714   _m31 --> 320
+ 765   _m176 --> 338
 
- 715   _m32 --> 326
+ 766   _m177 --> 345
 
- 716   _m33 --> 332
+ 767   _m20 --> 353
 
- 717   _m40 --> 339
+ 768   _m21 --> 359
 
- 718   _m41 --> 345
+ 769   _m30 --> 367
 
- 719   _m50 --> 354
+ 770   _m31 --> 373
 
- 720   _m51 --> 360
+ 771   _m32 --> 379
 
- 721   _m60 --> 366
+ 772   _m33 --> 385
 
- 722   _m61 --> 372
+ 773   _m40 --> 392
 
- 723   _m70 --> 379
+ 774   _m41 --> 398
 
- 724   _m71 --> 385
+ 775   _m50 --> 407
 
- 725   _m72 --> 411
+ 776   _m51 --> 413
 
- 726   _m73 --> 417
+ 777   _m60 --> 419
 
- 727   _m74 --> 423
+ 778   _m61 --> 425
 
- 728   _m75 --> 429
+ 779   _m70 --> 432
 
- 729   _m76 --> 435
+ 780   _m71 --> 438
 
- 730   _m77 --> 441
+ 781   _m72 --> 462
 
- 731   _m78 --> 447
+ 782   _m73 --> 468
 
- 732   _m80 --> 453
+ 783   _m74 --> 474
 
- 733   _m81 --> 459
+ 784   _m75 --> 480
 
- 734   _memtrimdyn --> 494
+ 785   _m76 --> 486
 
- 735   _navigue --> 208
+ 786   _m77 --> 492
 
- 736   _nivbar --> 505
+ 787   _m78 --> 498
 
- 737   _pourcentsortie --> 220
+ 788   _m80 --> 504
 
- 738   _prepareflash --> 222
+ 789   _m81 --> 510
 
- 739   _putchar --> 171
+ 790   _memtrimdyn --> 544
 
- 740   _razchrono --> 559
+ 791   _navigue --> 195
 
- 741   _reglage_variable --> 312
+ 792   _nivbar --> 574
 
- 742   _reset_model --> 263
+ 793   _pourcentsortie --> 280
 
- 743   _reset_neutre --> 272
+ 794   _putchar --> 178
 
- 744   _save_neutre --> 273
+ 795   _razchrono --> 609
 
- 745   _save_phase --> 233
+ 796   _reglage_variable --> 365
 
- 746   _scale_output --> 504
+ 797   _reset_modele --> 301
 
- 747   _settrimdyn --> 496
+ 798   _reset_neutre --> 310
 
- 748   _sortiepourcent --> 237
+ 799   _sauve_numero_modele_actuel_ee --> 328
 
- 749   _strlen --> 177
+ 800   _save_neutre_ee --> 311
 
- 750   _toupper --> 169
+ 801   _save_phase_ee --> 213
 
- 751   _vsprintf --> 166
+ 802   _scale_output --> 552
+
+ 803   _settrimdyn --> 546
+
+ 804   _sortiepourcent --> 248
+
+ 805   _strlen --> 184
+
+ 806   _tempo --> 232
+
+ 807   _toupper --> 176
+
+ 808   _vsprintf --> 173
 
 
 
@@ -1731,540 +1780,522 @@ Stack size: 224
                                Symbols
                                -------
 
-_ADC1_AWDChannelConfig              0000b679   defined in Debug\stm8s_adc1.o section .text
-_ADC1_ClearFlag                     0000b7ad   defined in Debug\stm8s_adc1.o section .text
+_ADC1_AWDChannelConfig              0000c09a   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ClearFlag                     0000c1ce   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_ClearITPendingBit             0000b841   defined in Debug\stm8s_adc1.o section .text
-_ADC1_Cmd                           0000b52a   defined in Debug\stm8s_adc1.o section .text
-_ADC1_ConversionConfig              0000b5f4   defined in Debug\stm8s_adc1.o section .text
-_ADC1_DataBufferCmd                 0000b544   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ClearITPendingBit             0000c262   defined in Debug\stm8s_adc1.o section .text
+_ADC1_Cmd                           0000bf4b   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ConversionConfig              0000c015   defined in Debug\stm8s_adc1.o section .text
+_ADC1_DataBufferCmd                 0000bf65   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_DeInit                        0000b4d3   defined in Debug\stm8s_adc1.o section .text
+_ADC1_DeInit                        0000bef4   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_ExternalTriggerConfig         0000b621   defined in Debug\stm8s_adc1.o section .text
-_ADC1_GetAWDChannelStatus           0000b73a   defined in Debug\stm8s_adc1.o section .text
-_ADC1_GetBufferValue                0000b6f3   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ExternalTriggerConfig         0000c042   defined in Debug\stm8s_adc1.o section .text
+_ADC1_GetAWDChannelStatus           0000c15b   defined in Debug\stm8s_adc1.o section .text
+_ADC1_GetBufferValue                0000c114   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o Debug\menu.o
-_ADC1_GetConversionValue            0000b647   defined in Debug\stm8s_adc1.o section .text
-_ADC1_GetFlagStatus                 0000b764   defined in Debug\stm8s_adc1.o section .text
+_ADC1_GetConversionValue            0000c068   defined in Debug\stm8s_adc1.o section .text
+_ADC1_GetFlagStatus                 0000c185   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_GetITStatus                   0000b801   defined in Debug\stm8s_adc1.o section .text
-_ADC1_ITConfig                      0000b551   defined in Debug\stm8s_adc1.o section .text
-_ADC1_Init                          0000b504   defined in Debug\stm8s_adc1.o section .text
+_ADC1_GetITStatus                   0000c222   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ITConfig                      0000bf72   defined in Debug\stm8s_adc1.o section .text
+_ADC1_Init                          0000bf25   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_PrescalerConfig               0000b567   defined in Debug\stm8s_adc1.o section .text
-_ADC1_ScanModeCmd                   0000b537   defined in Debug\stm8s_adc1.o section .text
+_ADC1_PrescalerConfig               0000bf88   defined in Debug\stm8s_adc1.o section .text
+_ADC1_ScanModeCmd                   0000bf58   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_ADC1_SchmittTriggerConfig          0000b57a   defined in Debug\stm8s_adc1.o section .text
-_ADC1_SetHighThreshold              0000b6da   defined in Debug\stm8s_adc1.o section .text
-_ADC1_SetLowThreshold               0000b6e8   defined in Debug\stm8s_adc1.o section .text
-_ADC1_StartConversion               0000b642   defined in Debug\stm8s_adc1.o section .text
+_ADC1_SchmittTriggerConfig          0000bf9b   defined in Debug\stm8s_adc1.o section .text
+_ADC1_SetHighThreshold              0000c0fb   defined in Debug\stm8s_adc1.o section .text
+_ADC1_SetLowThreshold               0000c109   defined in Debug\stm8s_adc1.o section .text
+_ADC1_StartConversion               0000c063   defined in Debug\stm8s_adc1.o section .text
                                                used in Debug\main.o
-_CLKPrescTable                      00008479   defined in Debug\stm8s_clk.o section .const
-_CLK_AdjustHSICalibrationValue      0000bb05   defined in Debug\stm8s_clk.o section .text
-_CLK_CCOCmd                         0000b8f7   defined in Debug\stm8s_clk.o section .text
-_CLK_CCOConfig                      0000ba20   defined in Debug\stm8s_clk.o section .text
-_CLK_ClearITPendingBit              0000bb79   defined in Debug\stm8s_clk.o section .text
-_CLK_ClockSecuritySystemEnable      0000ba9b   defined in Debug\stm8s_clk.o section .text
+_CLKPrescTable                      00008489   defined in Debug\stm8s_clk.o section .const
+_CLK_AdjustHSICalibrationValue      0000c526   defined in Debug\stm8s_clk.o section .text
+_CLK_CCOCmd                         0000c318   defined in Debug\stm8s_clk.o section .text
+_CLK_CCOConfig                      0000c441   defined in Debug\stm8s_clk.o section .text
+_CLK_ClearITPendingBit              0000c59a   defined in Debug\stm8s_clk.o section .text
+_CLK_ClockSecuritySystemEnable      0000c4bc   defined in Debug\stm8s_clk.o section .text
                                                used in Debug\main.o
-_CLK_ClockSwitchCmd                 0000b904   defined in Debug\stm8s_clk.o section .text
-_CLK_ClockSwitchConfig              0000b984   defined in Debug\stm8s_clk.o section .text
+_CLK_ClockSwitchCmd                 0000c325   defined in Debug\stm8s_clk.o section .text
+_CLK_ClockSwitchConfig              0000c3a5   defined in Debug\stm8s_clk.o section .text
                                                used in Debug\main.o
-_CLK_DeInit                         0000b88d   defined in Debug\stm8s_clk.o section .text
+_CLK_DeInit                         0000c2ae   defined in Debug\stm8s_clk.o section .text
                                                used in Debug\main.o
-_CLK_FastHaltWakeUpCmd              0000b8c3   defined in Debug\stm8s_clk.o section .text
-_CLK_GetClockFreq                   0000baa4   defined in Debug\stm8s_clk.o section .text
-_CLK_GetFlagStatus                  0000bb17   defined in Debug\stm8s_clk.o section .text
-_CLK_GetITStatus                    0000bb5a   defined in Debug\stm8s_clk.o section .text
-_CLK_GetSYSCLKSource                0000baa0   defined in Debug\stm8s_clk.o section .text
-_CLK_HSECmd                         0000b8d0   defined in Debug\stm8s_clk.o section .text
-_CLK_HSICmd                         0000b8dd   defined in Debug\stm8s_clk.o section .text
-_CLK_HSIPrescalerConfig             0000ba0d   defined in Debug\stm8s_clk.o section .text
+_CLK_FastHaltWakeUpCmd              0000c2e4   defined in Debug\stm8s_clk.o section .text
+_CLK_GetClockFreq                   0000c4c5   defined in Debug\stm8s_clk.o section .text
+_CLK_GetFlagStatus                  0000c538   defined in Debug\stm8s_clk.o section .text
+_CLK_GetITStatus                    0000c57b   defined in Debug\stm8s_clk.o section .text
+_CLK_GetSYSCLKSource                0000c4c1   defined in Debug\stm8s_clk.o section .text
+_CLK_HSECmd                         0000c2f1   defined in Debug\stm8s_clk.o section .text
+_CLK_HSICmd                         0000c2fe   defined in Debug\stm8s_clk.o section .text
+_CLK_HSIPrescalerConfig             0000c42e   defined in Debug\stm8s_clk.o section .text
                                                used in Debug\main.o
-_CLK_ITConfig                       0000ba37   defined in Debug\stm8s_clk.o section .text
-_CLK_LSICmd                         0000b8ea   defined in Debug\stm8s_clk.o section .text
-_CLK_PeripheralClockConfig          0000b91e   defined in Debug\stm8s_clk.o section .text
+_CLK_ITConfig                       0000c458   defined in Debug\stm8s_clk.o section .text
+_CLK_LSICmd                         0000c30b   defined in Debug\stm8s_clk.o section .text
+_CLK_PeripheralClockConfig          0000c33f   defined in Debug\stm8s_clk.o section .text
                                                used in Debug\main.o
-_CLK_SWIMConfig                     0000ba8e   defined in Debug\stm8s_clk.o section .text
-_CLK_SYSCLKConfig                   0000ba67   defined in Debug\stm8s_clk.o section .text
-_CLK_SYSCLKEmergencyClear           0000bb12   defined in Debug\stm8s_clk.o section .text
-_CLK_SlowActiveHaltWakeUpCmd        0000b911   defined in Debug\stm8s_clk.o section .text
-_Delay                              000085a9   defined in Debug\delay.o section .text
+_CLK_SWIMConfig                     0000c4af   defined in Debug\stm8s_clk.o section .text
+_CLK_SYSCLKConfig                   0000c488   defined in Debug\stm8s_clk.o section .text
+_CLK_SYSCLKEmergencyClear           0000c533   defined in Debug\stm8s_clk.o section .text
+_CLK_SlowActiveHaltWakeUpCmd        0000c332   defined in Debug\stm8s_clk.o section .text
+_Delay                              000085bd   defined in Debug\delay.o section .text
                                                used in Debug\hd44780.o
-_Delayms                            000085bc   defined in Debug\delay.o section .text
+                                                       Debug\iic.o
+_Delayms                            000085d0   defined in Debug\delay.o section .text
                                                used in Debug\hd44780.o
-                                                       Debug\main.o Debug\menu.o
-_FLASH_DeInit                       0000bba4   defined in Debug\stm8s_flash.o section .text
+                                                       Debug\iic.o Debug\main.o
+                                                       Debug\menu.o
+_GPIO_DeInit                        0000c5a8   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\main.o
-_FLASH_EraseBlock                   0000bd32   defined in Debug\stm8s_flash.o section .text
-_FLASH_EraseByte                    0000bbc9   defined in Debug\stm8s_flash.o section .text
-_FLASH_EraseOptionByte              0000bc1d   defined in Debug\stm8s_flash.o section .text
-_FLASH_GetBootSize                  0000bca1   defined in Debug\stm8s_flash.o section .text
-_FLASH_GetFlagStatus                0000bccf   defined in Debug\stm8s_flash.o section .text
-_FLASH_GetLowPowerMode              0000bc95   defined in Debug\stm8s_flash.o section .text
-_FLASH_GetProgrammingTime           0000bc9b   defined in Debug\stm8s_flash.o section .text
-_FLASH_ITConfig                     0000bbbc   defined in Debug\stm8s_flash.o section .text
-_FLASH_Lock                         0000bb9d   defined in Debug\stm8s_flash.o section .text
-                                               used in Debug\main.o Debug\menu.o
-_FLASH_ProgramBlock                 0000bd6d   defined in Debug\stm8s_flash.o section .text
-_FLASH_ProgramByte                  0000bbcd   defined in Debug\stm8s_flash.o section .text
-                                               used in Debug\main.o Debug\menu.o
-_FLASH_ProgramOptionByte            0000bbf1   defined in Debug\stm8s_flash.o section .text
-_FLASH_ProgramWord                  0000bbd7   defined in Debug\stm8s_flash.o section .text
-_FLASH_ProgramdoubleByte            00008b2c   defined in Debug\main.o section .text
-_FLASH_ReadByte                     0000bbd3   defined in Debug\stm8s_flash.o section .text
+_GPIO_ExternalPullUpConfig          0000c62f   defined in Debug\stm8s_gpio.o section .text
+_GPIO_Init                          0000c5b0   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\main.o
-_FLASH_ReadOptionByte               0000bc44   defined in Debug\stm8s_flash.o section .text
-_FLASH_ReaddoubleByte               00008b68   defined in Debug\main.o section .text
-_FLASH_SetLowPowerMode              0000bc77   defined in Debug\stm8s_flash.o section .text
-_FLASH_SetProgrammingTime           0000bc8a   defined in Debug\stm8s_flash.o section .text
-                                               used in Debug\main.o
-_FLASH_Unlock                       0000bb87   defined in Debug\stm8s_flash.o section .text
-                                               used in Debug\main.o
-_FLASH_WaitForLastOperation         0000bcda   defined in Debug\stm8s_flash.o section .text
-_GPIO_DeInit                        0000bdc1   defined in Debug\stm8s_gpio.o section .text
-                                               used in Debug\main.o
-_GPIO_ExternalPullUpConfig          0000be48   defined in Debug\stm8s_gpio.o section .text
-_GPIO_Init                          0000bdc9   defined in Debug\stm8s_gpio.o section .text
-                                               used in Debug\main.o
-_GPIO_ReadInputData                 0000be3e   defined in Debug\stm8s_gpio.o section .text
-_GPIO_ReadInputPin                  0000be41   defined in Debug\stm8s_gpio.o section .text
-                                               used in Debug\main.o
-_GPIO_ReadOutputData                0000be3c   defined in Debug\stm8s_gpio.o section .text
+_GPIO_ReadInputData                 0000c625   defined in Debug\stm8s_gpio.o section .text
+_GPIO_ReadInputPin                  0000c628   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\iic.o Debug\main.o
+_GPIO_ReadOutputData                0000c623   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\hd44780.o
-_GPIO_Write                         0000be1e   defined in Debug\stm8s_gpio.o section .text
+_GPIO_Write                         0000c605   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\hd44780.o
-_GPIO_WriteHigh                     0000be26   defined in Debug\stm8s_gpio.o section .text
+_GPIO_WriteHigh                     0000c60d   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\hd44780.o
-                                                       Debug\main.o
+                                                       Debug\iic.o Debug\main.o
                                                        Debug\stm8s_it.o
-_GPIO_WriteLow                      0000be2d   defined in Debug\stm8s_gpio.o section .text
+_GPIO_WriteLow                      0000c614   defined in Debug\stm8s_gpio.o section .text
                                                used in Debug\hd44780.o
-                                                       Debug\main.o
+                                                       Debug\iic.o Debug\main.o
                                                        Debug\stm8s_it.o
-_GPIO_WriteReverse                  0000be35   defined in Debug\stm8s_gpio.o section .text
-_HSIDivFactor                       00008475   defined in Debug\stm8s_clk.o section .const
-_LCD_2ndROW                         00008713   defined in Debug\hd44780.o section .text
-_LCD_CLEAR_DISPLAY                  00008708   defined in Debug\hd44780.o section .text
+_GPIO_WriteReverse                  0000c61c   defined in Debug\stm8s_gpio.o section .text
+_HSIDivFactor                       00008485   defined in Debug\stm8s_clk.o section .const
+_LCD_2ndROW                         00008727   defined in Debug\hd44780.o section .text
+_LCD_CLEAR_DISPLAY                  0000871c   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_CMD                            00008614   defined in Debug\hd44780.o section .text
+_LCD_CMD                            00008628   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_DISP_OFF                       00008738   defined in Debug\hd44780.o section .text
+_LCD_DISP_OFF                       0000874c   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_DISP_ON                        00008733   defined in Debug\hd44780.o section .text
+_LCD_DISP_ON                        00008747   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_ENABLE                         000085fb   defined in Debug\hd44780.o section .text
-_LCD_HOME                           0000871e   defined in Debug\hd44780.o section .text
-_LCD_INIT                           00008660   defined in Debug\hd44780.o section .text
+_LCD_ENABLE                         0000860f   defined in Debug\hd44780.o section .text
+_LCD_HOME                           00008732   defined in Debug\hd44780.o section .text
+_LCD_INIT                           00008674   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o
-_LCD_LOAD_CGRAM                     000085cd   defined in Debug\hd44780.o section .text
+_LCD_LOAD_CGRAM                     000085e1   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o
-_LCD_LOCATE                         0000873d   defined in Debug\hd44780.o section .text
+_LCD_LOCATE                         00008751   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_LSHIFT                         00008729   defined in Debug\hd44780.o section .text
-_LCD_PWROFF                         000085fa   defined in Debug\hd44780.o section .text
-_LCD_PWRON                          000085f9   defined in Debug\hd44780.o section .text
-_LCD_RSHIFT                         0000872e   defined in Debug\hd44780.o section .text
-_LCD_printchar                      000086a1   defined in Debug\hd44780.o section .text
-_LCD_printf                         0000875b   defined in Debug\hd44780.o section .text
+_LCD_LSHIFT                         0000873d   defined in Debug\hd44780.o section .text
+_LCD_PWROFF                         0000860e   defined in Debug\hd44780.o section .text
+_LCD_PWRON                          0000860d   defined in Debug\hd44780.o section .text
+_LCD_RSHIFT                         00008742   defined in Debug\hd44780.o section .text
+_LCD_printchar                      000086b5   defined in Debug\hd44780.o section .text
+_LCD_printf                         0000876f   defined in Debug\hd44780.o section .text
                                                used in Debug\menu.o
-_LCD_printstring                    000086f5   defined in Debug\hd44780.o section .text
+_LCD_printstring                    00008709   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_LCD_printtruc                      00008797   defined in Debug\hd44780.o section .text
+_LCD_printtruc                      000087ab   defined in Debug\hd44780.o section .text
                                                used in Debug\main.o Debug\menu.o
-_Menu                               0000b320   defined in Debug\menu.o section .text
+_Menu                               0000bd3b   defined in Debug\menu.o section .text
                                                used in Debug\main.o
-_Menu_actif                         0000c0:4   defined in Debug\stm8s_it.o section .bit, initialized
+_Menu_actif                         0000bd:5   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_Menu_on                            0000c0:3   defined in Debug\stm8s_it.o section .bit, initialized
+_Menu_on                            0000bd:4   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_Menu_raz                           0000c0:6   defined in Debug\stm8s_it.o section .bit, initialized
+_Menu_raz                           0000bd:7   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_TIM2_ARRPreloadConfig              0000c1f3   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ARRPreloadConfig              0000c9da   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_CCxCmd                        0000c252   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ClearFlag                     0000c3a5   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ClearITPendingBit             0000c3cd   defined in Debug\stm8s_tim2.o section .text
+_TIM2_CCxCmd                        0000ca39   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ClearFlag                     0000cb8c   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ClearITPendingBit             0000cbb4   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\stm8s_it.o
-_TIM2_Cmd                           0000c179   defined in Debug\stm8s_tim2.o section .text
+_TIM2_Cmd                           0000c960   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_DeInit                        0000bfc7   defined in Debug\stm8s_tim2.o section .text
+_TIM2_DeInit                        0000c7ae   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_ForcedOC1Config               0000c1cc   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ForcedOC2Config               0000c1d9   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ForcedOC3Config               0000c1e6   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GenerateEvent                 0000c227   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetCapture1                   0000c31a   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetCapture2                   0000c337   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetCapture3                   0000c354   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetCounter                    0000c371   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetFlagStatus                 0000c38d   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetITStatus                   0000c3af   defined in Debug\stm8s_tim2.o section .text
-_TIM2_GetPrescaler                  0000c389   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ICInit                        0000c0c6   defined in Debug\stm8s_tim2.o section .text
-_TIM2_ITConfig                      0000c186   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ForcedOC1Config               0000c9b3   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ForcedOC2Config               0000c9c0   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ForcedOC3Config               0000c9cd   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GenerateEvent                 0000ca0e   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetCapture1                   0000cb01   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetCapture2                   0000cb1e   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetCapture3                   0000cb3b   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetCounter                    0000cb58   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetFlagStatus                 0000cb74   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetITStatus                   0000cb96   defined in Debug\stm8s_tim2.o section .text
+_TIM2_GetPrescaler                  0000cb70   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ICInit                        0000c8ad   defined in Debug\stm8s_tim2.o section .text
+_TIM2_ITConfig                      0000c96d   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_OC1Init                       0000c030   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC1PolarityConfig             0000c22b   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC1PreloadConfig              0000c200   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC2Init                       0000c062   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC1Init                       0000c817   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC1PolarityConfig             0000ca12   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC1PreloadConfig              0000c9e7   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC2Init                       0000c849   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_OC2PolarityConfig             0000c238   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC2PreloadConfig              0000c20d   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC2PolarityConfig             0000ca1f   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC2PreloadConfig              0000c9f4   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_OC3Init                       0000c094   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC3PolarityConfig             0000c245   defined in Debug\stm8s_tim2.o section .text
-_TIM2_OC3PreloadConfig              0000c21a   defined in Debug\stm8s_tim2.o section .text
-_TIM2_PWMIConfig                    0000c10c   defined in Debug\stm8s_tim2.o section .text
-_TIM2_PrescalerConfig               0000c1c3   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC3Init                       0000c87b   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC3PolarityConfig             0000ca2c   defined in Debug\stm8s_tim2.o section .text
+_TIM2_OC3PreloadConfig              0000ca01   defined in Debug\stm8s_tim2.o section .text
+_TIM2_PWMIConfig                    0000c8f3   defined in Debug\stm8s_tim2.o section .text
+_TIM2_PrescalerConfig               0000c9aa   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_SelectOCxM                    0000c28c   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SelectOnePulseMode            0000c1b6   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetAutoreload                 0000c2cf   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SelectOCxM                    0000ca73   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SelectOnePulseMode            0000c99d   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetAutoreload                 0000cab6   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
                                                        Debug\stm8s_it.o
-_TIM2_SetCompare1                   0000c2d8   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetCompare2                   0000c2e1   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetCompare3                   0000c2ea   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetCounter                    0000c2c6   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetCompare1                   0000cabf   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetCompare2                   0000cac8   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetCompare3                   0000cad1   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetCounter                    0000caad   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_SetIC1Prescaler               0000c2f3   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetIC2Prescaler               0000c300   defined in Debug\stm8s_tim2.o section .text
-_TIM2_SetIC3Prescaler               0000c30d   defined in Debug\stm8s_tim2.o section .text
-_TIM2_TimeBaseInit                  0000c020   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetIC1Prescaler               0000cada   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetIC2Prescaler               0000cae7   defined in Debug\stm8s_tim2.o section .text
+_TIM2_SetIC3Prescaler               0000caf4   defined in Debug\stm8s_tim2.o section .text
+_TIM2_TimeBaseInit                  0000c807   defined in Debug\stm8s_tim2.o section .text
                                                used in Debug\main.o
-_TIM2_UpdateDisableConfig           0000c19c   defined in Debug\stm8s_tim2.o section .text
-_TIM2_UpdateRequestConfig           0000c1a9   defined in Debug\stm8s_tim2.o section .text
-_TIM3_ARRPreloadConfig              0000c623   defined in Debug\stm8s_tim3.o section .text
-_TIM3_CCxCmd                        0000c668   defined in Debug\stm8s_tim3.o section .text
-_TIM3_ClearFlag                     0000c75e   defined in Debug\stm8s_tim3.o section .text
-_TIM3_ClearITPendingBit             0000c78a   defined in Debug\stm8s_tim3.o section .text
+_TIM2_UpdateDisableConfig           0000c983   defined in Debug\stm8s_tim2.o section .text
+_TIM2_UpdateRequestConfig           0000c990   defined in Debug\stm8s_tim2.o section .text
+_TIM3_ARRPreloadConfig              0000ce0a   defined in Debug\stm8s_tim3.o section .text
+_TIM3_CCxCmd                        0000ce4f   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ClearFlag                     0000cf45   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ClearITPendingBit             0000cf71   defined in Debug\stm8s_tim3.o section .text
                                                used in Debug\stm8s_it.o
-_TIM3_Cmd                           0000c5b6   defined in Debug\stm8s_tim3.o section .text
+_TIM3_Cmd                           0000cd9d   defined in Debug\stm8s_tim3.o section .text
                                                used in Debug\main.o
-_TIM3_DeInit                        0000c462   defined in Debug\stm8s_tim3.o section .text
+_TIM3_DeInit                        0000cc49   defined in Debug\stm8s_tim3.o section .text
                                                used in Debug\main.o
-_TIM3_ForcedOC1Config               0000c609   defined in Debug\stm8s_tim3.o section .text
-_TIM3_ForcedOC2Config               0000c616   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GenerateEvent                 0000c64a   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GetCapture1                   0000c6f0   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GetCapture2                   0000c70d   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GetCounter                    0000c72a   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ForcedOC1Config               0000cdf0   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ForcedOC2Config               0000cdfd   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GenerateEvent                 0000ce31   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetCapture1                   0000ced7   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetCapture2                   0000cef4   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetCounter                    0000cf11   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetFlagStatus                 0000cf2d   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetITStatus                   0000cf53   defined in Debug\stm8s_tim3.o section .text
+_TIM3_GetPrescaler                  0000cf29   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ICInit                        0000cd02   defined in Debug\stm8s_tim3.o section .text
+_TIM3_ITConfig                      0000cdaa   defined in Debug\stm8s_tim3.o section .text
                                                used in Debug\main.o
-_TIM3_GetFlagStatus                 0000c746   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GetITStatus                   0000c76c   defined in Debug\stm8s_tim3.o section .text
-_TIM3_GetPrescaler                  0000c742   defined in Debug\stm8s_tim3.o section .text
-_TIM3_ICInit                        0000c51b   defined in Debug\stm8s_tim3.o section .text
-_TIM3_ITConfig                      0000c5c3   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC1Init                       0000cc9e   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC1PolarityConfig             0000ce35   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC1PreloadConfig              0000ce17   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC2Init                       0000ccd0   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC2PolarityConfig             0000ce42   defined in Debug\stm8s_tim3.o section .text
+_TIM3_OC2PreloadConfig              0000ce24   defined in Debug\stm8s_tim3.o section .text
+_TIM3_PWMIConfig                    0000cd2f   defined in Debug\stm8s_tim3.o section .text
+_TIM3_PrescalerConfig               0000cde7   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SelectOCxM                    0000ce74   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SelectOnePulseMode            0000cdda   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetAutoreload                 0000cea2   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetCompare1                   0000ceab   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetCompare2                   0000ceb4   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetCounter                    0000ce99   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetIC1Prescaler               0000cebd   defined in Debug\stm8s_tim3.o section .text
+_TIM3_SetIC2Prescaler               0000ceca   defined in Debug\stm8s_tim3.o section .text
+_TIM3_TimeBaseInit                  0000cc8e   defined in Debug\stm8s_tim3.o section .text
                                                used in Debug\main.o
-_TIM3_OC1Init                       0000c4b7   defined in Debug\stm8s_tim3.o section .text
-_TIM3_OC1PolarityConfig             0000c64e   defined in Debug\stm8s_tim3.o section .text
-_TIM3_OC1PreloadConfig              0000c630   defined in Debug\stm8s_tim3.o section .text
-_TIM3_OC2Init                       0000c4e9   defined in Debug\stm8s_tim3.o section .text
-_TIM3_OC2PolarityConfig             0000c65b   defined in Debug\stm8s_tim3.o section .text
-_TIM3_OC2PreloadConfig              0000c63d   defined in Debug\stm8s_tim3.o section .text
-_TIM3_PWMIConfig                    0000c548   defined in Debug\stm8s_tim3.o section .text
-_TIM3_PrescalerConfig               0000c600   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SelectOCxM                    0000c68d   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SelectOnePulseMode            0000c5f3   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetAutoreload                 0000c6bb   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetCompare1                   0000c6c4   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetCompare2                   0000c6cd   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetCounter                    0000c6b2   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetIC1Prescaler               0000c6d6   defined in Debug\stm8s_tim3.o section .text
-_TIM3_SetIC2Prescaler               0000c6e3   defined in Debug\stm8s_tim3.o section .text
-_TIM3_TimeBaseInit                  0000c4a7   defined in Debug\stm8s_tim3.o section .text
-                                               used in Debug\main.o
-_TIM3_UpdateDisableConfig           0000c5d9   defined in Debug\stm8s_tim3.o section .text
-_TIM3_UpdateRequestConfig           0000c5e6   defined in Debug\stm8s_tim3.o section .text
-_TIM4_ARRPreloadConfig              0000c864   defined in Debug\stm8s_tim4.o section .text
-_TIM4_ClearFlag                     0000c890   defined in Debug\stm8s_tim4.o section .text
-_TIM4_ClearITPendingBit             0000c8b3   defined in Debug\stm8s_tim4.o section .text
+_TIM3_UpdateDisableConfig           0000cdc0   defined in Debug\stm8s_tim3.o section .text
+_TIM3_UpdateRequestConfig           0000cdcd   defined in Debug\stm8s_tim3.o section .text
+_TIM4_ARRPreloadConfig              0000d04b   defined in Debug\stm8s_tim4.o section .text
+_TIM4_ClearFlag                     0000d077   defined in Debug\stm8s_tim4.o section .text
+_TIM4_ClearITPendingBit             0000d09a   defined in Debug\stm8s_tim4.o section .text
                                                used in Debug\stm8s_it.o
-_TIM4_Cmd                           0000c811   defined in Debug\stm8s_tim4.o section .text
+_TIM4_Cmd                           0000cff8   defined in Debug\stm8s_tim4.o section .text
                                                used in Debug\main.o
-_TIM4_DeInit                        0000c7ef   defined in Debug\stm8s_tim4.o section .text
+_TIM4_DeInit                        0000cfd6   defined in Debug\stm8s_tim4.o section .text
                                                used in Debug\main.o
-_TIM4_GenerateEvent                 0000c871   defined in Debug\stm8s_tim4.o section .text
-_TIM4_GetCounter                    0000c87d   defined in Debug\stm8s_tim4.o section .text
-_TIM4_GetFlagStatus                 0000c885   defined in Debug\stm8s_tim4.o section .text
-_TIM4_GetITStatus                   0000c895   defined in Debug\stm8s_tim4.o section .text
-_TIM4_GetPrescaler                  0000c881   defined in Debug\stm8s_tim4.o section .text
-_TIM4_ITConfig                      0000c81e   defined in Debug\stm8s_tim4.o section .text
+_TIM4_GenerateEvent                 0000d058   defined in Debug\stm8s_tim4.o section .text
+_TIM4_GetCounter                    0000d064   defined in Debug\stm8s_tim4.o section .text
+_TIM4_GetFlagStatus                 0000d06c   defined in Debug\stm8s_tim4.o section .text
+_TIM4_GetITStatus                   0000d07c   defined in Debug\stm8s_tim4.o section .text
+_TIM4_GetPrescaler                  0000d068   defined in Debug\stm8s_tim4.o section .text
+_TIM4_ITConfig                      0000d005   defined in Debug\stm8s_tim4.o section .text
                                                used in Debug\main.o
-_TIM4_PrescalerConfig               0000c85b   defined in Debug\stm8s_tim4.o section .text
-_TIM4_SelectOnePulseMode            0000c84e   defined in Debug\stm8s_tim4.o section .text
-_TIM4_SetAutoreload                 0000c879   defined in Debug\stm8s_tim4.o section .text
-_TIM4_SetCounter                    0000c875   defined in Debug\stm8s_tim4.o section .text
-_TIM4_TimeBaseInit                  0000c808   defined in Debug\stm8s_tim4.o section .text
+_TIM4_PrescalerConfig               0000d042   defined in Debug\stm8s_tim4.o section .text
+_TIM4_SelectOnePulseMode            0000d035   defined in Debug\stm8s_tim4.o section .text
+_TIM4_SetAutoreload                 0000d060   defined in Debug\stm8s_tim4.o section .text
+_TIM4_SetCounter                    0000d05c   defined in Debug\stm8s_tim4.o section .text
+_TIM4_TimeBaseInit                  0000cfef   defined in Debug\stm8s_tim4.o section .text
                                                used in Debug\main.o
-_TIM4_UpdateDisableConfig           0000c834   defined in Debug\stm8s_tim4.o section .text
-_TIM4_UpdateRequestConfig           0000c841   defined in Debug\stm8s_tim4.o section .text
-_Tempo_menu                         000000b0   defined in Debug\stm8s_it.o section .ubsct
+_TIM4_UpdateDisableConfig           0000d01b   defined in Debug\stm8s_tim4.o section .text
+_TIM4_UpdateRequestConfig           0000d028   defined in Debug\stm8s_tim4.o section .text
+_Tempo_menu                         000000ad   defined in Debug\stm8s_it.o section .ubsct
                                                used in Debug\main.o
 __endmem                            000005ff   defined in command file
                                                *** not used ***
-__endzp                             000000bb   defined in command file section .ubsct
+__endzp                             000000b8   defined in command file section .ubsct
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-__idesc__                           000084df   defined in linker section .init
+__idesc__                           000084ef   defined in linker section .init
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-__itob                              0000cdf7   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o section .text
+__itob                              0000d5de   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-__ltob                              0000ce71   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o section .text
+__ltob                              0000d658   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-__memory                            000001ff   defined in command file section .bss
+__memory                            00000324   defined in command file section .bss
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-__print                             0000c9c4   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o section .text
+__print                             0000d1ab   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)vsprnt.o
 __stack                             000007ff   defined in command file
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-__startmem                          000001ff   defined in command file section .bss
+__startmem                          00000324   defined in command file section .bss
                                                *** not used ***
-__stext                             0000855e   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
+__stext                             00008572   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
                                                used in Debug\stm8_interrupt_vector.o
-__udiv                              0000cf07   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)idiv0.o section .text
+__udiv                              0000d6ee   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)idiv0.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
-__uldiv                             0000cf12   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o section .text
+__uldiv                             0000d6f9   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
 __vectab                            00008000   defined in Debug\stm8_interrupt_vector.o section .const
-_barout                             00000097   defined in Debug\main.o section .ubsct
-_bas                                0000bc:6   defined in Debug\main.o section .bit, initialized
+_barout                             00000094   defined in Debug\main.o section .ubsct
+_bas                                0000b9:7   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
-_bip                                000087a7   defined in Debug\main.o section .text
+_bip                                00008a90   defined in Debug\main.o section .text
                                                used in Debug\stm8s_it.o
-_bipon                              0000bf:3   defined in Debug\main.o section .bit, initialized
-_biponoff                           000087cd   defined in Debug\main.o section .text
-_calcultrame                        0000a349   defined in Debug\main.o section .text
+_bipon                              0000bc:5   defined in Debug\main.o section .bit, initialized
+_biponoff                           00008af7   defined in Debug\main.o section .text
+_calcultrame                        0000ab22   defined in Debug\main.o section .text
                                                used in Debug\stm8s_it.o
-_captureADC                         000099d5   defined in Debug\main.o section .text
-_changeratiotrimdyn                 00009184   defined in Debug\main.o section .text
-_channel                            0000006b   defined in Debug\stm8s_it.o section .bsct, initialized
+_captureADC                         00009fce   defined in Debug\main.o section .text
+_changeratiotrimdyn                 00009722   defined in Debug\main.o section .text
+_channel                            0000006e   defined in Debug\stm8s_it.o section .bsct, initialized
                                                used in Debug\main.o
-_chargeeaccus                       0000000f   defined in Debug\main.o section .bsct, initialized
-_chronobat                          00008a17   defined in Debug\main.o section .text
-_compute_dr                         00009b89   defined in Debug\main.o section .text
-_compute_expo                       00009b5a   defined in Debug\main.o section .text
-_compute_mixer                      00009e41   defined in Debug\main.o section .text
-_compute_trim                       00009bd7   defined in Debug\main.o section .text
-_cur                                0000001a   defined in Debug\main.o section .bsct, initialized
-_decmilisec                         000085c3   defined in Debug\delay.o section .text
+_charge_nom_modele_ee               00009118   defined in Debug\main.o section .text
+                                               used in Debug\menu.o
+_charge_param_phase                 0000ab66   defined in Debug\main.o section .text
+                                               used in Debug\menu.o
+_chargeeaccus                       00000011   defined in Debug\main.o section .bsct, initialized
+_chronobat                          00008d72   defined in Debug\main.o section .text
+_compute_dr                         0000a182   defined in Debug\main.o section .text
+_compute_expo                       0000a153   defined in Debug\main.o section .text
+_compute_mixer                      0000a539   defined in Debug\main.o section .text
+_compute_trim                       0000a1d9   defined in Debug\main.o section .text
+_cur                                0000001c   defined in Debug\main.o section .bsct, initialized
+_decmilisec                         000085d7   defined in Debug\delay.o section .text
                                                used in Debug\stm8s_it.o
-_droite                             0000bd:0   defined in Debug\main.o section .bit, initialized
+_demitempo                          000087c1   defined in Debug\iic.o section .text
+_droite                             0000ba:1   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
-_duree                              00009741   defined in Debug\main.o section .text
-_entreswitch                        0000977f   defined in Debug\main.o section .text
-_etalonnage                         00009263   defined in Debug\main.o section .text
+_entreswitch                        00009d3b   defined in Debug\main.o section .text
+_erreur_ee                          00008ab6   defined in Debug\main.o section .text
+_etalonnage                         00009839   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_exit                               000085a7   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
-_expon                              0000bb:4   defined in Debug\main.o section .bit, initialized
-_flashencour                        0000bc:2   defined in Debug\main.o section .bit, initialized
+_exit                               000085bb   defined in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8 section .text
+_expon                              0000b8:5   defined in Debug\main.o section .bit, initialized
+_flashencour                        0000b9:3   defined in Debug\main.o section .bit, initialized
+_gauche                             0000ba:0   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
-_gauche                             0000bc:7   defined in Debug\main.o section .bit, initialized
+_haut                               0000b9:6   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
-_haut                               0000bc:5   defined in Debug\main.o section .bit, initialized
+_iic_ack                            00008827   defined in Debug\iic.o section .text
+_iic_attend_ack                     00008889   defined in Debug\iic.o section .text
+_iic_ecrire                         00008a27   defined in Debug\iic.o section .text
+                                               used in Debug\main.o
+_iic_envoi_16bit                    000088d5   defined in Debug\iic.o section .text
+_iic_envoi_byte                     000089cc   defined in Debug\iic.o section .text
+_iic_lire                           0000895d   defined in Debug\iic.o section .text
+                                               used in Debug\main.o
+_iic_nack                           00008853   defined in Debug\iic.o section .text
+_iic_recoi_byte                     000088f6   defined in Debug\iic.o section .text
+_iic_start                          000087c7   defined in Debug\iic.o section .text
+_iic_stop                           000087f1   defined in Debug\iic.o section .text
+_info                               00008b7d   defined in Debug\main.o section .text
+_initialise                         0000a99f   defined in Debug\main.o section .text
+_input                              000002dc   defined in Debug\main.o section .bss
                                                used in Debug\menu.o
-_info                               0000883d   defined in Debug\main.o section .text
-_initialise                         0000a1c6   defined in Debug\main.o section .text
-_input                              000001ab   defined in Debug\main.o section .bss
-                                               used in Debug\menu.o
-_jeton                              0000005d   defined in Debug\menu.o section .bsct, initialized
-_lbas                               00000082   defined in Debug\main.o section .ubsct
-_lectureswitch                      00009ae4   defined in Debug\main.o section .text
-_lectureswitchmultiplex             0000983b   defined in Debug\main.o section .text
-_lhaut                              0000008b   defined in Debug\main.o section .ubsct
-_load_input                         00008c5c   defined in Debug\main.o section .text
-_load_phase                         00008d7b   defined in Debug\main.o section .text
-                                               used in Debug\menu.o
-_m10                                0000a52f   defined in Debug\menu.o section .text
-_m11                                0000a583   defined in Debug\menu.o section .text
-_m12                                0000a617   defined in Debug\menu.o section .text
-_m121                               0000a679   defined in Debug\menu.o section .text
-_m122                               0000a6eb   defined in Debug\menu.o section .text
-_m13                                0000a770   defined in Debug\menu.o section .text
-_m131                               0000a7f3   defined in Debug\menu.o section .text
-_m175                               0000b041   defined in Debug\menu.o section .text
-_m176                               0000b0d8   defined in Debug\menu.o section .text
-_m177                               0000b165   defined in Debug\menu.o section .text
-_m20                                0000a872   defined in Debug\menu.o section .text
-_m21                                0000a8ad   defined in Debug\menu.o section .text
-_m30                                0000a957   defined in Debug\menu.o section .text
-_m31                                0000a992   defined in Debug\menu.o section .text
-_m32                                0000a9e0   defined in Debug\menu.o section .text
-_m33                                0000aaf1   defined in Debug\menu.o section .text
-_m40                                0000ac09   defined in Debug\menu.o section .text
-_m41                                0000ac44   defined in Debug\menu.o section .text
-_m50                                0000ad59   defined in Debug\menu.o section .text
-_m51                                0000ad94   defined in Debug\menu.o section .text
-_m60                                0000adf6   defined in Debug\menu.o section .text
-_m61                                0000ae31   defined in Debug\menu.o section .text
-_m70                                0000aea2   defined in Debug\menu.o section .text
-_m71                                0000aedd   defined in Debug\menu.o section .text
-_m72                                0000af26   defined in Debug\menu.o section .text
-_m73                                0000af7e   defined in Debug\menu.o section .text
-_m74                                0000afd8   defined in Debug\menu.o section .text
-_m75                                0000b015   defined in Debug\menu.o section .text
-_m76                                0000b0ac   defined in Debug\menu.o section .text
-_m77                                0000b139   defined in Debug\menu.o section .text
-_m78                                0000b1c9   defined in Debug\menu.o section .text
-_m80                                0000b227   defined in Debug\menu.o section .text
-_m81                                0000b262   defined in Debug\menu.o section .text
-_main                               0000a399   defined in Debug\main.o section .text
+_jeton                              0000005f   defined in Debug\menu.o section .bsct, initialized
+_lbas                               0000007f   defined in Debug\main.o section .ubsct
+_lectureswitch                      0000a0dd   defined in Debug\main.o section .text
+_lectureswitchmultiplex             00009e34   defined in Debug\main.o section .text
+_lhaut                              00000088   defined in Debug\main.o section .ubsct
+_load_input                         00008ff9   defined in Debug\main.o section .text
+_load_phase_ee                      00009142   defined in Debug\main.o section .text
+_m10                                0000ad47   defined in Debug\menu.o section .text
+_m11                                0000adab   defined in Debug\menu.o section .text
+_m12                                0000ae15   defined in Debug\menu.o section .text
+_m121                               0000ae77   defined in Debug\menu.o section .text
+_m122                               0000aeee   defined in Debug\menu.o section .text
+_m13                                0000af77   defined in Debug\menu.o section .text
+_m131                               0000affa   defined in Debug\menu.o section .text
+_m14                                0000b077   defined in Debug\menu.o section .text
+_m175                               0000ba34   defined in Debug\menu.o section .text
+_m176                               0000bacb   defined in Debug\menu.o section .text
+_m177                               0000bb58   defined in Debug\menu.o section .text
+_m20                                0000b117   defined in Debug\menu.o section .text
+_m21                                0000b152   defined in Debug\menu.o section .text
+_m30                                0000b210   defined in Debug\menu.o section .text
+_m31                                0000b24b   defined in Debug\menu.o section .text
+_m32                                0000b299   defined in Debug\menu.o section .text
+_m33                                0000b3e7   defined in Debug\menu.o section .text
+_m40                                0000b583   defined in Debug\menu.o section .text
+_m41                                0000b5be   defined in Debug\menu.o section .text
+_m50                                0000b715   defined in Debug\menu.o section .text
+_m51                                0000b750   defined in Debug\menu.o section .text
+_m60                                0000b7be   defined in Debug\menu.o section .text
+_m61                                0000b7f9   defined in Debug\menu.o section .text
+_m70                                0000b87c   defined in Debug\menu.o section .text
+_m71                                0000b8b7   defined in Debug\menu.o section .text
+_m72                                0000b900   defined in Debug\menu.o section .text
+_m73                                0000b971   defined in Debug\menu.o section .text
+_m74                                0000b9cb   defined in Debug\menu.o section .text
+_m75                                0000ba08   defined in Debug\menu.o section .text
+_m76                                0000ba9f   defined in Debug\menu.o section .text
+_m77                                0000bb2c   defined in Debug\menu.o section .text
+_m78                                0000bbbc   defined in Debug\menu.o section .text
+_m80                                0000bc1a   defined in Debug\menu.o section .text
+_m81                                0000bc55   defined in Debug\menu.o section .text
+_main                               0000ab77   defined in Debug\main.o section .text
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
-_manche0neutre                      0000be:3   defined in Debug\main.o section .bit, initialized
-_manche1neutre                      0000be:4   defined in Debug\main.o section .bit, initialized
-_manche2neutre                      0000be:5   defined in Debug\main.o section .bit, initialized
-_manche3neutre                      0000be:6   defined in Debug\main.o section .bit, initialized
-_memtrimdyn                         0000924c   defined in Debug\main.o section .text
-_menudyn                            0000bc:3   defined in Debug\main.o section .bit, initialized
+_manche0neutre                      0000bb:5   defined in Debug\main.o section .bit, initialized
+_manche1neutre                      0000bb:6   defined in Debug\main.o section .bit, initialized
+_manche2neutre                      0000bb:7   defined in Debug\main.o section .bit, initialized
+_manche3neutre                      0000bc:0   defined in Debug\main.o section .bit, initialized
+_memtrimdyn                         00009822   defined in Debug\main.o section .text
+_menudyn                            0000b9:4   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
 _milisec                            00000000   defined in Debug\delay.o section .bsct, initialized
-_minutes                            00000094   defined in Debug\main.o section .ubsct
+_minutes                            00000091   defined in Debug\main.o section .ubsct
                                                used in Debug\stm8s_it.o
-_mixer                              0000016b   defined in Debug\main.o section .bss
+_modele_actuel                      000000ac   defined in Debug\main.o section .ubsct
                                                used in Debug\menu.o
-_modele_actuel                      000000af   defined in Debug\main.o section .ubsct
+_navigue                            0000be05   defined in Debug\menu.o section .text
+_nivbar                             00008b68   defined in Debug\main.o section .text
+_nom_modele                         00000004   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\menu.o
-_navigue                            0000b3e4   defined in Debug\menu.o section .text
-_nivbar                             00008b0d   defined in Debug\main.o section .text
-_nom_modele                         00000003   defined in Debug\main.o section .bsct, initialized
-                                               used in Debug\menu.o
-_output                             00000100   defined in Debug\main.o section .bss
+_output                             000002aa   defined in Debug\main.o section .bss
                                                used in Debug\menu.o
                                                        Debug\stm8s_it.o
+_param_phase                        00000100   defined in Debug\main.o section .bss
+                                               used in Debug\menu.o
+_phase_a_charger                    00000003   defined in Debug\main.o section .bsct, initialized
 _phase_actuelle                     00000002   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\menu.o
-_phase_change                       0000bb:0   defined in Debug\main.o section .bit, initialized
-_phase_changemenu                   0000bb:1   defined in Debug\main.o section .bit, initialized
-_popup                              0000c0:5   defined in Debug\stm8s_it.o section .bit, initialized
+_phase_change                       0000b8:1   defined in Debug\main.o section .bit, initialized
+_phase_changemenu                   0000b8:2   defined in Debug\main.o section .bit, initialized
+_popup                              0000bd:6   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_pourcentsortie                     00008afc   defined in Debug\main.o section .text
+_pourcentsortie                     00008e6b   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_prepareflash                       00008b20   defined in Debug\main.o section .text
-                                               used in Debug\menu.o
-_putchar                            0000cf2d   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)putchr.o section .text
+_putchar                            0000d714   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)putchr.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-_ratiobat                           0000000e   defined in Debug\main.o section .bsct, initialized
+_ratiotrimdyn                       00000013   defined in Debug\main.o section .bsct, initialized
+_razchrono                          00008b4d   defined in Debug\main.o section .text
+_reglage_variable                   0000be44   defined in Debug\menu.o section .text
+_reset_modele                       00008e7c   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_ratiotrimdyn                       00000011   defined in Debug\main.o section .bsct, initialized
-_razchrono                          00008822   defined in Debug\main.o section .text
-_reglage_variable                   0000b423   defined in Debug\menu.o section .text
-_reset_model                        00008b99   defined in Debug\main.o section .text
+_reset_neutre                       00008fd4   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_reset_neutre                       00008c44   defined in Debug\main.o section .text
+_ret                                0000b8:0   defined in Debug\iic.o section .bit, initialized
+_sauve_numero_modele_actuel_ee      0000940c   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_save_neutre                        00009101   defined in Debug\main.o section .text
+_save_neutre_ee                     000096b5   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_save_phase                         00008f45   defined in Debug\main.o section .text
+_save_phase_ee                      00009423   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_scale_output                       0000a129   defined in Debug\main.o section .text
-_sec                                0000c0:2   defined in Debug\stm8s_it.o section .bit, initialized
+_scale_output                       0000a8b4   defined in Debug\main.o section .text
+_sec                                0000bd:3   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_secondes                           00000095   defined in Debug\main.o section .ubsct
+_secondes                           00000092   defined in Debug\main.o section .ubsct
                                                used in Debug\stm8s_it.o
-_secondesurcinq                     00000096   defined in Debug\main.o section .ubsct
+_secondesurcinq                     00000093   defined in Debug\main.o section .ubsct
                                                used in Debug\stm8s_it.o
-_secumot                            0000bb:5   defined in Debug\main.o section .bit, initialized
-_settrimdyn                         000091e2   defined in Debug\main.o section .text
-_sortiepourcent                     00008aed   defined in Debug\main.o section .text
+_secumot                            0000b8:6   defined in Debug\main.o section .bit, initialized
+_settrimdyn                         00009780   defined in Debug\main.o section .text
+_sortiepourcent                     00008e5c   defined in Debug\main.o section .text
                                                used in Debug\menu.o
-_strlen                             0000cf34   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)strlen0.o section .text
+_strlen                             0000d71b   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)strlen0.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-_switchdr                           0000bb:3   defined in Debug\main.o section .bit, initialized
+_switchdr                           0000b8:4   defined in Debug\main.o section .bit, initialized
                                                used in Debug\menu.o
-_switchinfo                         0000bc:4   defined in Debug\main.o section .bit, initialized
-_synchro                            0000c0:7   defined in Debug\stm8s_it.o section .bit, initialized
+_switchinfo                         0000b9:5   defined in Debug\main.o section .bit, initialized
+_synchro                            0000be:0   defined in Debug\stm8s_it.o section .bit, initialized
                                                used in Debug\main.o
-_tempotrimdyn                       00000012   defined in Debug\main.o section .bsct, initialized
+_tempo                              000087bb   defined in Debug\iic.o section .text
+_tempotrimdyn                       00000014   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsbip1                          00000015   defined in Debug\main.o section .bsct, initialized
+_tempsbip1                          00000017   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsbip2                          00000016   defined in Debug\main.o section .bsct, initialized
+_tempsbip2                          00000018   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsbip3                          00000017   defined in Debug\main.o section .bsct, initialized
+_tempsbip3                          00000019   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsbip4                          00000018   defined in Debug\main.o section .bsct, initialized
+_tempsbip4                          0000001a   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsbip5                          00000019   defined in Debug\main.o section .bsct, initialized
+_tempsbip5                          0000001b   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\stm8s_it.o
-_tempsmenu                          00000014   defined in Debug\main.o section .bsct, initialized
+_tempsmenu                          00000016   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\menu.o
                                                        Debug\stm8s_it.o
-_temptrimdyn                        00000013   defined in Debug\main.o section .bsct, initialized
-_tor1moins                          0000bb:7   defined in Debug\main.o section .bit, initialized
-_tor1plus                           0000bb:6   defined in Debug\main.o section .bit, initialized
-_tor2moins                          0000bc:1   defined in Debug\main.o section .bit, initialized
-_tor2plus                           0000bc:0   defined in Debug\main.o section .bit, initialized
-_toupper                            0000cf40   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)toup0.o section .text
+_temptrimdyn                        00000015   defined in Debug\main.o section .bsct, initialized
+_tor1moins                          0000b9:0   defined in Debug\main.o section .bit, initialized
+_tor1plus                           0000b8:7   defined in Debug\main.o section .bit, initialized
+_tor2moins                          0000b9:2   defined in Debug\main.o section .bit, initialized
+_tor2plus                           0000b9:1   defined in Debug\main.o section .bit, initialized
+_toupper                            0000d727   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)toup0.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-_trim0moins                         0000bd:2   defined in Debug\main.o section .bit, initialized
-_trim0plus                          0000bd:1   defined in Debug\main.o section .bit, initialized
-_trim1moins                         0000bd:4   defined in Debug\main.o section .bit, initialized
-_trim1plus                          0000bd:3   defined in Debug\main.o section .bit, initialized
-_trim2moins                         0000bd:6   defined in Debug\main.o section .bit, initialized
-_trim2plus                          0000bd:5   defined in Debug\main.o section .bit, initialized
-_trim3moins                         0000be:0   defined in Debug\main.o section .bit, initialized
-_trim3plus                          0000bd:7   defined in Debug\main.o section .bit, initialized
-_trimchange                         0000be:1   defined in Debug\main.o section .bit, initialized
-_trimdyn                            0000bb:2   defined in Debug\main.o section .bit, initialized
-_trimdynencour                      0000be:2   defined in Debug\main.o section .bit, initialized
+_trim0moins                         0000ba:3   defined in Debug\main.o section .bit, initialized
+_trim0plus                          0000ba:2   defined in Debug\main.o section .bit, initialized
+_trim1moins                         0000ba:5   defined in Debug\main.o section .bit, initialized
+_trim1plus                          0000ba:4   defined in Debug\main.o section .bit, initialized
+_trim2moins                         0000ba:7   defined in Debug\main.o section .bit, initialized
+_trim2plus                          0000ba:6   defined in Debug\main.o section .bit, initialized
+_trim3moins                         0000bb:1   defined in Debug\main.o section .bit, initialized
+_trim3plus                          0000bb:0   defined in Debug\main.o section .bit, initialized
+_trimchange                         0000bb:3   defined in Debug\main.o section .bit, initialized
+_trimdyn                            0000b8:3   defined in Debug\main.o section .bit, initialized
+_trimdynencour                      0000bb:4   defined in Debug\main.o section .bit, initialized
                                                used in Debug\stm8s_it.o
-_trimdynmanche0                     0000be:7   defined in Debug\main.o section .bit, initialized
-_trimdynmanche1                     0000bf:0   defined in Debug\main.o section .bit, initialized
-_trimdynmanche2                     0000bf:1   defined in Debug\main.o section .bit, initialized
-_trimdynmanche3                     0000bf:2   defined in Debug\main.o section .bit, initialized
-_trimflag                           0000c0:1   defined in Debug\main.o section .bit, initialized
-_trimmem                            0000009f   defined in Debug\main.o section .ubsct
-_trimstep                           0000000d   defined in Debug\main.o section .bsct, initialized
+_trimdynmanche0                     0000bc:1   defined in Debug\main.o section .bit, initialized
+_trimdynmanche1                     0000bc:2   defined in Debug\main.o section .bit, initialized
+_trimdynmanche2                     0000bc:3   defined in Debug\main.o section .bit, initialized
+_trimdynmanche3                     0000bc:4   defined in Debug\main.o section .bit, initialized
+_trimflag                           0000bb:2   defined in Debug\main.o section .bit, initialized
+_trimmem                            0000009c   defined in Debug\main.o section .ubsct
+_trimstep                           00000010   defined in Debug\main.o section .bsct, initialized
                                                used in Debug\menu.o
-_vsprintf                           0000c8b8   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)vsprnt.o section .text
+_vsprintf                           0000d09f   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)vsprnt.o section .text
                                                used in Debug\hd44780.o
-c_cmulx                             0000cf4b   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)cmulx.o section .text
+c_cmulx                             0000d732   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)cmulx.o section .text
                                                used in Debug\main.o
-                                                       Debug\stm8s_flash.o
-c_divsl                             0000cf5f   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o section .text
+c_divsl                             0000d746   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lsdiv.o
-c_divul                             0000cf76   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o section .text
+c_divul                             0000d75d   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ludiv.o
-c_imul                              0000d04a   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)imul.o section .text
+c_imul                              0000d831   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)imul.o section .text
                                                used in Debug\delay.o Debug\main.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
-c_itolx                             0000d06b   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o section .text
+c_itolx                             0000d852   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)itolx.o section .text
                                                used in Debug\main.o
-c_ladc                              0000d079   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladc.o section .text
+c_ladc                              0000d860   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladc.o section .text
                                                used in Debug\main.o
-c_ladd                              0000d08a   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o section .text
+c_ladd                              0000d871   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ladd.o section .text
                                                used in Debug\main.o
-                                                       Debug\stm8s_flash.o
-c_lcmp                              0000d0a2   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lcmp.o section .text
+c_lcmp                              0000d889   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lcmp.o section .text
                                                used in Debug\main.o
-c_ldiv                              0000d0c2   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lsdiv.o section .text
+c_ldiv                              0000d8a9   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lsdiv.o section .text
                                                used in Debug\main.o
-c_lgadc                             0000d0e1   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadc.o section .text
+c_lgadd                             0000d8c8   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o section .text
                                                used in Debug\main.o
-c_lgadd                             0000d0f1   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgadd.o section .text
+c_lgmul                             0000d8df   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgmul.o section .text
                                                used in Debug\main.o
-                                                       Debug\stm8s_flash.o
-c_lgmul                             0000d108   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgmul.o section .text
-                                               used in Debug\main.o
-c_lgneg                             0000d110   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgneg.o section .text
+c_lgneg                             0000d8e7   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgneg.o section .text
                                                used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o
-c_lgsbc                             0000d123   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgsbc.o section .text
-                                               used in Debug\stm8s_flash.o
-c_lmul                              0000d139   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o section .text
+c_lmul                              0000d8fa   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o section .text
                                                used in Debug\main.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgmul.o
-c_lmulc                             0000d141   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o section .text
+c_lmulc                             0000d902   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o section .text
                                                *** not used ***
-c_lneg                              0000d1c4   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lneg.o section .text
+c_lneg                              0000d985   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lneg.o section .text
                                                used in Debug\main.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lsdiv.o
-c_lreg                              000000b1   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lreg.o section .ubsct
+c_lreg                              000000ae   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lreg.o section .ubsct
                                                used in Debug\main.o
                                                        Debug\stm8s_clk.o
-                                                       Debug\stm8s_flash.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)cmulx.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ldiv.o
@@ -2281,40 +2312,36 @@ c_lreg                              000000b1   defined in (C:\Program Files\COSM
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utolx.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utoly.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o
-c_ltor                              0000d1d9   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o section .text
+c_ltor                              0000d99a   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ltor.o section .text
                                                used in Debug\main.o
                                                        Debug\stm8s_clk.o
-                                                       Debug\stm8s_flash.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o
-c_ludv                              0000d1eb   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ludiv.o section .text
+c_ludv                              0000d9ac   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)ludiv.o section .text
                                                used in Debug\main.o
                                                        Debug\stm8s_clk.o
-c_lursh                             0000d1ff   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lursh.o section .text
+c_lursh                             0000d9c0   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lursh.o section .text
                                                used in Debug\main.o
-c_lzmp                              0000d20e   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lzmp.o section .text
-                                               used in Debug\stm8s_flash.o
-                                                       (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
-c_rtol                              0000d220   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o section .text
+c_lzmp                              0000d9cf   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lzmp.o section .text
+                                               used in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
+c_rtol                              0000d9e1   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)rtol.o section .text
                                                used in Debug\main.o
                                                        Debug\stm8s_clk.o
-                                                       Debug\stm8s_flash.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)cprint.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)itob.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libis0.sm8)ildiv0.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lgmul.o
-c_sdivx                             0000d238   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o section .text
+c_sdivx                             0000d9f9   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o section .text
                                                used in Debug\main.o
-c_smodx                             0000d232   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o section .text
+c_smodx                             0000d9f3   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o section .text
                                                *** not used ***
-c_uitolx                            0000d25d   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utolx.o section .text
+c_uitolx                            0000da1e   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utolx.o section .text
                                                used in Debug\main.o
-c_uitoly                            0000d264   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utoly.o section .text
+c_uitoly                            0000da25   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)utoly.o section .text
                                                used in Debug\main.o
-c_umul                              0000d26c   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o section .text
+c_umul                              0000da2d   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o section .text
                                                used in Debug\main.o
-                                                       Debug\stm8s_flash.o
-c_x                                 000000b5   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)xreg.o section .ubsct
+c_x                                 000000b2   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)xreg.o section .ubsct
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
                                                        Debug\main.o
                                                        Debug\stm8s_it.o
@@ -2325,54 +2352,54 @@ c_x                                 000000b5   defined in (C:\Program Files\COSM
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)lmul.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)sdivx.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o
-c_y                                 000000b8   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)yreg.o section .ubsct
+c_y                                 000000b5   defined in (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)yreg.o section .ubsct
                                                used in C:\Program Files\COSMIC\CXSTM8_32K\Lib\crtsi0.sm8
                                                        Debug\main.o Debug\menu.o
                                                        Debug\stm8s_it.o
                                                        (C:\Program Files\COSMIC\CXSTM8_32K\Lib\libm0.sm8)umul.o
-f_ADC1_IRQHandler                   0000bfa4   defined in Debug\stm8s_it.o section .text
+f_ADC1_IRQHandler                   0000c78b   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_AWU_IRQHandler                    0000be61   defined in Debug\stm8s_it.o section .text
+f_AWU_IRQHandler                    0000c648   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_CLK_IRQHandler                    0000be62   defined in Debug\stm8s_it.o section .text
+f_CLK_IRQHandler                    0000c649   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EEPROM_EEC_IRQHandler             0000bfc6   defined in Debug\stm8s_it.o section .text
+f_EEPROM_EEC_IRQHandler             0000c7ad   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EXTI_PORTA_IRQHandler             0000be63   defined in Debug\stm8s_it.o section .text
+f_EXTI_PORTA_IRQHandler             0000c64a   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EXTI_PORTB_IRQHandler             0000be64   defined in Debug\stm8s_it.o section .text
+f_EXTI_PORTB_IRQHandler             0000c64b   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EXTI_PORTC_IRQHandler             0000be65   defined in Debug\stm8s_it.o section .text
+f_EXTI_PORTC_IRQHandler             0000c64c   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EXTI_PORTD_IRQHandler             0000be66   defined in Debug\stm8s_it.o section .text
+f_EXTI_PORTD_IRQHandler             0000c64d   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_EXTI_PORTE_IRQHandler             0000be67   defined in Debug\stm8s_it.o section .text
+f_EXTI_PORTE_IRQHandler             0000c64e   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_I2C_IRQHandler                    0000bfa1   defined in Debug\stm8s_it.o section .text
+f_I2C_IRQHandler                    0000c788   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_NonHandledInterrupt               0000be5e   defined in Debug\stm8s_it.o section .text
+f_NonHandledInterrupt               0000c645   defined in Debug\stm8s_it.o section .text
                                                used in Debug\stm8_interrupt_vector.o
-f_SPI_IRQHandler                    0000be68   defined in Debug\stm8s_it.o section .text
+f_SPI_IRQHandler                    0000c64f   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_TIM1_CAP_COM_IRQHandler           0000be6a   defined in Debug\stm8s_it.o section .text
+f_TIM1_CAP_COM_IRQHandler           0000c651   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_TIM1_UPD_OVF_TRG_BRK_IRQHandler   0000be69   defined in Debug\stm8s_it.o section .text
+f_TIM1_UPD_OVF_TRG_BRK_IRQHandler   0000c650   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_TIM2_CAP_COM_IRQHandler           0000be91   defined in Debug\stm8s_it.o section .text
+f_TIM2_CAP_COM_IRQHandler           0000c678   defined in Debug\stm8s_it.o section .text
                                                used in Debug\stm8_interrupt_vector.o
-f_TIM2_UPD_OVF_BRK_IRQHandler       0000be6b   defined in Debug\stm8s_it.o section .text
+f_TIM2_UPD_OVF_BRK_IRQHandler       0000c652   defined in Debug\stm8s_it.o section .text
                                                used in Debug\stm8_interrupt_vector.o
-f_TIM3_CAP_COM_IRQHandler           0000bfa0   defined in Debug\stm8s_it.o section .text
+f_TIM3_CAP_COM_IRQHandler           0000c787   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_TIM3_UPD_OVF_BRK_IRQHandler       0000bec7   defined in Debug\stm8s_it.o section .text
+f_TIM3_UPD_OVF_BRK_IRQHandler       0000c6ae   defined in Debug\stm8s_it.o section .text
                                                used in Debug\stm8_interrupt_vector.o
-f_TIM4_UPD_OVF_IRQHandler           0000bfa5   defined in Debug\stm8s_it.o section .text
+f_TIM4_UPD_OVF_IRQHandler           0000c78c   defined in Debug\stm8s_it.o section .text
                                                used in Debug\stm8_interrupt_vector.o
-f_TLI_IRQHandler                    0000be60   defined in Debug\stm8s_it.o section .text
+f_TLI_IRQHandler                    0000c647   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_TRAP_IRQHandler                   0000be5f   defined in Debug\stm8s_it.o section .text
+f_TRAP_IRQHandler                   0000c646   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_UART2_RX_IRQHandler               0000bfa3   defined in Debug\stm8s_it.o section .text
+f_UART2_RX_IRQHandler               0000c78a   defined in Debug\stm8s_it.o section .text
                                                *** not used ***
-f_UART2_TX_IRQHandler               0000bfa2   defined in Debug\stm8s_it.o section .text
+f_UART2_TX_IRQHandler               0000c789   defined in Debug\stm8s_it.o section .text
                                                *** not used ***

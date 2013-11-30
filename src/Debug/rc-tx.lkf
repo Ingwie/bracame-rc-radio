@@ -52,11 +52,11 @@ crtsi0.sm8
 #<BEGIN OBJECT_FILES>
 Debug\delay.o
 Debug\hd44780.o
+Debug\iic.o
 Debug\main.o
 Debug\menu.o
 Debug\stm8s_adc1.o
 Debug\stm8s_clk.o
-Debug\stm8s_flash.o
 Debug\stm8s_gpio.o
 Debug\stm8s_it.o
 Debug\stm8s_tim2.o
