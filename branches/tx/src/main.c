@@ -10,8 +10,11 @@
 /* */
 /* Multiplexage des switchs secumoteur, phase, expo et dr liberation des entrées i2c pour ise en place d'une 24C256*/
 /* */
-/* Ecriture de routines perso i2c : le stm8 rev Y est buggé sur l'i2c. 24C256 fonctionnelle (15 modèles 3 phases et 18
-mixeurs maintenant. Reste a ajouter un switch 3 positions pour les phases*/
+/* Ecriture de routines perso i2c : le stm8 rev Y est buggé sur l'i2c. 24C256 fonctionnelle*/
+/* (15 modèles 3 phases et 18 mixeurs maintenant. Reste a ajouter un switch 3 positions pour les phases*/
+/* */
+/* Amelioration de secumoteur */
+/* */
 /* */
 
 
@@ -44,11 +47,12 @@ u8 nom_modele[12] = "           \n";
 _Bool trimdyn = 0; // Lié a PD7
 _Bool switchdr = 0; // PE2
 _Bool expon = 0; // PE3
-_Bool secumot = 0; // PE0
+_Bool secumot = 1; // PE0
 _Bool tor1plus = 0; // PA3
 _Bool tor1moins = 0; // PA4
 _Bool tor2plus = 0; // PA5
 _Bool tor2moins = 0; // PA6
+_Bool gazazero = 0; // Detection manche des gaz au mini pour fonction secumoteur
 
 struct_input NEAR input;
 struct_output NEAR output;
@@ -120,22 +124,22 @@ char cur[64] = {
 
 /*void duree(void) // pour debugger optimiser
 {
-        static u16 debut;
-        static u16 fin;
-        static u16 temps;
-        debut =  TIM3_GetCounter();  
+		static u16 debut;
+		static u16 fin;
+		static u16 temps;
+		debut =  TIM3_GetCounter();  
 
 
-        // fonction a mesurer
-        //lectureswitch();
+		// fonction a mesurer
+		//lectureswitch();
 
-        fin = TIM3_GetCounter();
-        if (fin > debut)
-        {
-                temps =(fin - debut) * 32;
-                LCD_printtruc(1,9,"%i\n",temps);
-                LCD_printtruc(2,10,"%i\n",channel);
-        }
+		fin = TIM3_GetCounter();
+		if (fin > debut)
+		{
+				temps =(fin - debut) * 32;
+				LCD_printtruc(1,9,"%i\n",temps);
+				LCD_printtruc(2,10,"%i\n",channel);
+		}
 }*/
 
 void bip(u8 temps1,u8 temps2,u8 temps3,u8 temps4,u8 temps5) // temps x 0.2 sec
@@ -952,7 +956,8 @@ void lectureswitchmultiplex(void)
 		trim2plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
 		trim3plus = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
 		// SECUMOTEUR
-		secumot = !GPIO_ReadInputPin(GPIOE,GPIO_PIN_0);
+		if ((GPIO_ReadInputPin(GPIOE,GPIO_PIN_0) && ((secumot && gazazero) || !secumot))) secumot = 0;
+		else secumot = 1;
 		// DUALRATE
 		switchdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_3);
 		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
@@ -965,7 +970,7 @@ void lectureswitchmultiplex(void)
 		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
 		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
 		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		// PHASE
+		// PHASE bientot GPIO_ReadInputPin(GPIOB,GPIO_PIN_7) pour phase 3;
 		if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_0))
 		{
 			if (phase_a_charger == 0) phase_change = 1;
@@ -1284,17 +1289,21 @@ void scale_output(void)
 		{
 			val = param_phase[phase_actuelle].usMinValue[i];
 		}
+		
 		if(val > param_phase[phase_actuelle].usMaxValue[i])
 		{
 			val = param_phase[phase_actuelle].usMaxValue[i];
 		}
 		
-		if ((secumot) && (i == param_phase[phase_actuelle].secumoteur))
-		output.usValueOut[i] = param_phase[phase_actuelle].usMinValue[i];
-		else output.usValueOut[i] = val;
+		output.usValueOut[i] = val;
 		
+		if (i == param_phase[phase_actuelle].secumoteur)
+		{
+			gazazero = (output.usValueOut[i] <= (param_phase[phase_actuelle].usMinValue[i] + 10));
+			if (secumot) output.usValueOut[i] = param_phase[phase_actuelle].usMinValue[i];
+		}
+
 		output.usValueOut[NUM_OUTPUT] = output.usValueOut[NUM_OUTPUT] - output.usValueOut[i];
-		
 	}
 }
 
@@ -1323,7 +1332,7 @@ void initialise(void)
 	GPIO_Init(LCDControlPort, LCD_RS, GPIO_MODE_OUT_PP_LOW_FAST);
 	GPIO_Init(LCDControlPort, LCD_Enable, GPIO_MODE_OUT_PP_LOW_FAST);
 	
-	/*  Init GPIO pour les touches et switchs*/
+	//  Init GPIO pour les touches et switchs
 	GPIO_DeInit(GPIOE);
 	GPIO_DeInit(GPIOG);
 	GPIO_DeInit(GPIOA);
@@ -1332,7 +1341,7 @@ void initialise(void)
 	// SECUMOTEUR+PHASE DUALRATE+EXPO DROITE  et trim manches 3 et 2
 	GPIO_Init(GPIOE,GPIO_PIN_0|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7,GPIO_MODE_IN_FL_NO_IT);
 	// I2C SCL ET I2C SDA
-	GPIO_Init(GPIOE,GPIO_PIN_1|GPIO_PIN_2,GPIO_MODE_OUT_OD_HIZ_FAST); //GPIO_MODE_OUT_OD_HIZ_FAST
+	GPIO_Init(GPIOE,GPIO_PIN_1|GPIO_PIN_2,GPIO_MODE_OUT_OD_HIZ_FAST); // Open drain pour l'i2c
 	//GAUCHE (0) ET HAUT (1)
 	GPIO_Init(GPIOG,(GPIO_PIN_0 |GPIO_PIN_1),GPIO_MODE_IN_FL_NO_IT);
 	// TOR1 ET TOR2 (PLUS ET MOINS)
@@ -1412,6 +1421,7 @@ void calcultrame(void) // Boucle principale irq14
 void charge_param_phase(void)
 {
 	u8 i;
+	secumot = 1;
 	for(i = 0; i < NUM_PHASE; i++)
 	{
 		load_phase_ee(i);
