@@ -11,7 +11,6 @@ extern _Bool haut;
 extern _Bool bas;
 extern _Bool gauche;
 extern _Bool droite;
-extern _Bool flashencour;
 extern _Bool menudyn;
 extern u8 trimstep;
 extern u8 tempsmenu;
@@ -364,7 +363,7 @@ void m33(void)
 			{
 				i++;
 recherche:
-				if ((param_phase[phase_actuelle].mixer[i].in == 255) || (param_phase[phase_actuelle].mixer[i].out == 255) || (i > (NUM_MIXER - 1)))
+				if (((param_phase[phase_actuelle].mixer[i].in == 255) || (param_phase[phase_actuelle].mixer[i].out == 255)) && (i < (NUM_MIXER - 1)))
 				{
 					i++;
 					goto recherche;
