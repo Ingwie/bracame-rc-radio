@@ -116,9 +116,9 @@ void LCD_ENABLE (void)
 void LCD_CMD(unsigned char cmd_data)
 {
 	GPIO_WriteLow(LCDControlPort, LCD_RS);
-	GPIO_Write(LCDPort, (GPIO_ReadOutputData(LCDPort) & 0x0F) | (cmd_data & 0xF0));
+	GPIO_Write(LCDPort,(GPIO_ReadOutputData(LCDPort) & 0x0F) | (cmd_data & 0xF0));
 	LCD_ENABLE();
-	GPIO_Write(LCDPort, (GPIO_ReadOutputData(LCDPort) & 0x0F) | ((cmd_data << 4) & 0xF0) );
+	GPIO_Write(LCDPort,(GPIO_ReadOutputData(LCDPort) & 0x0F) | ((cmd_data << 4) & 0xF0));
 	LCD_ENABLE();
 	Delay(35);
 }
@@ -160,10 +160,10 @@ void LCD_INIT(void)
 void LCD_printchar(unsigned char ascode)
 {
 	GPIO_WriteHigh(LCDControlPort, LCD_RS);
-	GPIO_Write(LCDPort, (GPIO_ReadOutputData(LCDPort) & 0x0F) | (ascode & 0xF0));
+	GPIO_Write(LCDPort,(GPIO_ReadOutputData(LCDPort) & 0x0F) | (ascode & 0xF0));
 	LCD_ENABLE();
 	Delay(35);
-	GPIO_Write(LCDPort, (GPIO_ReadOutputData(LCDPort) & 0x0F) | ((ascode << 4) & 0xF0));
+	GPIO_Write(LCDPort,(GPIO_ReadOutputData(LCDPort) & 0x0F) | ((ascode << 4) & 0xF0));
 	LCD_ENABLE();
 	Delay(35);
 }

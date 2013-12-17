@@ -13,7 +13,7 @@ FormatWatch2=2
 FormatViewType2=1
 FormatViewAddress2=1
 WatchRWOnFlyTab2=0
-WatchVariables3=test!0;
+WatchVariables3=toto!0;sortie!0;NEUTRE_COURSE!0;
 FormatWatch3=0
 FormatViewType3=1
 FormatViewAddress3=1
@@ -69,4 +69,4 @@ SP_Ctrl_Enable=
 SP_Ctrl_OverFlow=
 [DebugState_v1-Debug.AddOn.Plotter]
 data=50410300000002000000010000000200000001010A70723A3A50455F4F4452020000000200000001010A70723A3A50455F494452F3
-xml_checksum=28
+xml_checksum=10
