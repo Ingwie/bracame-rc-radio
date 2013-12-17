@@ -80,13 +80,10 @@ _Bool trimflag = 0;
 _Bool trimchange = 0;
 u8 trimstep = 2;
 
-u8 barout[NUM_OUTPUT];
 
 u8 secondesurcinq;
 u8 secondes;
 u8 minutes;
-char lhaut[NUM_OUTPUT + 1];
-char lbas[NUM_OUTPUT + 1];
 u16 chargeeaccus = 9999;
 
 u8 ratiotrimdyn = 1;
@@ -110,15 +107,6 @@ u8 tempsbip4 = 0;
 u8 tempsbip5 = 0;
 _Bool bipon = 1;
 
-char cur[64] = {
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F,
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x00,
-	0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00,
-	0x00, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -155,6 +143,24 @@ void bip(u8 temps1,u8 temps2,u8 temps3,u8 temps4,u8 temps5) // temps x 0.2 sec
 	}
 }
 
+void lcd_charge_spcaracteres(void)
+{
+	const char cur[64] =
+	{
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	};
+	
+	LCD_CMD(CGRAM_address_start);
+	LCD_LOAD_CGRAM(cur,8);
+}
+
 void erreur_ee(u16 adresse) // Affiche un message en cas d'erreur avec la eeprom
 {
 	LCD_DISP_OFF();
@@ -165,6 +171,7 @@ void erreur_ee(u16 adresse) // Affiche un message en cas d'erreur avec la eeprom
 	LCD_printtruc(1,4,"Erreur EE",0);
 	LCD_printtruc(2,4,"adresse %i\n",adresse);
 	LCD_DISP_ON();
+	bip(3,0,0,0,0);
 	Delayms(1000);
 }
 
@@ -195,50 +202,52 @@ void razchrono(void)
 {
 	minutes = secondes = 0;
 	chargeeaccus = 9999;
-
 	bip(2,1,2,0,0);
 }
 
 u8 nivbar(u16 sortie) // Pour baragraphe info
 {	
-	sortie -= MIN_COURSE;
-	sortie >>= 7;
-	return (u8)sortie;
+	sortie -= (MIN_COURSE - MIN_COURSE/8);
+	sortie /= 166;
+	return sortie;
 }
 
 void info(void) // Affichage pendant le vol ...
 {
 	u8 i;
 	u16 volt;
-	char esp = 32;
+	u8 barout;
+	char lhaut[NUM_OUTPUT + 1];
+	char lbas[NUM_OUTPUT + 1];
+	const char esp = 32;
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
-		barout[i] = nivbar(output.usValueOut[i]); //calcul pour affichage pendant le vol
-	}
-	
-	for(i = 0; i < NUM_OUTPUT ; i++)
-	{	
+		barout = nivbar(output.usValueOut[i]); //calcul pour affichage pendant le vol
 		
-		switch (barout[i])
+		switch (barout)
 		{
 		case 0:
-			lbas[i] = '\1';
+			lbas[i] = '\0';
 			lhaut[i] = esp;
 			break;
 		case 1:
-			lbas[i] = '\2';
+			lbas[i] = '\1';
 			lhaut[i] = esp;
 			break;
 		case 2:
-			lbas[i] = '\3';
+			lbas[i] = '\2';
 			lhaut[i] = esp;
 			break;
 		case 3:
-			lbas[i] = '\4';
+			lbas[i] = '\3';
 			lhaut[i] = esp;
 			break;
 		case 4:
+			lbas[i] = '\4';
+			lhaut[i] = esp;
+			break;
+		case 5:
 			lbas[i] = '\5';
 			lhaut[i] = esp;
 			break;
@@ -283,7 +292,6 @@ void info(void) // Affichage pendant le vol ...
 			lhaut[i] = '\7';
 			break;
 		}
-		
 	}
 	
 	lhaut[NUM_OUTPUT] = 10; // Caractere "/n"
@@ -304,10 +312,8 @@ void info(void) // Affichage pendant le vol ...
 
 	// Batterie
 	volt = ADC1_GetBufferValue(6); //3.42 (697) 2.2 (452) ->  200.81 / VOLT + 0.05V *2 + diode
-	volt = volt * 10;
-	volt += 680;
-	LCD_printtruc(2,12,"%i\n",volt/1000);
-	volt /= 10;
+	volt += 68;
+	LCD_printtruc(2,12,"%i\n",volt/100);
 	LCD_printtruc(2,13,".%2.2iV\n",volt%100);
 	if (volt < 750)
 	{
@@ -322,8 +328,6 @@ void info(void) // Affichage pendant le vol ...
 			LCD_DISP_ON();
 		}
 	}
-	
-	
 }
 
 void chronobat(void) // Autonomie batterie f des gaz
@@ -360,8 +364,7 @@ s8 sortiepourcent(u16 sortie) // Valeurs des temps en %
 
 u16 pourcentsortie(s8 pourcent) // % en temps
 { 
-	return ((pourcent * 10) + NEUTRE_COURSE);
-	
+	return (u16)((pourcent * 10) + NEUTRE_COURSE);
 }
 
 void reset_modele(void)
@@ -382,8 +385,8 @@ void reset_modele(void)
 	//mixer 
 	for(i = 0; i < NUM_MIXER; i++)
 	{
-		param_phase[phase_actuelle].mixer[i].in = 0xFF;
-		param_phase[phase_actuelle].mixer[i].out = 0xFF;
+		param_phase[phase_actuelle].mixer[i].in = 255;
+		param_phase[phase_actuelle].mixer[i].out = 255;
 		param_phase[phase_actuelle].mixer[i].pente[0] = 0;
 		param_phase[phase_actuelle].mixer[i].pente[1] = 0;
 	}
@@ -416,8 +419,6 @@ void reset_neutre(void)
 {
 	u8 i;
 	
-	//output
-	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
 		param_phase[phase_actuelle].usNeutralValue[i] = NEUTRE_COURSE;
@@ -425,64 +426,76 @@ void reset_neutre(void)
 	
 }
 
+void eeprom_ecrire(u16 adresse,u8* pdonnee,u8 taille) // Affiche un message en cas d'erreur d'ecriture eeprom
+{
+	if (!iic_ecrire(adresse,pdonnee,taille)) erreur_ee(adresse);
+}
+
+void eeprom_lire(u16 adresse,u8* pdat,u8 taille) // Affiche un message en cas d'erreur de lecture eeprom
+{
+	if (!iic_lire(adresse,pdat,taille)) erreur_ee(adresse);
+}
+
 void load_input(void) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 {
-	u8 i = 0;
+	u8 i;
 	u16 delta2;
 	
 	u16 addr = 20;
 	
 	flashencour = 1;
 	
-	//input
 	for(i = 0; i < NUM_INPUT; i++)
 	{	
-		if (!iic_lire(addr,(u8*)&input.channel[i].usMinValue,2)) erreur_ee(addr);
-		addr = addr + 2;	
+		eeprom_lire(addr,(u8*)&input.channel[i].usMinValue,2);
+		addr +=2;	
 		
-		if (!iic_lire(addr,(u8*)&input.channel[i].usNeutralValue,2)) erreur_ee(addr);
-		addr = addr + 2;	
+		eeprom_lire(addr,(u8*)&input.channel[i].usNeutralValue,2);
+		addr +=2;	
 		
-		if (!iic_lire(addr,(u8*)&input.channel[i].usMaxValue,2)) erreur_ee(addr);
-		addr = addr + 2;	                
+		eeprom_lire(addr,(u8*)&input.channel[i].usMaxValue,2);
+		addr +=2;	
 		
 		delta2 = (input.channel[i].usNeutralValue - input.channel[i].usMinValue);
 		if (delta2 > 4) input.channel[i].pente[0] = 256000 / delta2;
-		else input.channel[i].pente[0] = 0xFFFF;
+		else input.channel[i].pente[0] = 65535;
 		
 		delta2 = (input.channel[i].usMaxValue - input.channel[i].usNeutralValue);
 		if (delta2 > 4) input.channel[i].pente[1] = 256000 / delta2;
-		else input.channel[i].pente[1] = 0xFFFF;
+		else input.channel[i].pente[1] = 65535;
 	}
+	
 	flashencour = 0;
 }
 
 void charge_nom_modele_ee(u8 modele)
 {
 	u16 addr = 64 + (3 * 3 * 64 * modele) ;
-	if (!iic_lire(addr,(u8*)&nom_modele,12)) erreur_ee(addr);
+	
+	eeprom_lire(addr,(u8*)&nom_modele,12);
+	
 	nom_modele[11] = '\n';
 }
 
 void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 {
-	u8 i = 0;
-	u8 j = 0;
+	u8 i;
+	u8 j;
 	u8 utemp;
 	s8 stemp;
 	u16 addr = 64 + (3 * 3 * 64 * modele_actuel) + ( 3 * 64 * phase);
 	
 	//nom du modele
-	if (phase ==0) {if (!iic_lire(addr,(u8*)&nom_modele,12)) erreur_ee(addr);}
+	if (phase ==0) {eeprom_lire(addr,(u8*)&nom_modele,12);}
 	addr+=12;
 	nom_modele[11] = '\n';
 	
 	//secu moteur
-	if (!iic_lire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+	eeprom_lire(addr,(u8*)&utemp,1);
 	param_phase[phase].secumoteur = utemp;
 	addr++;
-	
-	if (!iic_lire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+	// ratiobat
+	eeprom_lire(addr,(u8*)&utemp,1);
 	param_phase[phase].ratiobat = utemp;
 	
 
@@ -495,29 +508,27 @@ void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 		//expo
 		for(j = 0; j < 2;j++)
 		{
-			if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+			eeprom_lire(addr,(u8*)&stemp,1);
 			param_phase[phase].expo[i][j] = stemp;
-			addr ++;
+			addr++;
 		}
 	}
 	
-
 	//mixer
 	for(i = 0; i < NUM_MIXER; i++)
 	{
-		
-		if (!iic_lire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&utemp,1);
 		param_phase[phase].mixer[i].in = utemp;
 		addr++;
-		if (!iic_lire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&utemp,1);
 		if (param_phase[phase].mixer[i].in <= (NUM_INPUT + NUM_INPUT_SWITCH))
 		param_phase[phase].mixer[i].out = utemp;
 		else param_phase[phase].mixer[i].out = 255;
 		addr++;
-		if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&stemp,1);
 		param_phase[phase].mixer[i].pente[0] = stemp;
 		addr++;
-		if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&stemp,1);
 		param_phase[phase].mixer[i].pente[1] = stemp;
 		addr++;
 	}
@@ -528,8 +539,7 @@ void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 	
 	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
 	{
-		
-		if (!iic_lire(addr,(u8*)&utemp,1)) erreur_ee(addr);		
+		eeprom_lire(addr,(u8*)&utemp,1);		
 		param_phase[phase].dr[i] = utemp;
 		addr++;
 	}
@@ -537,24 +547,24 @@ void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 	
 	for(i = 0; i < NUM_OUTPUT; i++) // Min et Max
 	{
-		if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&stemp,1);
 		param_phase[phase].usMinValue[i] = pourcentsortie(stemp);
-		addr ++;
-		if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		addr++;
+		eeprom_lire(addr,(u8*)&stemp,1);
 		param_phase[phase].usMaxValue[i] = pourcentsortie(stemp);
-		addr ++;
+		addr++;
 	}
 	for(i = 0; i < NUM_OUTPUT; i++) // Les neutres
 	{
-		if (!iic_lire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_lire(addr,(u8*)&stemp,1);
 		param_phase[phase].usNeutralValue[i] = pourcentsortie(stemp);
-		addr ++;
+		addr++;
 	}
 }
 
 void sauve_numero_modele_actuel_ee(u8 num) // Memorise le modele chargé
 {
-	if (!iic_ecrire(0,(u8*)&num,1)) erreur_ee(0);
+	eeprom_ecrire(0,(u8*)&num,1);
 }
 
 void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
@@ -567,15 +577,15 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	
 	//nom du modele
 	nom_modele[11] = '\n';
-	if (phase == 0) {if (!iic_ecrire(addr,(u8*)&nom_modele,12)) erreur_ee(addr);}
+	if (phase == 0) eeprom_ecrire(addr,(u8*)&nom_modele,12);
 	addr+=12;
 	
 	//secu moteur
 	utemp = param_phase[phase_actuelle].secumoteur;
-	if (!iic_ecrire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+	eeprom_ecrire(addr,(u8*)&utemp,1);
 	addr++;
 	utemp = param_phase[phase_actuelle].ratiobat;
-	if (!iic_ecrire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+	eeprom_ecrire(addr,(u8*)&utemp,1);
 
 	
 	addr+=PLACE_1; //de la place pour autre chose ...
@@ -587,7 +597,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 		for(j = 0; j < 2;j++)
 		{
 			stemp = param_phase[phase_actuelle].expo[i][j];
-			if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+			eeprom_ecrire(addr,(u8*)&stemp,1);
 			addr ++;
 		}
 	}
@@ -597,16 +607,16 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	for(i = 0; i < NUM_MIXER; i++)
 	{
 		utemp = param_phase[phase_actuelle].mixer[i].in;
-		if (!iic_ecrire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&utemp,1);
 		addr++;
 		utemp = param_phase[phase_actuelle].mixer[i].out;
-		if (!iic_ecrire(addr,(u8*)&utemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&utemp,1);
 		addr++;
 		stemp = param_phase[phase_actuelle].mixer[i].pente[0];
-		if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr++;
 		stemp = param_phase[phase_actuelle].mixer[i].pente[1];
-		if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr++;
 	}
 	
@@ -617,7 +627,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	for(i = 0; i < (NUM_INPUT + NUM_INPUT_SWITCH) ; i++)
 	{
 		utemp = param_phase[phase_actuelle].dr[i];
-		if (!iic_ecrire(addr,(u8*)&utemp,1)) erreur_ee(addr);		
+		eeprom_ecrire(addr,(u8*)&utemp,1);		
 		addr++;
 	}
 
@@ -625,23 +635,23 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	for(i = 0; i < NUM_OUTPUT; i++) //Min et Max
 	{		
 		stemp = sortiepourcent(param_phase[phase_actuelle].usMinValue[i]);
-		if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr ++;
 		stemp = sortiepourcent(param_phase[phase_actuelle].usMaxValue[i]);
-		if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr ++;
 	}
 	for(i = 0; i < NUM_OUTPUT; i++) // Les neutres ensemble
 	{
 		stemp = sortiepourcent(param_phase[phase_actuelle].usNeutralValue[i]);
-		if (!iic_ecrire(addr,(u8*)&stemp,1)) erreur_ee(addr);
+		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr ++;
 	}
 }
 
 void save_neutre_ee(void) // Sauve les neutre
 {
-	u8 i = 0;
+	u8 i;
 	s8 stemp[NUM_OUTPUT];
 	u16 addr = 64 + (3 * 3 * 64 * modele_actuel) + ( 3 * 64 * phase_actuelle);
 	addr += 144;
@@ -652,7 +662,7 @@ void save_neutre_ee(void) // Sauve les neutre
 	{
 		stemp[i] = sortiepourcent(param_phase[phase_actuelle].usNeutralValue[i]);
 	}
-	if (!iic_ecrire(addr,(u8*)&stemp,NUM_OUTPUT)) erreur_ee(addr);
+	eeprom_ecrire(addr,(u8*)&stemp,NUM_OUTPUT);
 	
 	flashencour = 0;
 }
@@ -668,7 +678,6 @@ void changeratiotrimdyn(void) // Divise les courses lors du trimdyn
 	popup = 1;
 	Tempo_menu = 8;
 	switchinfo = 1;
-
 
 	LCD_printtruc(1,2,"Ratio trimdyn",0);
 	LCD_printtruc(2,6," ~ %u\n",ratiotrimdyn);
@@ -691,15 +700,14 @@ void settrimdyn(void) // Applique les trims dynamiques
 		{
 			if (out != param_phase[phase_actuelle].secumoteur) param_phase[phase_actuelle].usNeutralValue[out] = trimmem[out]; // et pas la voie moteur
 		}
-		trimdynencour = trimdynmanche0 = trimdynmanche1 = trimdynmanche2 = trimdynmanche3 = 1; // recherches des neutres
-		trimdyn = 0;
-		trimchange = 1; // Sauvegarde des nouveaux neutres
 	}
+	trimdynencour = trimdynmanche0 = trimdynmanche1 = trimdynmanche2 = trimdynmanche3 = 1; // recherches des neutres
+	trimdyn = 0;
+	trimchange = 1; // Sauvegarde des nouveaux neutres
 }
 
 void memtrimdyn(void) // Active la memorisation des valeurs des sorties si appuis sur bouton trimdyn (dans compute_mixer)
 {
-
 	trimdyn = 1;
 	tempotrimdyn = temptrimdyn; // Charge la tempo
 	bip(2,0,0,0,0);
@@ -708,7 +716,7 @@ void memtrimdyn(void) // Active la memorisation des valeurs des sorties si appui
 void etalonnage(void) // taille : 6 x NUM_INPUT
 {
 	u8 i;
-	u16 count = 0;
+	u16 count;
 	u16 min[NUM_INPUT];
 	u16 neutral[NUM_INPUT];
 	u16 max[NUM_INPUT];
@@ -725,12 +733,12 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	Delayms(800);
 	bip(1,0,0,0,0);
 	
-	while(!bas) 	bas = GPIO_ReadInputPin(GPIOC,GPIO_PIN_1);
+	while(!bas) bas = GPIO_ReadInputPin(GPIOC,GPIO_PIN_1);
 
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_printtruc(1,1,"Mesures zero\n",0);
-	LCD_printtruc(2,1,"en cour\n",0);
+	LCD_printtruc(2,1,"en cours\n",0);
 	LCD_DISP_ON();
 	Menu_raz = 1;
 	
@@ -754,7 +762,7 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	{
 		if(synchro)
 		{
-			count--;
+			--count;
 			synchro = 0;
 			ADC1_StartConversion();
 			while(ADC1_GetFlagStatus(ADC1_FLAG_EOC) == 0)
@@ -779,12 +787,12 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	LCD_DISP_ON();
 	Menu_raz = 1;
 	bip(1,0,0,0,0);
-	while(!bas) 	bas = GPIO_ReadInputPin(GPIOC,GPIO_PIN_1);
+	while(!bas) bas = GPIO_ReadInputPin(GPIOC,GPIO_PIN_1);
 	bas = 0;
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_printtruc(1,1,"Mesures max/min\n",0);
-	LCD_printtruc(2,1,"en cour\n",0);
+	LCD_printtruc(2,1,"en cours\n",0);
 	LCD_DISP_ON();
 
 	for(i = 0; i < NUM_INPUT; i++)
@@ -798,8 +806,8 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	{
 		if(synchro)
 		{
-			u16 val[6];
-			count--;
+			u16 val[NUM_INPUT];
+			--count;
 			synchro = 0;
 			ADC1_StartConversion();
 			while(ADC1_GetFlagStatus(ADC1_FLAG_EOC) == 0)
@@ -840,11 +848,11 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 		
 		for(i = 0; i < NUM_INPUT; i++)
 		{
-			if (!iic_ecrire(addr,(u8*)&min[i],2)) erreur_ee(addr);
+			eeprom_ecrire(addr,(u8*)&min[i],2);
 			addr+=2;
-			if (!iic_ecrire(addr,(u8*)&neutral[i],2)) erreur_ee(addr);
+			eeprom_ecrire(addr,(u8*)&neutral[i],2);
 			addr+=2;
-			if (!iic_ecrire(addr,(u8*)&max[i],2)) erreur_ee(addr);
+			eeprom_ecrire(addr,(u8*)&max[i],2);
 			addr+=2;
 		}
 	}
@@ -857,70 +865,51 @@ void etalonnage(void) // taille : 6 x NUM_INPUT
 	
 	Menu_raz = 1;
 	
-	while(!haut) 	haut = GPIO_ReadInputPin(GPIOG,GPIO_PIN_1);
+	while(!haut) haut = GPIO_ReadInputPin(GPIOG,GPIO_PIN_1);
 	Tempo_menu = 14;
 	Delayms(500);
 	load_input();
-
 }
 
-static s16 expou(u16 x, u8 exp) // expo only for plus values: x: 0..1000, exp: 1..99
+s16 expou(u16 x, u8 exp) // expo only for plus values: x: 0..1000, exp: 1..99
 {
 	// (x*x/1000*x*exp/1000+x*(100-exp)+50)/100
 	return (s16)(((u32)x * x / 1000 * x * exp / 1000
 	+ (u32)x * (u8)(100 - exp) + 50) / 100);
 }
 
-static s16 expo(s16 inval, u8 i) // apply expo: inval: -1000..1000, exp: -99..99
+s16 expo(s16 inval, u8 i) // apply expo: inval: -1000..1000, exp: -99..99
 {
 	u8  neg;
 	s16 val;
 	s8 exp;
 	
-	if ((param_phase[phase_actuelle].expo[i][0] == 0) && (param_phase[phase_actuelle].expo[i][1] == 0))    return inval;	// no expo
+	if ((param_phase[phase_actuelle].expo[i][0] == 0) && (param_phase[phase_actuelle].expo[i][1] == 0))
+	return inval;	// no expo
 	if (inval == 0)  return inval;	// 0 don't change
 
 	neg = (u8)(inval < 0 ? 1 : 0);
 	
-	if (neg) {
+	if (neg)
+	{
 		inval = -inval;
 		exp = param_phase[phase_actuelle].expo[i][0];
 	}
-	else {
+	else 
+	{
 		exp = param_phase[phase_actuelle].expo[i][1];
 	}
 	if (exp > 0)  val = expou(inval,exp);
-	else          val = 1000 - expou(1000 - inval,-exp);
+	else val = 1000 - expou(1000 - inval,-exp);
 
 	return  neg ? -val : val;
 }
 
-/*void duree(void) // pour debugger optimiser
-{
-	static u16 debut;
-	static u16 fin;
-	static u16 temps;
-	debut =  TIM3_GetCounter();  
-
-
-	// fonction a mesurer
-	//lectureswitch();
-
-	fin = TIM3_GetCounter();
-	if (fin > debut)
-	{
-		temps =(fin - debut) * 32;
-		LCD_printtruc(1,9,"%i\n",temps);
-		LCD_printtruc(2,10,"%i\n",channel);
-	}
-}*/
-
 s16 entreswitch(u8 i,u8 in)
 { 
-	s16 val;
+	s16 val = 0;
 	s32 drtemp;
 	
-	val = 0;
 	
 	if (in == NUM_INPUT)
 	{
@@ -936,7 +925,6 @@ s16 entreswitch(u8 i,u8 in)
 	
 	if (switchdr) 
 	{
-		
 		drtemp = val;
 		drtemp *= param_phase[phase_actuelle].dr[in];
 		drtemp /= 100;
@@ -946,7 +934,7 @@ s16 entreswitch(u8 i,u8 in)
 	return val;
 }
 
-void lectureswitchmultiplex(void)
+void lectureswitchmultiplex(void) // 2 switchs par entree
 {
 	if (trimflag)
 	{
@@ -1081,9 +1069,7 @@ void compute_expo(void)
 
 	for(i =0 ; i < NUM_INPUT; i++)
 	{
-		
 		val16 = input.channel[i].usValue;
-		
 		input.channel[i].usValue = expo(val16,i); 
 	}
 }
@@ -1104,7 +1090,7 @@ void compute_dr(void)
 
 void compute_trim(void) // Applique les trims electronique et dynamiques
 {
-	u8 i = 0;
+	u8 i;
 
 	for(i = 0; i < NUM_MIXER ; i++)
 	{
@@ -1156,7 +1142,7 @@ void compute_trim(void) // Applique les trims electronique et dynamiques
 
 void compute_mixer(void)
 {
-	u8 i = 0;
+	u8 i;
 	u8 in;
 	u8 out;
 	static _Bool sens = 1;
@@ -1242,7 +1228,6 @@ void compute_mixer(void)
 				delta32 /= 100;
 				
 				output.sValue[out] += delta32; 
-				
 			}
 			
 			if((in > (NUM_INPUT - 1)) && (in < (NUM_INPUT + NUM_INPUT_SWITCH))) // Switchs
@@ -1267,16 +1252,14 @@ void compute_mixer(void)
 				
 				output.sValue[out] += delta32;
 			}
-			
 		}
 	}
-	
 }
 
 void scale_output(void)
 { 
 	s16 val;
-	u8 i = 0;
+	u8 i;
 	
 	output.usValueOut[NUM_OUTPUT] = LONGUEUR_TRAME;
 	
@@ -1404,7 +1387,7 @@ void calcultrame(void) // Boucle principale irq14
 		lectureswitchmultiplex();
 		compteur = 0;
 	}
-	compteur++;
+	++compteur;
 	if (expon) compute_expo();
 	if (switchdr) compute_dr();
 	compute_trim();
@@ -1437,11 +1420,10 @@ void main(void)
 	
 	/* LCD chargement table de caracteres*/
 	LCD_INIT();
-	LCD_CMD(CGRAM_address_start);
-	LCD_LOAD_CGRAM(cur,8);
+	lcd_charge_spcaracteres();
 
 
-	if (!iic_lire(0,(u8*)&modele_actuel,1)) erreur_ee(0); // Dernier modele chargé
+	eeprom_lire(0,(u8*)&modele_actuel,1); // Dernier modele chargé
 	load_input();
 	charge_param_phase();
 	
@@ -1469,25 +1451,6 @@ void main(void)
 	Delayms(1000);
 	LCD_CLEAR_DISPLAY();
 	
-
-	//iic_ack();
-	//iic_nack();
-	//iic_attend_ack();
-	//iic_envoi_byte(255);
-	//toto = iic_recoi_byte(0);
-	//strcpy(nom_modele,"Zackspeed  \n");
-	//	save_phase_ee(modele_actuel,phase_actuelle);
-	//strcpy(nom_modele,"           \n");
-	//Delayms(1000);
-	//load_phase_ee(0);
-	//tata = iic_lire(2,(u8*)&nom_modele,sizeof(nom_modele));
-
-	//LCD_printstring(nom_modele);
-
-	//Delayms(2000);
-
-
-	
 	synchro = 0;
 	channel = 0;
 	calcultrame();
@@ -1498,7 +1461,7 @@ void main(void)
 	while (1)
 	{
 
-		if (channel != 0xff)
+		if (channel != 256)
 		{	
 
 			// menu
@@ -1526,25 +1489,28 @@ void main(void)
 				}	
 			}
 
-			if ((trimchange) && (channel == 0))
+			if (channel == 0)
 			{
-				save_neutre_ee();
-				trimchange = 0;
-			}
-			// baragraphe, etc
-			if ((sec) && (Menu_actif == 0) && (channel == 0))	
-			{
-				chronobat();
-				if (switchinfo)
+				if (trimchange)
 				{
-					switchinfo = 0;
-					LCD_CLEAR_DISPLAY();
+					save_neutre_ee();
+					trimchange = 0;
 				}
-				info();
-				sec = 0;
-				if (bas) changeratiotrimdyn();
-				if (gauche) razchrono();
-				if (droite) biponoff();
+				// baragraphe, etc
+				if ((sec) && (!Menu_actif))	
+				{
+					chronobat();
+					if (switchinfo)
+					{
+						switchinfo = 0;
+						LCD_CLEAR_DISPLAY();
+					}
+					info();
+					sec = 0;
+					if (bas) changeratiotrimdyn();
+					if (gauche) razchrono();
+					if (droite) biponoff();
+				}
 			}
 		}
 	}

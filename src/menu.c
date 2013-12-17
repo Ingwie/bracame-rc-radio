@@ -355,17 +355,17 @@ void m33(void)
 
 	if (bas)
 	{
-		if (j != 1) j++; 		
+		if (j != 1) ++j; 		
 		else 
 		{ 		
 			j = 0;
 			if (i != (NUM_MIXER -1))
 			{
-				i++;
+				++i;
 recherche:
 				if (((param_phase[phase_actuelle].mixer[i].in == 255) || (param_phase[phase_actuelle].mixer[i].out == 255)) && (i < (NUM_MIXER - 1)))
 				{
-					i++;
+					++i;
 					goto recherche;
 				}
 			}
@@ -424,7 +424,7 @@ void m41(void)
 			else i = 0;
 		}
 	}
-	if (j	== 0)
+	if (j == 0)
 	{
 		LCD_printtruc(1,12,"Mini\n",0);
 		
@@ -960,5 +960,4 @@ s8 reglage_variable(s8 nom,s8 actuel,s8 mini,s8 maxi,s8 pas)
 	LCD_printtruc(2,12,"%i%%\n",actuel);
 	
 	return actuel;
-
 }

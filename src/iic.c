@@ -61,7 +61,7 @@ void iic_nack(void) // Met SDA a 1
 	demitempo();
 }
 
-void iic_attend_ack(void) // Detecte le ack de la eeprom (renvoi 1 si il y a ack)
+void iic_attend_ack(void) // Detecte le ack de la eeprom (renvoi ret = 1 si il y a ack)
 {
 	SDA1
 	demitempo();
