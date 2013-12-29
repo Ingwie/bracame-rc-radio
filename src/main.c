@@ -80,7 +80,7 @@ _Bool trimflag = 0;
 _Bool trimchange = 0;
 u8 trimstep = 2;
 
-
+u16 temps_restant;
 u8 secondesurcinq;
 u8 secondes;
 u8 minutes;
@@ -172,7 +172,7 @@ void erreur_ee(u16 adresse) // Affiche un message en cas d'erreur avec la eeprom
 	LCD_printtruc(2,4,"adresse %i\n",adresse);
 	LCD_DISP_ON();
 	bip(3,0,0,0,0);
-	Delayms(1000);
+	Delayms(500);
 }
 
 void biponoff(void)
@@ -307,9 +307,17 @@ void info(void) // Affichage pendant le vol ...
 	LCD_printtruc(1,14,":%2.2u\n",secondes);
 
 	// Canal en cours d'emission
-	LCD_printtruc(1,10,"%u\n",channel);
+	LCD_printtruc(1,9,"%u\n",channel);
 
-
+	// Temps restant aprés la boucle de calcul de la trame
+	barout = (u8)((output.usValueOut[NUM_OUTPUT] - temps_restant) / 1000);
+	// 1 = 0.5 mS
+	if (barout < 1) barout = '!';
+	else if (barout < 3) barout = '?';
+	else barout = '*';
+	LCD_LOCATE(1,10);
+	LCD_printchar(barout);
+	
 	// Batterie
 	volt = ADC1_GetBufferValue(6); //3.42 (697) 2.2 (452) ->  200.81 / VOLT + 0.05V *2 + diode
 	volt += 68;
@@ -370,6 +378,7 @@ u16 pourcentsortie(s8 pourcent) // % en temps
 void reset_modele(void)
 {
 	u8 i;
+	u8 j;
 	
 	for(i = 0; i < 12; i++)
 	{
@@ -413,6 +422,14 @@ void reset_modele(void)
 	
 	param_phase[phase_actuelle].secumoteur = 255;
 	param_phase[phase_actuelle].ratiobat = 0;
+	
+	for(i = 0; i < NUM_COURBES; i++)
+	{
+		for(j = 0; j < NUM_POINTS_COURBE; j++)
+		{
+			param_phase[phase_actuelle].courbe[i][j] = 0;
+		}
+	}
 }
 
 void reset_neutre(void)
@@ -470,20 +487,20 @@ void load_input(void) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 
 void charge_nom_modele_ee(u8 modele)
 {
-	u16 addr = 64 + (3 * 3 * 64 * modele) ;
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele) ;
 	
 	eeprom_lire(addr,(u8*)&nom_modele,12);
 	
 	nom_modele[11] = '\n';
 }
 
-void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
+void charge_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 {
 	u8 i;
 	u8 j;
 	u8 utemp;
 	s8 stemp;
-	u16 addr = 64 + (3 * 3 * 64 * modele_actuel) + ( 3 * 64 * phase);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele_actuel) + ( NUM_PAGE_MODELE * 64 * phase);
 	
 	//nom du modele
 	if (phase ==0) {eeprom_lire(addr,(u8*)&nom_modele,12);}
@@ -560,6 +577,28 @@ void load_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 		param_phase[phase].usNeutralValue[i] = pourcentsortie(stemp);
 		addr++;
 	}
+	addr+=PLACE_3; //encore de la place !
+	
+	for(i = 0; i < NUM_COURBES; i++)
+	{
+		for(j = 0; j < NUM_POINTS_COURBE; j++)
+		{
+			eeprom_lire(addr,(u8*)&stemp,1);
+			param_phase[phase].courbe[i][j] = stemp;
+			addr++;
+		}
+	}
+
+}
+
+void charge_param_phase(void)
+{
+	u8 i;
+	secumot = 1;
+	for(i = 0; i < NUM_PHASE; i++)
+	{
+		charge_phase_ee(i);
+	}
 }
 
 void sauve_numero_modele_actuel_ee(u8 num) // Memorise le modele chargé
@@ -573,7 +612,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	u8 j = 0;
 	u8 utemp;
 	s8 stemp;
-	u16 addr = 64 + (3 * 3 * 64 * modele) + ( 3 * 64 * phase);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele) + ( NUM_PAGE_MODELE * 64 * phase);
 	
 	//nom du modele
 	nom_modele[11] = '\n';
@@ -590,7 +629,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	
 	addr+=PLACE_1; //de la place pour autre chose ...
 	
-	//input
+	//input 
 	for(i = 0; i < NUM_INPUT; i++)
 	{
 		//expo
@@ -603,7 +642,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	}
 	
 
-	//mixer
+	//mixer 
 	for(i = 0; i < NUM_MIXER; i++)
 	{
 		utemp = param_phase[phase_actuelle].mixer[i].in;
@@ -647,13 +686,25 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 		eeprom_ecrire(addr,(u8*)&stemp,1);
 		addr ++;
 	}
+	
+	addr+=PLACE_3; //encore de la place ! // 216
+	
+	for(i = 0; i < NUM_COURBES; i++)
+	{
+		for(j = 0; j < NUM_POINTS_COURBE; j++)
+		{
+			stemp = param_phase[phase_actuelle].courbe[i][j];
+			eeprom_ecrire(addr,(u8*)&stemp,1);
+		addr ++;
+		}
+	}
 }
 
 void save_neutre_ee(void) // Sauve les neutre
 {
 	u8 i;
 	s8 stemp[NUM_OUTPUT];
-	u16 addr = 64 + (3 * 3 * 64 * modele_actuel) + ( 3 * 64 * phase_actuelle);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele_actuel) + ( NUM_PAGE_MODELE * 64 * phase_actuelle);
 	addr += 144;
 	
 	flashencour = 1;
@@ -1140,7 +1191,58 @@ void compute_trim(void) // Applique les trims electronique et dynamiques
 	}
 }
 
-void compute_mixer(void)
+s32 calcule_valeur(s16 val, s8 pente) // Renvoi la valeur pour calcul sorties
+{
+	s32 sortie;
+
+	if (pente > -124)
+	{
+		sortie = val;
+		sortie *= pente;
+		return sortie;
+	}	
+	else
+	{
+		u8 i;
+		u8 courbe;
+		s32 y1;
+		const u16 interval = (1000 / (NUM_POINTS_COURBE - 1)) + 1;
+
+		courbe = 128 + pente; // determine le numero de courbe
+		
+		if (val < 0) val = -val;
+
+		for(i = 0; i < (NUM_POINTS_COURBE - 1) ; i++)
+		{
+			if (val < interval)
+			{
+				y1 = param_phase[phase_actuelle].courbe[courbe][i];
+				sortie = param_phase[phase_actuelle].courbe[courbe][i+1];
+				sortie -= y1;
+				sortie *= val;
+				sortie *= (NUM_POINTS_COURBE - 1);
+				y1 *= 1000;
+				sortie += y1;
+				return sortie;
+			}
+			val -= interval;
+		}
+	}
+}
+
+s32 calcule_sorties(s16 val, u8 mixeur) // Renvoi la valeur de sortie pour fonction mixeur
+{
+	if(val < 0)
+	{
+		return calcule_valeur(val,param_phase[phase_actuelle].mixer[mixeur].pente[0]);
+	}
+	else
+	{
+		return calcule_valeur(val,param_phase[phase_actuelle].mixer[mixeur].pente[1]);
+	}
+}
+
+void compute_mixer(void) // Calcule les valeurs de sorties fct des mixeurs
 {
 	u8 i;
 	u8 in;
@@ -1168,16 +1270,7 @@ void compute_mixer(void)
 		{
 			if(in < 4) // que les manches ...
 			{
-				delta32 = input.channel[in].usValue;
-
-				if(input.channel[in].usValue < 0)
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[0];
-				}
-				else
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[1];
-				}
+				delta32 = calcule_sorties(input.channel[in].usValue,i);
 				
 				delta32 /= 100;
 				
@@ -1214,16 +1307,7 @@ void compute_mixer(void)
 		{
 			if((in > 3) && (in < NUM_INPUT)) // Les autres voies proportionnelles
 			{
-				delta32 = input.channel[in].usValue;
-
-				if(input.channel[in].usValue < 0)
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[0];
-				}
-				else
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[1];
-				}
+				delta32 = calcule_sorties(input.channel[in].usValue,i);
 				
 				delta32 /= 100;
 				
@@ -1237,16 +1321,7 @@ void compute_mixer(void)
 
 			if(in == (NUM_INPUT + NUM_INPUT_SWITCH)) // Voie test
 			{
-				delta32 = wave;
-
-				if (wave > 0)
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[0];
-				} 
-				else
-				{
-					delta32 *= param_phase[phase_actuelle].mixer[i].pente[1];
-				}
+				delta32 = calcule_sorties(wave,i);
 				
 				delta32 /= 100;
 				
@@ -1256,7 +1331,7 @@ void compute_mixer(void)
 	}
 }
 
-void scale_output(void)
+void scale_output(void) // Mise à l'echelle des sorties
 { 
 	s16 val;
 	u8 i;
@@ -1290,7 +1365,7 @@ void scale_output(void)
 	}
 }
 
-void initialise(void)
+void initialise(void) // Initialise les parametres materiels au démarage
 {
 	//Horloge quartz
 	CLK_DeInit();
@@ -1350,7 +1425,7 @@ void initialise(void)
 	ADC1_SCHMITTTRIG_CHANNEL0|ADC1_SCHMITTTRIG_CHANNEL1|ADC1_SCHMITTTRIG_CHANNEL2|ADC1_SCHMITTTRIG_CHANNEL3|
 	ADC1_SCHMITTTRIG_CHANNEL4|ADC1_SCHMITTTRIG_CHANNEL5|ADC1_SCHMITTTRIG_CHANNEL6 ,	DISABLE);
 	ADC1_ScanModeCmd(ENABLE);
-	ADC1_DataBufferCmd(ENABLE);
+	ADC1_DataBufferCmd(DISABLE);
 	
 	//Horloge clavier affichage
 	TIM3_DeInit();
@@ -1398,17 +1473,8 @@ void calcultrame(void) // Boucle principale irq14
 		phase_actuelle = phase_a_charger;
 		phase_change = 0;
 	}
+	temps_restant = TIM2_GetCounter();
 	channel = 0;
-}
-
-void charge_param_phase(void)
-{
-	u8 i;
-	secumot = 1;
-	for(i = 0; i < NUM_PHASE; i++)
-	{
-		load_phase_ee(i);
-	}
 }
 
 void main(void)
