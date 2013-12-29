@@ -529,9 +529,6 @@ void TIM3_UPD_OVF_BRK_IRQHandler(void) interrupt 15
 	}
 	
 	TIM3_ClearITPendingBit(TIM3_IT_UPDATE);
-
-
-
 }
 
 /**

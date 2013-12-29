@@ -279,17 +279,17 @@ void m30(void)
 
 }
 
-/* Mixeurs in out ou gains*/
+/* Mixeurs in out Courbe ou gains*/
 void m31(void)
 { 
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
 	LCD_printtruc(1,6,"Mixeur\n",0);
-	LCD_printtruc(2,1,"in/out\n",0);
-	LCD_printtruc(2,13,"gain\n",0);
+	LCD_printtruc(2,1,"In/Out Cou.\n",0);
+	LCD_printtruc(2,13,"Gain\n",0);
 	LCD_DISP_ON();
 
-	navigue(31,30,31,32,33);
+	navigue(31,30,34,32,33);
 
 }
 
@@ -302,8 +302,8 @@ void m32(void)
 
 	LCD_DISP_OFF();
 	LCD_CLEAR_DISPLAY();
-	LCD_printtruc(1,5,"Mixeur\n",0);
 	LCD_printtruc(1,1,"in\n",0);
+	LCD_printtruc(1,5,"Mixeur\n",0);
 	LCD_printtruc(1,12,"out\n",0);
 	LCD_DISP_ON();
 	
@@ -355,17 +355,17 @@ void m33(void)
 
 	if (bas)
 	{
-		if (j != 1) ++j; 		
+		if (j != 1) j++; 		
 		else 
 		{ 		
 			j = 0;
 			if (i != (NUM_MIXER -1))
 			{
-				++i;
+				i++;
 recherche:
 				if (((param_phase[phase_actuelle].mixer[i].in == 255) || (param_phase[phase_actuelle].mixer[i].out == 255)) && (i < (NUM_MIXER - 1)))
 				{
-					++i;
+					i++;
 					goto recherche;
 				}
 			}
@@ -383,10 +383,41 @@ recherche:
 		LCD_printtruc(2,8,"~%u)\n",mixout);
 		
 		
-		val = reglage_variable(i,param_phase[phase_actuelle].mixer[i].pente[j],-125,125,5);
+		val = reglage_variable(i,param_phase[phase_actuelle].mixer[i].pente[j],-128,123,5);
 		param_phase[phase_actuelle].mixer[i].pente[j] = val;
+		if (val < -123) LCD_printtruc(2,12,"  Co%i\n",(val+129));
 	}
 	navigue(33,31,33,33,33);
+
+}
+
+/* Mixer courbes*/
+void m34(void)
+{ 
+	static u8 i = 0;
+	static u8 j = 0;
+	
+		if (bas)
+	{
+		if (i != (NUM_POINTS_COURBE - 1)) i++;
+		else
+		{
+			i = 0;
+			if (j != (NUM_COURBES - 1)) j++; else j = 0;
+
+		}
+	}
+
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	LCD_printtruc(1,1,"Point ~ Courbe\n",0);
+	LCD_printtruc(1,16,"%1u\n",(j+1));
+	LCD_printtruc(2,6,"Gain\n",0);
+	LCD_DISP_ON();
+
+	param_phase[phase_actuelle].courbe[j][i] = reglage_variable(i,param_phase[phase_actuelle].courbe[j][i],-125,125,5);
+	
+	navigue(34,31,34,34,34);
 
 }
 
@@ -834,6 +865,10 @@ void Menu(void)
 		
 	case 33:
 		m33();
+		break;
+		
+	case 34:
+		m34();
 		break;
 		
 	case 40:
