@@ -10,7 +10,7 @@
 #define NUM_PHASE 3
 #define NUM_COURBES 5
 #define NUM_POINTS_COURBE 6
-#define NUM_PAGE_MODELE 4
+#define NUM_PAGE_PHASE 4 // monbre de pages memoire par phase
 
 
 #define NUM_INPUT 6

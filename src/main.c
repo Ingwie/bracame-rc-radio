@@ -15,6 +15,8 @@
 /* */
 /* Amelioration de secumoteur */
 /* */
+/* Switch 3 positions Phase en place, cable sur PB7 (reste donc une place avec secumoteur */
+/* */
 /* */
 
 
@@ -80,7 +82,7 @@ _Bool trimflag = 0;
 _Bool trimchange = 0;
 u8 trimstep = 2;
 
-u16 temps_restant;
+u16 temps_calcul_trame;
 u8 secondesurcinq;
 u8 secondes;
 u8 minutes;
@@ -159,20 +161,6 @@ void lcd_charge_spcaracteres(void)
 	
 	LCD_CMD(CGRAM_address_start);
 	LCD_LOAD_CGRAM(cur,8);
-}
-
-void erreur_ee(u16 adresse) // Affiche un message en cas d'erreur avec la eeprom
-{
-	LCD_DISP_OFF();
-	LCD_CLEAR_DISPLAY();
-	Menu_actif = 1;
-	popup = 1;
-	Tempo_menu = 6;
-	LCD_printtruc(1,4,"Erreur EE",0);
-	LCD_printtruc(2,4,"adresse %i\n",adresse);
-	LCD_DISP_ON();
-	bip(3,0,0,0,0);
-	Delayms(500);
 }
 
 void biponoff(void)
@@ -301,16 +289,13 @@ void info(void) // Affichage pendant le vol ...
 	LCD_LOCATE(2,1);
 	LCD_printstring(lbas);
 
-
-	// Horloge
-	LCD_printtruc(1,12,"%2.2u\n",minutes);
-	LCD_printtruc(1,14,":%2.2u\n",secondes);
-
 	// Canal en cours d'emission
 	LCD_printtruc(1,9,"%u\n",channel);
 
 	// Temps restant aprés la boucle de calcul de la trame
-	barout = (u8)((output.usValueOut[NUM_OUTPUT] - temps_restant) / 1000);
+	temps_calcul_trame = (LONGUEUR_TRAME - temps_calcul_trame);
+	temps_calcul_trame /= 1000;
+	barout = (u8)(temps_calcul_trame);
 	// 1 = 0.5 mS
 	if (barout < 1) barout = '!';
 	else if (barout < 3) barout = '?';
@@ -318,6 +303,10 @@ void info(void) // Affichage pendant le vol ...
 	LCD_LOCATE(1,10);
 	LCD_printchar(barout);
 	
+	// Horloge
+	LCD_printtruc(1,12,"%2.2u\n",minutes);
+	LCD_printtruc(1,14,":%2.2u\n",secondes);
+
 	// Batterie
 	volt = ADC1_GetBufferValue(6); //3.42 (697) 2.2 (452) ->  200.81 / VOLT + 0.05V *2 + diode
 	volt += 68;
@@ -412,12 +401,10 @@ void reset_modele(void)
 	
 	for(i = 0; i < NUM_OUTPUT ; i++)
 	{
-		output.sValue[i] = 0;
 		output.usValueOut[i] = NEUTRE_COURSE;
 		param_phase[phase_actuelle].usMinValue[i] = MIN_COURSE;
 		param_phase[phase_actuelle].usNeutralValue[i] = NEUTRE_COURSE;
 		param_phase[phase_actuelle].usMaxValue[i] = MAX_COURSE;
-		output.usValueOut[NUM_OUTPUT] = output.usValueOut[NUM_OUTPUT] - output.usValueOut[i];
 	}
 	
 	param_phase[phase_actuelle].secumoteur = 255;
@@ -441,6 +428,20 @@ void reset_neutre(void)
 		param_phase[phase_actuelle].usNeutralValue[i] = NEUTRE_COURSE;
 	}
 	
+}
+
+void erreur_ee(u16 adresse) // Affiche un message en cas d'erreur avec la eeprom
+{
+	LCD_DISP_OFF();
+	LCD_CLEAR_DISPLAY();
+	Menu_actif = 1;
+	popup = 1;
+	Tempo_menu = 6;
+	LCD_printtruc(1,4,"Erreur EE",0);
+	LCD_printtruc(2,4,"adresse %i\n",adresse);
+	LCD_DISP_ON();
+	bip(3,0,0,0,0);
+	Delayms(500);
 }
 
 void eeprom_ecrire(u16 adresse,u8* pdonnee,u8 taille) // Affiche un message en cas d'erreur d'ecriture eeprom
@@ -487,7 +488,7 @@ void load_input(void) // taille : (6 x NUM_INPUT) (36) INPUT_LENGTH
 
 void charge_nom_modele_ee(u8 modele)
 {
-	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele) ;
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_PHASE * 64 * modele) ;
 	
 	eeprom_lire(addr,(u8*)&nom_modele,12);
 	
@@ -500,7 +501,7 @@ void charge_phase_ee(u8 phase) // Charge dans 3 pages de 64 octets
 	u8 j;
 	u8 utemp;
 	s8 stemp;
-	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele_actuel) + ( NUM_PAGE_MODELE * 64 * phase);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_PHASE * 64 * modele_actuel) + ( NUM_PAGE_PHASE * 64 * phase);
 	
 	//nom du modele
 	if (phase ==0) {eeprom_lire(addr,(u8*)&nom_modele,12);}
@@ -612,7 +613,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 	u8 j = 0;
 	u8 utemp;
 	s8 stemp;
-	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele) + ( NUM_PAGE_MODELE * 64 * phase);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_PHASE * 64 * modele) + ( NUM_PAGE_PHASE * 64 * phase);
 	
 	//nom du modele
 	nom_modele[11] = '\n';
@@ -695,7 +696,7 @@ void save_phase_ee(u8 modele,u8 phase) // Sauve dans 3 pages de 64 octets
 		{
 			stemp = param_phase[phase_actuelle].courbe[i][j];
 			eeprom_ecrire(addr,(u8*)&stemp,1);
-		addr ++;
+			addr ++;
 		}
 	}
 }
@@ -704,7 +705,7 @@ void save_neutre_ee(void) // Sauve les neutre
 {
 	u8 i;
 	s8 stemp[NUM_OUTPUT];
-	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_MODELE * 64 * modele_actuel) + ( NUM_PAGE_MODELE * 64 * phase_actuelle);
+	u16 addr = 64 + (NUM_PHASE * NUM_PAGE_PHASE * 64 * modele_actuel) + ( NUM_PAGE_PHASE * 64 * phase_actuelle);
 	addr += 144;
 	
 	flashencour = 1;
@@ -999,6 +1000,21 @@ void lectureswitchmultiplex(void) // 2 switchs par entree
 		else secumot = 1;
 		// DUALRATE
 		switchdr = GPIO_ReadInputPin(GPIOE,GPIO_PIN_3);
+		// PHASE
+		if (GPIO_ReadInputPin(GPIOB,GPIO_PIN_7))
+		{
+			if (phase_a_charger != 0) phase_change = 1;
+			phase_a_charger = 0;
+		}
+		else 
+		{
+			if ((phase_a_charger != 2)&&(phase_a_charger != 1))
+			{
+				phase_change = 1;
+				phase_a_charger = 1;
+			}
+		}
+		
 		GPIO_WriteLow(GPIOD, GPIO_PIN_0); // led on trim+ off
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_2); // trim- on
 	}
@@ -1009,19 +1025,21 @@ void lectureswitchmultiplex(void) // 2 switchs par entree
 		trim1moins = GPIO_ReadInputPin(GPIOD,GPIO_PIN_5);
 		trim2moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_7);
 		trim3moins = GPIO_ReadInputPin(GPIOE,GPIO_PIN_6);
-		// PHASE bientot GPIO_ReadInputPin(GPIOB,GPIO_PIN_7) pour phase 3;
-		if (GPIO_ReadInputPin(GPIOE,GPIO_PIN_0))
+		// PHASE
+		if (GPIO_ReadInputPin(GPIOB,GPIO_PIN_7))
 		{
-			if (phase_a_charger == 0) phase_change = 1;
-			phase_a_charger = 1;
+			if (phase_a_charger != 2) phase_change = 1;
+			phase_a_charger = 2;
 		}
 		else 
 		{
-			if (phase_a_charger == 1) phase_change = 1;
-			phase_a_charger = 0;
+			if ((phase_a_charger != 0)&&(phase_a_charger != 1))
+			{
+				phase_change = 1;
+				phase_a_charger = 1;
+			}
 		}		
 		
-		if (phase_change) phase_changemenu = 1;
 		
 		// EXPO
 		expon = (GPIO_ReadInputPin(GPIOE,GPIO_PIN_3));
@@ -1029,6 +1047,10 @@ void lectureswitchmultiplex(void) // 2 switchs par entree
 		GPIO_WriteHigh(GPIOD, GPIO_PIN_0); // led on trim+ on
 		GPIO_WriteLow(GPIOD, GPIO_PIN_2); // trim- off
 	}
+	
+	if (phase_change) phase_changemenu = 1;
+	
+	
 	trimflag = !trimflag;
 	
 	if (trim0plus || trim1plus || trim2plus || trim3plus || trim0moins || trim1moins || trim2moins || trim3moins)
@@ -1331,7 +1353,7 @@ void compute_mixer(void) // Calcule les valeurs de sorties fct des mixeurs
 	}
 }
 
-void scale_output(void) // Mise à l'echelle des sorties
+void scale_output(void) // Mise à l'echelle des sorties + secumoteur
 { 
 	s16 val;
 	u8 i;
@@ -1427,6 +1449,9 @@ void initialise(void) // Initialise les parametres materiels au démarage
 	ADC1_ScanModeCmd(ENABLE);
 	ADC1_DataBufferCmd(DISABLE);
 	
+	//Activer le trigger de schmitt sur entres TOR
+	ADC1_SchmittTriggerConfig(ADC1_SCHMITTTRIG_CHANNEL7, ENABLE);
+	
 	//Horloge clavier affichage
 	TIM3_DeInit();
 	TIM3_TimeBaseInit(TIM3_PRESCALER_512,6249); // 0.2 Seconde
@@ -1473,7 +1498,7 @@ void calcultrame(void) // Boucle principale irq14
 		phase_actuelle = phase_a_charger;
 		phase_change = 0;
 	}
-	temps_restant = TIM2_GetCounter();
+	temps_calcul_trame = TIM2_GetCounter();
 	channel = 0;
 }
 
@@ -1510,9 +1535,6 @@ void main(void)
 	LCD_printtruc(1,13,"%2.2u.\n",modele_actuel+1);
 	LCD_printtruc(1,16,"%u\n",phase_actuelle);
 	LCD_printtruc(2,4,"Chargement\n",0);
-
-	//LCD_printtruc(1,3,"Modele : %d",modele_actuel);
-	//LCD_printtruc(2,4,"Phase : %d",phase_actuelle);
 
 	Delayms(1000);
 	LCD_CLEAR_DISPLAY();
