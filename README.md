@@ -16,3 +16,5 @@ Afficheur 2 X 16.
 Expo, dualrate, min neutre max sur chaque voies. Consommation batterie moteur (simulée) 18 mixeurs : entrée, sortie, gain +, gain - et 5 courbes de 6 points par cadrant.
 
 Et plein d'autres choses ..... 
+
+Après plusieurs années de bons et loyaux services, abandon au profit d'opentx nexsteprc
