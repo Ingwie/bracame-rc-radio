@@ -17,4 +17,4 @@ Expo, dualrate, min neutre max sur chaque voies. Consommation batterie moteur (s
 
 Et plein d'autres choses ..... 
 
-Après plusieurs années de bons et loyaux services, abandon au profit d'opentx nexsteprc
+Après plusieurs années de bons et loyaux services, abandon au profit d'openAVRc
